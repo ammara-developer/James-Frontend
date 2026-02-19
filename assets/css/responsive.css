@@ -1,0 +1,257 @@
+/* ============================================================
+   JAMESTHEW.COM — responsive.css
+   All breakpoints for Navbar, Hamburger, Mobile Menu, Footer
+============================================================ */
+
+
+/* ============================================================
+   DESKTOP DEFAULT (above 992px)
+   Hamburger hidden, desktop nav visible
+============================================================ */
+.jt-hamburger   { display: none; }
+.jt-mobile-menu { max-height: 0; overflow: hidden; }
+
+
+/* ============================================================
+   TABLET & MOBILE — 991px and below
+============================================================ */
+@media (max-width: 991px) {
+
+  /* ── Navbar layout ── */
+  .jt-navbar { height: 72px; padding: 0 1.2rem; }
+  .jt-navbar.scrolled { height: 62px; }
+
+  .jt-navbar-inner {
+    display: flex !important;
+    grid-template-columns: unset;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  /* Hide desktop items */
+  .jt-nav-links              { display: none !important; }
+  .jt-nav-right .btn-jt-login    { display: none !important; }
+  .jt-nav-right .btn-jt-register { display: none !important; }
+  .jt-profile-wrapper        { display: none !important; }
+
+  /* Right side only contains hamburger now */
+  .jt-nav-right {
+    gap: 0;
+    justify-content: flex-end;
+  }
+
+  /* ── Wave position ── */
+  .jt-navbar-wave            { top: 72px !important; }
+  .jt-navbar.scrolled ~ .jt-navbar-wave { top: 62px !important; }
+
+  /* ── Show hamburger ── */
+  .jt-hamburger {
+    display: flex !important;
+    width: 46px;
+    height: 46px;
+    background: rgba(201,168,76,0.08);
+    border: 1.5px solid rgba(201,168,76,0.35);
+    border-radius: 12px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all 0.3s ease;
+    outline: none;
+    flex-shrink: 0;
+  }
+
+  .jt-hamburger:hover {
+    background: rgba(201,168,76,0.18);
+    border-color: #C9A84C;
+    box-shadow: 0 0 18px rgba(201,168,76,0.25);
+    transform: scale(1.05);
+  }
+
+  .jt-hamburger.open {
+    background: rgba(201,168,76,0.2);
+    border-color: #C9A84C;
+    box-shadow: 0 0 22px rgba(201,168,76,0.35);
+  }
+
+  /* Steam dots */
+  .burger-steam {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 5px;
+    pointer-events: none;
+  }
+
+  .burger-steam span {
+    width: 3px;
+    height: 3px;
+    background: #C9A84C;
+    border-radius: 50%;
+    opacity: 0;
+  }
+
+  .jt-hamburger:hover .burger-steam span {
+    animation: jt-steam 1.4s ease-in-out infinite;
+  }
+
+  .jt-hamburger:hover .burger-steam span:nth-child(2) { animation-delay: 0.25s; }
+  .jt-hamburger:hover .burger-steam span:nth-child(3) { animation-delay: 0.50s; }
+
+  @keyframes jt-steam {
+    0%   { opacity: 0;   transform: translateY(0) scaleX(1); }
+    40%  { opacity: 0.9; transform: translateY(-5px) scaleX(1.3); }
+    100% { opacity: 0;   transform: translateY(-13px) scaleX(0.4); }
+  }
+
+  /* Icon wrapper */
+  .burger-icons {
+    width: 26px;
+    height: 26px;
+    position: relative;
+  }
+
+  .icon-burger,
+  .icon-cutlery {
+    position: absolute;
+    top: 0; left: 0;
+    width: 26px;
+    height: 26px;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  }
+
+  /* Burger lines visible by default */
+  .icon-burger {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+
+  /* Fork & Knife hidden by default */
+  .icon-cutlery {
+    opacity: 0;
+    transform: scale(0.3) rotate(-25deg);
+  }
+
+  /* Open state — swap icons */
+  .jt-hamburger.open .icon-burger {
+    opacity: 0;
+    transform: scale(0.3) rotate(25deg);
+  }
+
+  .jt-hamburger.open .icon-cutlery {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+
+  /* Tooltip */
+  .burger-label {
+    position: absolute;
+    bottom: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.54rem;
+    font-weight: 600;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: #C9A84C;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .jt-hamburger:hover .burger-label { opacity: 1; }
+
+  /* ── Mobile Menu ── */
+  .jt-mobile-menu {
+    position: fixed;
+    top: 72px;
+    left: 0; right: 0;
+    background: #6D1A36;
+    z-index: 997;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.52s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .jt-mobile-menu.open { max-height: 560px; }
+
+  /* ── Page spacer ── */
+  .jt-page-spacer { height: 115px; }
+
+  /* ── Logo size ── */
+  .jt-logo { font-size: 2rem; }
+
+  /* ── Footer ── */
+  .jt-footer-top .row > div { margin-bottom: 1.5rem; }
+  .footer-bottom-links { justify-content: flex-start; margin-top: 0.5rem; }
+  .footer-about-text { max-width: 100%; }
+}
+
+
+/* ============================================================
+   MOBILE ONLY — 576px and below
+============================================================ */
+@media (max-width: 576px) {
+
+  /* Navbar */
+  .jt-navbar        { height: 65px; padding: 0 1rem; }
+  .jt-navbar.scrolled { height: 58px; }
+  .jt-logo          { font-size: 1.75rem; }
+  .jt-hamburger     { width: 42px; height: 42px; border-radius: 10px; }
+
+  /* Wave & Mobile Menu */
+  .jt-navbar-wave   { top: 65px !important; }
+  .jt-navbar.scrolled ~ .jt-navbar-wave { top: 58px !important; }
+  .jt-mobile-menu   { top: 65px; }
+
+  /* Auth buttons stack vertically on very small screens */
+  .jt-mobile-auth   { flex-direction: column; gap: 0.6rem; }
+
+  /* Page spacer */
+  .jt-page-spacer   { height: 108px; }
+
+  /* Footer */
+  .footer-logo      { font-size: 2.1rem; }
+  .footer-copy      { text-align: center; margin-bottom: 0.5rem; }
+  .footer-bottom-links { justify-content: center; }
+  .footer-socials   { flex-wrap: wrap; }
+}
+
+
+/* ============================================================
+   EXTRA SMALL — 400px and below
+============================================================ */
+@media (max-width: 400px) {
+  .jt-navbar  { padding: 0 0.8rem; }
+  .jt-logo    { font-size: 1.55rem; }
+  .jt-hamburger { width: 40px; height: 40px; }
+}
+
+
+/* Desktop default */
+.jt-hamburger   { display: none; }
+.jt-mobile-menu { max-height: 0; overflow: hidden; }
+
+/* ── ONE single media query block ── */
+@media (max-width: 991px) {
+  /* all tablet/mobile rules here — only ONE block */
+  .jt-nav-links              { display: none !important; }
+  .jt-dropdown               { display: none !important; }
+  .jt-hamburger              { display: flex !important; }
+
+  .jt-mobile-menu ul li a {
+    display        : flex !important;
+    align-items    : center !important;
+    justify-content: flex-start !important;
+    gap            : 0.8rem;
+  }
+
+  /* ... rest of mobile rules */
+}
+
+@media (max-width: 576px) { /* ... */ }
+@media (max-width: 400px) { /* ... */ }

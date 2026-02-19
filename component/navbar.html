@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ✅ Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
+  <!-- ✅ Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <!-- ✅ Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet"/>
+
+  <!-- ✅ Your CSS Files — ORDER MATTERS -->
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/responsive.css">
+    <title>Document</title>
+</head>
+<body>
+
+<!-- ============================================================
+                          NAVBAR
+  ============================================================ -->
+<nav class="jt-navbar" id="jtNavbar">
+  <div class="jt-navbar-inner">
+
+    <!-- ── LOGO ── -->
+    <a href="index.html" class="jt-logo">JamesThew</a>
+
+    <!-- ── NAV LINKS (Center) ── -->
+    <ul class="jt-nav-links">
+
+      <li>
+        <a href="index.html" class="active">Home</a>
+      </li>
+
+      <li>
+        <a href="about.html">About</a>
+      </li>
+
+      <!-- Recipes Dropdown -->
+      <li>
+        <a href="recipes-list.html">
+          Recipes
+          <i class="fa fa-chevron-down" style="font-size:0.55rem; margin-left:3px;"></i>
+        </a>
+        <ul class="jt-dropdown">
+          <li>
+            <a href="recipes-list.html">
+              <i class="fa fa-utensils"></i> All Recipes
+            </a>
+          </li>
+          <li>
+            <a href="recipes-list.html?cat=veg">
+              <i class="fa fa-leaf"></i> Vegetarian
+            </a>
+          </li>
+          <li>
+            <a href="recipes-list.html?cat=nonveg">
+              <i class="fa fa-drumstick-bite"></i> Non-Vegetarian
+            </a>
+          </li>
+          <li>
+            <a href="recipes-list.html?cat=italian">
+              <i class="fa fa-pizza-slice"></i> Italian
+            </a>
+          </li>
+          <li>
+            <a href="recipes-list.html?cat=juice">
+              <i class="fa fa-glass-water"></i> Juices
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="tips-list.html">Tips</a>
+      </li>
+
+      <li>
+        <a href="contests-list.html">Contests</a>
+      </li>
+
+      <li>
+        <a href="announcements.html">Announcements</a>
+      </li>
+
+      <li>
+        <a href="faq.html">FAQ</a>
+      </li>
+
+    </ul>
+
+    <!-- ── RIGHT SIDE: Login | Register | Profile ── -->
+    <div class="jt-nav-right">
+
+      <!-- Login Button -->
+      <a href="login.html" class="btn-jt-login">Login</a>
+
+      <!-- Register Button -->
+      <a href="register.html" class="btn-jt-register">Register</a>
+
+      <!-- Profile Icon (visible after login) -->
+      <div class="jt-profile-wrapper">
+        <a href="#" class="jt-profile-btn" title="My Profile">
+          <i class="fa fa-user"></i>
+        </a>
+
+        <!-- Profile Dropdown -->
+        <ul class="jt-profile-dropdown">
+
+          <!-- User Info Header -->
+          <div class="jt-profile-header">
+            <div class="name">John Doe</div>
+            <div class="role">Member</div>
+          </div>
+
+          <li>
+            <a href="member/profile.html">
+              <i class="fa fa-user"></i> My Profile
+            </a>
+          </li>
+          <li>
+            <a href="member/dashboard.html">
+              <i class="fa fa-gauge"></i> Dashboard
+            </a>
+          </li>
+          <li>
+            <a href="member/my-recipes.html">
+              <i class="fa fa-book-open"></i> My Recipes
+            </a>
+          </li>
+          <li>
+            <a href="member/my-tips.html">
+              <i class="fa fa-lightbulb"></i> My Tips
+            </a>
+          </li>
+
+          <div class="divider"></div>
+
+          <li class="logout">
+            <a href="login.html">
+              <i class="fa fa-right-from-bracket"></i> Logout
+            </a>
+          </li>
+
+        </ul>
+      </div>
+
+      <!-- ── FORK & KNIFE HAMBURGER (Mobile Only) ── -->
+      <button class="jt-hamburger" id="jtHamburger"
+              aria-label="Open Menu" aria-expanded="false">
+
+        <!-- Steam dots on hover -->
+        <div class="burger-steam">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <!-- Icons wrapper -->
+        <div class="burger-icons">
+
+          <!-- Default: Hamburger 3 lines -->
+          <svg class="icon-burger" viewBox="0 0 28 28" fill="none"
+               stroke="#C9A84C" stroke-width="2.2" stroke-linecap="round">
+            <line x1="3" y1="7"  x2="25" y2="7"/>
+            <line x1="3" y1="14" x2="21" y2="14"/>
+            <line x1="3" y1="21" x2="17" y2="21"/>
+          </svg>
+
+          <!-- Open: Real Fork & Knife -->
+          <svg class="icon-cutlery" viewBox="0 0 28 28" fill="none"
+               stroke="#C9A84C" stroke-width="1.9"
+               stroke-linecap="round" stroke-linejoin="round">
+
+            <!-- FORK (left) -->
+            <!-- Handle -->
+            <line x1="7"  y1="26" x2="7"  y2="15"/>
+            <!-- Yoke curve -->
+            <path d="M4.5,15 Q7,18 9.5,15"/>
+            <!-- Left tine -->
+            <line x1="4.5" y1="15" x2="4.5" y2="4"/>
+            <!-- Middle tine -->
+            <line x1="7"   y1="15" x2="7"   y2="4"/>
+            <!-- Right tine -->
+            <line x1="9.5" y1="15" x2="9.5" y2="4"/>
+
+            <!-- KNIFE (right) -->
+            <!-- Handle -->
+            <line x1="21" y1="26" x2="21" y2="15"/>
+            <!-- Blade tapered tip -->
+            <path d="M21,15 C21,15 21,7 18,4 Q21,5.5 21,15"/>
+
+          </svg>
+
+        </div>
+
+        <!-- Hover tooltip -->
+        <span class="burger-label">Menu</span>
+
+      </button>
+
+    </div>
+
+  </div>
+</nav>
+
+<!-- ── WAVE BORDER (bottom of navbar) ── -->
+<div class="jt-navbar-wave" id="jtWave">
+  <svg viewBox="0 0 1440 38" xmlns="http://www.w3.org/2000/svg"
+       preserveAspectRatio="none">
+    <path d="
+      M0,0 L1440,0
+      L1440,18
+      C1380,30 1320,6 1260,18
+      C1200,30 1140,6 1080,18
+      C1020,30 960,6  900,18
+      C840,30  780,6  720,18
+      C660,30  600,6  540,18
+      C480,30  420,6  360,18
+      C300,30  240,6  180,18
+      C120,30  60,6   0,18
+      Z
+    " fill="#6D1A36"/>
+  </svg>
+</div>
+
+<!-- ── MOBILE MENU ── -->
+<div class="jt-mobile-menu" id="jtMobileMenu">
+  <div class="jt-mobile-menu-inner">
+
+    <!-- Chef divider -->
+    <div class="mobile-menu-divider">
+      <svg viewBox="0 0 30 14" fill="none" stroke="#C9A84C"
+           stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <!-- Mini fork -->
+        <line x1="7"  y1="13" x2="7"  y2="7"/>
+        <path d="M5,7 Q7,9.5 9,7"/>
+        <line x1="5" y1="7" x2="5" y2="1"/>
+        <line x1="7" y1="7" x2="7" y2="1"/>
+        <line x1="9" y1="7" x2="9" y2="1"/>
+        <!-- Mini knife -->
+        <line x1="23" y1="13" x2="23" y2="7"/>
+        <path d="M23,7 C23,7 23,3 21,1 Q23,2 23,7"/>
+      </svg>
+    </div>
+
+    <ul>
+
+      <li>
+        <a href="index.html">
+          <span class="menu-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#C9A84C"
+                 stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/>
+              <polyline points="9,21 9,12 15,12 15,21"/>
+            </svg>
+          </span>
+          Home
+        </a>
+      </li>
+
+      <li>
+        <a href="about.html">
+          <span class="menu-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#C9A84C"
+                 stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="8" r="4"/>
+              <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+            </svg>
+          </span>
+          About
+        </a>
+      </li>
+
+      <li>
+        <a href="recipes-list.html">
+          <span class="menu-icon-box">
+            <!-- Mini fork icon -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="#C9A84C"
+                 stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="8"  y1="22" x2="8"  y2="12"/>
+              <path d="M5.5,12 Q8,15 10.5,12"/>
+              <line x1="5.5" y1="12" x2="5.5" y2="3"/>
+              <line x1="8"   y1="12" x2="8"   y2="3"/>
+              <line x1="10.5" y1="12" x2="10.5" y2="3"/>
+              <line x1="18"  y1="22" x2="18" y2="12"/>
+              <path d="M18,12 C18,12 18,6 15,3 Q18,4.5 18,12"/>
+            </svg>
+          </span>
+          Recipes
+        </a>
+      </li>
+
+      <li>
+        <a href="tips-list.html">
+          <span class="menu-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#C9A84C"
+                 stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"/>
+              <line x1="12" y1="8"  x2="12" y2="12"/>
+              <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </span>
+          Tips
+        </a>
+      </li>
+
+      <li>
+        <a href="contests-list.html">
+          <span class="menu-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#C9A84C"
+                 stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="8,6 2,6 2,20 8,20"/>
+              <polyline points="16,6 22,6 22,20 16,20"/>
+              <rect x="8" y="2" width="8" height="18" rx="1"/>
+            </svg>
+          </span>
+          Contests
+        </a>
+      </li>
+
+      <li>
+        <a href="announcements.html">
+          <span class="menu-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#C9A84C"
+                 stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 8s-3 5-10 5S2 8 2 8"/>
+              <path d="M22 16s-3-5-10-5S2 16 2 16"/>
+            </svg>
+          </span>
+          Announcements
+        </a>
+      </li>
+
+      <li>
+        <a href="faq.html">
+          <span class="menu-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#C9A84C"
+                 stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M9,9a3,3 0 1,1 4,2.83V13"/>
+              <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+          </span>
+          FAQ
+        </a>
+      </li>
+
+    </ul>
+
+    <!-- Mobile Auth Buttons -->
+    <div class="jt-mobile-auth">
+      <a href="login.html"    class="btn-jt-login">Login</a>
+      <a href="register.html" class="btn-jt-register">Register</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── PAGE SPACER ── -->
+<div class="jt-page-spacer"></div>
+
+
+  
+
+
+
+ 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>
