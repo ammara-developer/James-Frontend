@@ -14,7 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet"/>
 
   <!-- ✅ Your CSS Files — ORDER MATTERS -->
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/style.css">
 <link rel="stylesheet" href="assets/css/components.css">
 <link rel="stylesheet" href="assets/css/responsive.css">
     <title>Document</title>
@@ -98,10 +98,10 @@
     <div class="jt-nav-right">
 
       <!-- Login Button -->
-      <a href="login.html" class="btn-jt-login">Login</a>
+      <a href="login.html" class="btn-jt-login" id="openLogin">Login</a>
 
       <!-- Register Button -->
-      <a href="register.html" class="btn-jt-register">Register</a>
+      <a href="register.html" class="btn-jt-register" id="openRegister">Register</a>
 
       <!-- Profile Icon (visible after login) -->
       <div class="jt-profile-wrapper">
@@ -225,7 +225,7 @@
       C300,30  240,6  180,18
       C120,30  60,6   0,18
       Z
-    " fill="#6D1A36"/>
+    " fill="#181818"/>
   </svg>
 </div>
 
@@ -355,8 +355,8 @@
 
     <!-- Mobile Auth Buttons -->
     <div class="jt-mobile-auth">
-      <a href="login.html"    class="btn-jt-login">Login</a>
-      <a href="register.html" class="btn-jt-register">Register</a>
+      <a href="login.html"    class="btn-jt-login"   id="openLoginMob">Login</a>
+      <a href="register.html" class="btn-jt-register" id="openRegisterMob">Register</a>
     </div>
 
   </div>
@@ -369,9 +369,183 @@
   
 
 
+<!-- ----login and register------------- -->
+ <!-- ═══════════════ AUTH MODAL OVERLAY ═══════════════ -->
+<div class="jt-modal-overlay" id="modalOverlay">
 
+  <!-- LOGIN MODAL -->
+  <div class="jt-modal" id="loginModal" role="dialog" aria-modal="true">
+    <div class="jt-modal-panel">
+      <div class="jt-panel-logo">James Thew</div>
+      <p class="jt-panel-tagline">Welcome back to the kitchen.</p>
+      <div class="jt-panel-divider"></div>
+      <p class="jt-panel-sub">Sign in to access exclusive recipes, contests, and culinary tips curated just for you.</p>
+      <div class="jt-panel-switch">
+        <span>Don't have an account?</span>
+        <button class="jt-switch-btn" id="switchToRegister">Create one →</button>
+      </div>
+    </div>
+    <div class="jt-modal-form-wrap">
+      <button class="jt-modal-close" id="closeLogin" aria-label="Close">
+        <i class="fa fa-xmark"></i>
+      </button>
+      <div class="jt-form-header">
+        <h2 class="jt-form-title">Sign In</h2>
+        <p class="jt-form-subtitle">Enter your credentials to continue</p>
+      </div>
+      <form class="jt-form" id="loginForm" novalidate>
+
+        <div class="jt-field">
+          <label class="jt-label" for="loginEmail">Email Address</label>
+          <div class="jt-input-wrap">
+            <span class="jt-input-icon"><i class="fa fa-envelope"></i></span>
+            <input type="email" id="loginEmail" class="jt-input" placeholder="you@example.com"/>
+          </div>
+        </div>
+
+        <div class="jt-field">
+          <label class="jt-label" for="loginPassword">Password</label>
+          <div class="jt-input-wrap">
+            <span class="jt-input-icon"><i class="fa fa-lock"></i></span>
+            <input type="password" id="loginPassword" class="jt-input" placeholder="Enter your password"/>
+            <button type="button" class="jt-eye-btn" data-target="loginPassword">
+              <i class="fa fa-eye eye-open"></i>
+              <i class="fa fa-eye-slash eye-closed" style="display:none"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="jt-row-between">
+          <label class="jt-checkbox-wrap">
+            <input type="checkbox" id="rememberMe" class="jt-checkbox"/>
+            <span class="jt-checkbox-custom"></span>
+            <span class="jt-checkbox-label">Remember me</span>
+          </label>
+          <a href="#" class="jt-forgot">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="jt-btn-submit">
+          <i class="fa fa-right-to-bracket"></i> Sign In
+        </button>
+
+        <div class="jt-or-divider"><span>or continue with</span></div>
+
+        <div class="jt-social-row">
+          <button type="button" class="jt-social-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+            Google
+          </button>
+          <button type="button" class="jt-social-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            Facebook
+          </button>
+        </div>
+
+        <p class="jt-mobile-switch">Don't have an account? <button type="button" class="jt-switch-btn" id="switchToRegMob">Register</button></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- REGISTER MODAL -->
+  <div class="jt-modal" id="registerModal" role="dialog" aria-modal="true" style="display:none">
+    <div class="jt-modal-panel">
+      <div class="jt-panel-logo">James Thew</div>
+      <p class="jt-panel-tagline">Join the culinary journey.</p>
+      <div class="jt-panel-divider"></div>
+      <p class="jt-panel-sub">Create your free account and unlock a world of recipes, tips, and exclusive chef contests.</p>
+      <div class="jt-panel-switch">
+        <span>Already have an account?</span>
+        <button class="jt-switch-btn" id="switchToLogin">Sign in →</button>
+      </div>
+    </div>
+    <div class="jt-modal-form-wrap">
+      <button class="jt-modal-close" id="closeRegister" aria-label="Close">
+        <i class="fa fa-xmark"></i>
+      </button>
+      <div class="jt-form-header">
+        <h2 class="jt-form-title">Create Account</h2>
+        <p class="jt-form-subtitle">Fill in your details to get started</p>
+      </div>
+      <form class="jt-form" id="registerForm" novalidate>
+
+        <div class="jt-fields-row">
+          <div class="jt-field">
+            <label class="jt-label" for="regFirstName">First Name</label>
+            <div class="jt-input-wrap">
+              <span class="jt-input-icon"><i class="fa fa-user"></i></span>
+              <input type="text" id="regFirstName" class="jt-input" placeholder="James"/>
+            </div>
+          </div>
+          <div class="jt-field">
+            <label class="jt-label" for="regLastName">Last Name</label>
+            <div class="jt-input-wrap">
+              <span class="jt-input-icon"><i class="fa fa-user"></i></span>
+              <input type="text" id="regLastName" class="jt-input" placeholder="Thew"/>
+            </div>
+          </div>
+        </div>
+
+        <div class="jt-field">
+          <label class="jt-label" for="regUsername">Username</label>
+          <div class="jt-input-wrap">
+            <span class="jt-input-icon"><i class="fa fa-at"></i></span>
+            <input type="text" id="regUsername" class="jt-input" placeholder="@chef_username"/>
+          </div>
+        </div>
+
+        <div class="jt-field">
+          <label class="jt-label" for="regEmail">Email Address</label>
+          <div class="jt-input-wrap">
+            <span class="jt-input-icon"><i class="fa fa-envelope"></i></span>
+            <input type="email" id="regEmail" class="jt-input" placeholder="you@example.com"/>
+          </div>
+        </div>
+
+        <div class="jt-field">
+          <label class="jt-label" for="regPassword">Password</label>
+          <div class="jt-input-wrap">
+            <span class="jt-input-icon"><i class="fa fa-lock"></i></span>
+            <input type="password" id="regPassword" class="jt-input" placeholder="Create a strong password"/>
+            <button type="button" class="jt-eye-btn" data-target="regPassword">
+              <i class="fa fa-eye eye-open"></i>
+              <i class="fa fa-eye-slash eye-closed" style="display:none"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="jt-field">
+          <label class="jt-label" for="regConfirm">Confirm Password</label>
+          <div class="jt-input-wrap">
+            <span class="jt-input-icon"><i class="fa fa-shield-halved"></i></span>
+            <input type="password" id="regConfirm" class="jt-input" placeholder="Repeat your password"/>
+            <button type="button" class="jt-eye-btn" data-target="regConfirm">
+              <i class="fa fa-eye eye-open"></i>
+              <i class="fa fa-eye-slash eye-closed" style="display:none"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="jt-field">
+          <label class="jt-checkbox-wrap">
+            <input type="checkbox" id="agreeTerms" class="jt-checkbox"/>
+            <span class="jt-checkbox-custom"></span>
+            <span class="jt-checkbox-label">I agree to the <a href="#" class="jt-link">Terms of Service</a> and <a href="#" class="jt-link">Privacy Policy</a></span>
+          </label>
+        </div>
+
+        <button type="submit" class="jt-btn-submit">
+          <i class="fa fa-user-plus"></i> Create Account
+        </button>
+
+        <p class="jt-mobile-switch">Already have an account? <button type="button" class="jt-switch-btn" id="switchToLogMob">Sign In</button></p>
+      </form>
+    </div>
+  </div>
+
+</div>
+<!-- ═══════════════ END AUTH MODAL ═══════════════ -->
  
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/js/main.js"></script>
+  <script src="/assets/js/main.js"></script>
 </body>
 </html>

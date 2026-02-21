@@ -255,3 +255,154 @@
 
 @media (max-width: 576px) { /* ... */ }
 @media (max-width: 400px) { /* ... */ }
+
+
+/* Responsiveness */
+@media (max-width: 1200px) {
+    :root { --wheel-size: 600px; --orbit-radius: 180px; }
+    .chef-image { max-width: 380px; }
+    .main-title { font-size: 3rem; }
+}
+
+@media (max-width: 992px) {
+    :root { --wheel-size: 500px; --orbit-radius: 150px; }
+    .chef-image { max-width: 320px; }
+    .main-title { font-size: 2.5rem; }
+}
+
+@media (max-width: 600px) {
+    .chef-hero { height: auto; padding: 100px 20px; }
+    .hero-inner { flex-direction: column; }
+
+    .orbit-wheel { 
+        position: relative; width: 100%; height: auto; 
+        animation: none; left: 0; right: 0;
+        display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;
+        margin-top: 40px;
+    }
+    .orbit-item { position: relative; transform: none !important; top: auto; left: auto; margin: 0; }
+    .orbit-item span { animation: none; width: 60px; height: 60px; font-size: 1.8rem; }
+    
+    .chef-image { max-width: 260px; }
+    .main-title { font-size: 2.2rem; }
+    .hero-text { margin-top: 20px; }
+}
+
+/* Keyframe Animations */
+@keyframes rotateWheel { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes counterRotate { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+@keyframes chefFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+@keyframes glowPulse { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.1); } }
+
+
+
+/* ------ image frame---------- */
+/* Large tablets / small laptops */
+@media (max-width: 1024px) {
+  .chef-frame {
+    width: 260px;
+    height: 260px;
+    margin-left: 180px;
+  }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+  .chef-frame {
+    width: 220px;
+    height: 220px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Large phones */
+@media (max-width: 576px) {
+  .chef-frame {
+    width: 180px;
+    height: 180px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Small phones */
+@media (max-width: 375px) {
+  .chef-frame {
+    width: 150px;
+    height: 150px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+
+
+
+}
+/* * Tablet (≤ 1024px) */ 
+@media (max-width: 1024px) {
+  .bio__inner        { grid-template-columns: 1fr; }
+  .bio__media        { position: static; }
+  .bio__portrait-wrap { max-width: 420px; margin-inline: auto; }
+  .bio__quick-stats  { grid-template-columns: repeat(4, 1fr); max-width: 420px; margin-inline: auto; }
+
+  .qualities__grid   { grid-template-columns: repeat(2, 1fr); }
+  .specialities__grid{ grid-template-columns: repeat(2, 1fr); }
+
+  .gallery__grid     { grid-template-columns: repeat(3, 1fr); }
+
+  .about-testimonials__grid { grid-template-columns: repeat(2, 1fr); }
+
+  .connect__inner    { grid-template-columns: 1fr; }
+  .connect__card     { max-width: 540px; }
+
+  .classes-about__inner { grid-template-columns: 1fr; }
+  .classes-about__visual { max-width: 560px; }
+
+  /* Timeline collapse to single column */
+  .timeline::before  { left: 20px; }
+  .timeline__item    { grid-template-columns: 40px 1fr; }
+  .timeline__dot     { margin: 4px 0 0; }
+  .timeline__content--left,
+  .timeline__content--right { grid-column: 2; text-align: left; }
+}
+
+/* Mobile (≤ 768px) */
+@media (max-width: 768px) {
+  :root { --spacing-xxl: 56px; }
+
+  .about-hero__badges { gap: var(--spacing-sm); }
+  .cred-badge         { padding: 8px 14px; }
+
+  .bio__quick-stats   { grid-template-columns: repeat(2, 1fr); max-width: 100%; }
+
+  .qualities__grid    { grid-template-columns: 1fr; }
+
+  .gallery__grid      { grid-template-columns: repeat(2, 1fr); }
+  .gallery__item--wide,
+  .gallery__item--tall{ grid-column: span 1; grid-row: span 1; }
+
+  .specialities__grid { grid-template-columns: 1fr; }
+
+  .classes-about__features { grid-template-columns: 1fr; }
+
+  .about-testimonials__grid { grid-template-columns: 1fr; }
+
+  .connect__inner     { grid-template-columns: 1fr; }
+}
+
+/* Small mobile (≤ 480px) */
+@media (max-width: 480px) {
+  .about-hero__title  { font-size: clamp(32px, 10vw, 48px); }
+  .about-hero__badges { flex-direction: column; align-items: flex-start; }
+
+  .timeline::before   { left: 12px; }
+  .timeline__item     { grid-template-columns: 28px 1fr; gap: var(--spacing-sm); }
+  .timeline__dot      { width: 14px; height: 14px; }
+
+  .gallery__grid      { grid-template-columns: 1fr 1fr; grid-auto-rows: 150px; }
+
+  .bio__quick-stats   { grid-template-columns: 1fr 1fr; }
+
+  .classes-about__counter { flex-direction: column; text-align: center; }
+}

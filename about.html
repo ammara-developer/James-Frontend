@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ✅ Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
+  <!-- ✅ Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <!-- ✅ Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet"/>
+
+  <!-- ✅ Your CSS Files — ORDER MATTERS -->
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/responsive.css">
+<link rel="stylesheet" href="assets/css/login-register.css">
+
+    <title>Document</title>
+</head>
+<body>
+    
+
+<div id="navbar"></div>
+<!-- ============================================================
+     JamesThew.com — About Page Main Content (about-content.html)
+     Plug between your <navbar> and <footer> includes.
+     Link: <link rel="stylesheet" href="about.css">
+           <script defer src="about.js"></script>
+     ============================================================ -->
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 1 · PAGE HERO / BANNER
+     ═══════════════════════════════════════════════════════════ -->
+<section class="about-hero">
+  <div class="about-hero__bg-pattern"></div>
+  <div class="about-hero__glow"></div>
+
+  <div class="container about-hero__inner">
+    <div class="about-hero__breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <span class="active">About James</span>
+    </div>
+
+    <div class="about-hero__content" data-reveal>
+      <span class="section-eyebrow section-eyebrow--light">The Man Behind the Kitchen</span>
+      <h1 class="about-hero__title">
+        Meet <em class="about-hero__script">James Thew</em>
+      </h1>
+      <p class="about-hero__sub">
+        Master Chef. Culinary Artist. Author. Educator. Passion-driven creator
+        who has spent a lifetime turning the finest ingredients into unforgettable
+        experiences.
+      </p>
+    </div>
+  </div>
+
+  <!-- Floating credential badges -->
+  <div class="about-hero__badges" data-reveal data-delay="300">
+    <div class="cred-badge">
+      <span class="cred-badge__icon">🏨</span>
+      <span class="cred-badge__text">5-Star Hotel Chef</span>
+    </div>
+    <div class="cred-badge">
+      <span class="cred-badge__icon">📺</span>
+      <span class="cred-badge__text">TV Show Host</span>
+    </div>
+    <div class="cred-badge">
+      <span class="cred-badge__icon">📖</span>
+      <span class="cred-badge__text">Published Author</span>
+    </div>
+    <div class="cred-badge">
+      <span class="cred-badge__icon">🎓</span>
+      <span class="cred-badge__text">Culinary Educator</span>
+    </div>
+  </div>
+
+  <div class="about-hero__wave">
+  <svg display="block" viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,40 C240,90 480,0 720,45 C960,90 1200,10 1440,50 L1440,90 L0,90 Z" fill="var(--color-background)"/>
+  </svg>
+</div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 2 · MAIN BIOGRAPHY
+     ═══════════════════════════════════════════════════════════ -->
+<section class="bio" id="biography">
+  <div class="container bio__inner">
+
+    <!-- Left: Portrait stack -->
+    <div class="bio__media" data-reveal>
+      <div class="bio__portrait-wrap">
+
+        <!-- FETCH FROM BACKEND: GET /api/chef/profile → { profileImage, galleryImages[] } -->
+        <div class="bio__portrait-main">
+          <img src="assets/images/profile.jpg" alt="Chef James Thew portrait"
+               onerror="this.parentElement.classList.add('no-img')">
+          <div class="bio__portrait-placeholder">
+            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="40" cy="28" r="16" stroke="currentColor" stroke-width="2"/>
+              <path d="M10 74c0-16.569 13.431-30 30-30s30 13.431 30 30" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            <span>Chef Portrait</span>
+          </div>
+        </div>
+
+        <!-- Decorative gold frame corner -->
+        <div class="bio__portrait-frame-deco"></div>
+
+        <!-- Floating achievement card -->
+        <div class="bio__achievement-card">
+          <div class="bio__achievement-icon">⭐</div>
+          <div>
+            <strong>Award-Winning Chef</strong>
+            <small>20+ Years of Excellence</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick stat pills -->
+      <div class="bio__quick-stats">
+        <div class="quick-stat">
+          <span class="quick-stat__num" data-count="320">0</span>
+          <span class="quick-stat__label">Recipes Created</span>
+        </div>
+        <div class="quick-stat">
+          <span class="quick-stat__num" data-count="12">0</span>
+          <span class="quick-stat__label">Books Published</span>
+        </div>
+        <div class="quick-stat">
+          <span class="quick-stat__num" data-count="48">0</span>
+          <span class="quick-stat__label">TV Episodes</span>
+        </div>
+        <div class="quick-stat">
+          <span class="quick-stat__num" data-count="5000">0</span>
+          <span class="quick-stat__label">Students Taught</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Biography copy -->
+    <div class="bio__copy" data-reveal data-delay="150">
+      <span class="section-eyebrow">Full Biography</span>
+      <h2 class="section-title">A Life Dedicated <br><em>to the Culinary Arts</em></h2>
+
+      <div class="bio__text">
+        <p>
+          James Thew is one of the most celebrated and beloved chefs working in the
+          fine-dining world today. With over two decades spent mastering his craft
+          in the kitchens of the city's finest five-star hotels, James has built a
+          reputation not just for exceptional flavour — but for the warmth, precision,
+          and storytelling he brings to every dish he creates.
+        </p>
+        <p>
+          His rise to culinary fame caught the attention of major publishers, who
+          approached him to write recipe books that now grace kitchens around the world.
+          Television producers were equally captivated — inviting James to host and
+          appear on popular cookery shows where his calm authority and genuine
+          enthusiasm made him an instant audience favourite. His programmes have covered
+          every corner of his culinary repertoire: vibrant vegetarian dishes, bold
+          non-vegetarian feasts, delicate Italian classics, refreshing juices and drinks,
+          indulgent desserts, and nourishing breakfasts.
+        </p>
+        <p>
+          Yet for James, the greatest satisfaction has never come from television
+          ratings or book sales. It comes from seeing someone cook a meal they're proud
+          of. During his free time, he ventures into unfamiliar cuisines, travels in
+          search of rare ingredients, and experiments relentlessly in his home kitchen —
+          always asking what more a dish can become.
+        </p>
+        <p>
+          That same spirit of generous sharing led him to open weekend cookery classes
+          near his home. Deliberately kept intimate and affordable, the Saturday and
+          Sunday sessions draw food enthusiasts of all skill levels who come to learn
+          directly from a true professional — not through a screen, but side by side at
+          the chopping board.
+        </p>
+        <p>
+          Today, JamesThew.com is the natural extension of that philosophy. A place
+          where his recipes, tips, contests, and expertise are available to anyone in
+          the world who loves to cook — or simply loves to eat well.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 3 · SIGNATURE QUALITIES / WHAT MAKES JAMES SPECIAL
+     ═══════════════════════════════════════════════════════════ -->
+<section class="qualities" id="qualities">
+  <div class="qualities__bg"></div>
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <span class="section-eyebrow section-eyebrow--light">His Philosophy</span>
+      <h2 class="section-title section-title--light">What Makes James <em>Extraordinary</em></h2>
+      <p class="section-desc section-desc--light">
+        More than technical skill — it is the values James carries into every kitchen
+        that set him apart.
+      </p>
+    </div>
+
+    <div class="qualities__grid">
+      <div class="quality-card" data-reveal data-delay="0">
+        <div class="quality-card__number">01</div>
+        <div class="quality-card__icon">🔥</div>
+        <h3 class="quality-card__title">Relentless Passion</h3>
+        <p class="quality-card__desc">
+          Cooking is never just a job for James. Even after a full service in a
+          five-star kitchen, he heads home to experiment with new ideas and flavour
+          combinations — driven purely by love of the craft.
+        </p>
+      </div>
+      <div class="quality-card" data-reveal data-delay="100">
+        <div class="quality-card__number">02</div>
+        <div class="quality-card__icon">🌍</div>
+        <h3 class="quality-card__title">Global Perspective</h3>
+        <p class="quality-card__desc">
+          From Italian pasta-making techniques to bold Asian spice profiles, James's
+          culinary outlook spans continents — bringing the world's best flavours
+          into dishes that feel entirely his own.
+        </p>
+      </div>
+      <div class="quality-card" data-reveal data-delay="200">
+        <div class="quality-card__number">03</div>
+        <div class="quality-card__icon">🤝</div>
+        <h3 class="quality-card__title">Generous Sharing</h3>
+        <p class="quality-card__desc">
+          James believes culinary knowledge belongs to everyone. Whether in a TV
+          kitchen, a weekend class, or a recipe posted online — he holds nothing
+          back, sharing every technique, tip, and secret freely.
+        </p>
+      </div>
+      <div class="quality-card" data-reveal data-delay="300">
+        <div class="quality-card__number">04</div>
+        <div class="quality-card__icon">🎯</div>
+        <h3 class="quality-card__title">Precision & Detail</h3>
+        <p class="quality-card__desc">
+          The difference between a good dish and a great one is found in the details.
+          James approaches every recipe with the meticulous care of a craftsman —
+          measuring, tasting, adjusting, perfecting.
+        </p>
+      </div>
+      <div class="quality-card" data-reveal data-delay="400">
+        <div class="quality-card__number">05</div>
+        <div class="quality-card__icon">💡</div>
+        <h3 class="quality-card__title">Constant Innovation</h3>
+        <p class="quality-card__desc">
+          Tradition informs but never limits James. He continuously seeks new
+          techniques, ingredients, and presentations — ensuring his cooking
+          remains fresh, exciting, and ahead of its time.
+        </p>
+      </div>
+      <div class="quality-card" data-reveal data-delay="500">
+        <div class="quality-card__number">06</div>
+        <div class="quality-card__icon">❤️</div>
+        <h3 class="quality-card__title">Community First</h3>
+        <p class="quality-card__desc">
+          Keeping his weekend classes affordable, engaging openly with student
+          feedback, and building this online community — James's success is measured
+          by the people he lifts along the way.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 4 · CULINARY JOURNEY / TIMELINE
+     ═══════════════════════════════════════════════════════════ -->
+<section class="journey" id="journey">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <span class="section-eyebrow">The Story So Far</span>
+      <h2 class="section-title">James's Culinary <em>Journey</em></h2>
+      <p class="section-desc">
+        From his first kitchen to global recognition — every milestone that shaped
+        the chef and the man.
+      </p>
+    </div>
+
+    <div class="timeline">
+
+      <div class="timeline__item" data-reveal>
+        <div class="timeline__dot"></div>
+        <div class="timeline__content timeline__content--left">
+          <span class="timeline__year">Early Years</span>
+          <h3 class="timeline__title">The First Spark</h3>
+          <p class="timeline__desc">
+            Growing up, James was always drawn to the kitchen — fascinated by how simple
+            ingredients could transform into something that brought people together. His
+            natural talent was obvious from the start.
+          </p>
+        </div>
+      </div>
+
+      <div class="timeline__item" data-reveal data-delay="100">
+        <div class="timeline__dot"></div>
+        <div class="timeline__content timeline__content--right">
+          <span class="timeline__year">Culinary School</span>
+          <h3 class="timeline__title">Mastering the Fundamentals</h3>
+          <p class="timeline__desc">
+            James pursued formal culinary training, mastering classic techniques across
+            multiple cuisines. His instructors quickly recognised an unusual combination
+            of technical precision and creative instinct.
+          </p>
+        </div>
+      </div>
+
+      <div class="timeline__item" data-reveal data-delay="200">
+        <div class="timeline__dot"></div>
+        <div class="timeline__content timeline__content--left">
+          <span class="timeline__year">Five-Star Hotels</span>
+          <h3 class="timeline__title">Rising Through the Ranks</h3>
+          <p class="timeline__desc">
+            Landing a position in one of the city's premier five-star hotels, James
+            thrived under pressure. His ability to lead a kitchen while maintaining
+            exceptional quality earned him rapid recognition and growing acclaim.
+          </p>
+        </div>
+      </div>
+
+      <div class="timeline__item" data-reveal data-delay="300">
+        <div class="timeline__dot"></div>
+        <div class="timeline__content timeline__content--right">
+          <span class="timeline__year">Publishing</span>
+          <h3 class="timeline__title">The Recipe Books</h3>
+          <p class="timeline__desc">
+            Publishers took notice of James's unique voice and approach to cooking.
+            His recipe books — spanning vegetarian, Italian, and world cuisine — became
+            bestsellers, sharing his expertise with home cooks globally.
+          </p>
+        </div>
+      </div>
+
+      <div class="timeline__item" data-reveal data-delay="400">
+        <div class="timeline__dot"></div>
+        <div class="timeline__content timeline__content--left">
+          <span class="timeline__year">Television</span>
+          <h3 class="timeline__title">Taking to the Screen</h3>
+          <p class="timeline__desc">
+            Television producers cast James in popular cookery shows covering the full
+            range of his expertise — from quick weekday juices and breakfasts to
+            elaborate Italian feasts and spectacular non-vegetarian centrepieces.
+          </p>
+        </div>
+      </div>
+
+      <div class="timeline__item" data-reveal data-delay="500">
+        <div class="timeline__dot"></div>
+        <div class="timeline__content timeline__content--right">
+          <span class="timeline__year">Weekend Classes</span>
+          <h3 class="timeline__title">Teaching the Next Generation</h3>
+          <p class="timeline__desc">
+            Wanting a more personal connection with food lovers, James launched
+            intimate weekend cookery classes near his home. Affordable by design,
+            the sessions quickly became a beloved fixture in the local community.
+          </p>
+        </div>
+      </div>
+
+      <div class="timeline__item" data-reveal data-delay="600">
+        <div class="timeline__dot timeline__dot--current"></div>
+        <div class="timeline__content timeline__content--left">
+          <span class="timeline__year">Today</span>
+          <h3 class="timeline__title">JamesThew.com — Open to the World</h3>
+          <p class="timeline__desc">
+            Now his kitchen table is truly global. JamesThew.com brings his recipes,
+            tips, contests, and community to food lovers everywhere — with no
+            boundaries and no borders.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 5 · SPECIALITIES / CUISINE CATEGORIES
+     ═══════════════════════════════════════════════════════════ -->
+<section class="specialities" id="specialities">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <span class="section-eyebrow">Culinary Range</span>
+      <h2 class="section-title">James's Areas of <em>Speciality</em></h2>
+      <p class="section-desc">
+        From the simplest breakfast to the most elaborate Italian feast — here is
+        where James's passion burns brightest.
+      </p>
+    </div>
+
+    <div class="specialities__grid">
+
+      <div class="spec-card spec-card--wide" data-reveal>
+        <div class="spec-card__icon">🥗</div>
+        <div class="spec-card__body">
+          <h3>Vegetarian Cuisine</h3>
+          <p>James transforms humble vegetables into showstopping plates. His
+          vegetarian repertoire proves that plant-based cooking is anything but
+          ordinary — vibrant, textured, deeply satisfying.</p>
+        </div>
+        <a href="recipes.html?cat=vegetarian" class="spec-card__link">Browse →</a>
+      </div>
+
+      <div class="spec-card" data-reveal data-delay="80">
+        <div class="spec-card__icon">🥩</div>
+        <div class="spec-card__body">
+          <h3>Non-Vegetarian</h3>
+          <p>Bold meats, perfect timing, and layers of flavour — James's
+          non-vegetarian dishes honour the ingredient above all.</p>
+        </div>
+        <a href="recipes.html?cat=non-vegetarian" class="spec-card__link">Browse →</a>
+      </div>
+
+      <div class="spec-card" data-reveal data-delay="160">
+        <div class="spec-card__icon">🍝</div>
+        <div class="spec-card__body">
+          <h3>Italian</h3>
+          <p>Handmade pasta, rich ragùs, perfectly balanced risottos — Italy
+          holds a special place in James's culinary heart.</p>
+        </div>
+        <a href="recipes.html?cat=italian" class="spec-card__link">Browse →</a>
+      </div>
+
+      <div class="spec-card" data-reveal data-delay="240">
+        <div class="spec-card__icon">🥤</div>
+        <div class="spec-card__body">
+          <h3>Juices & Drinks</h3>
+          <p>Vibrant, nourishing, and beautifully presented — James's drinks
+          range from cold-pressed morning tonics to artisan mocktails.</p>
+        </div>
+        <a href="recipes.html?cat=juices" class="spec-card__link">Browse →</a>
+      </div>
+
+      <div class="spec-card" data-reveal data-delay="320">
+        <div class="spec-card__icon">🍮</div>
+        <div class="spec-card__body">
+          <h3>Desserts</h3>
+          <p>James believes the sweet finale matters as much as the main event.
+          Silky, layered, and always memorable.</p>
+        </div>
+        <a href="recipes.html?cat=desserts" class="spec-card__link">Browse →</a>
+      </div>
+
+      <div class="spec-card" data-reveal data-delay="400">
+        <div class="spec-card__icon">🥞</div>
+        <div class="spec-card__body">
+          <h3>Breakfast</h3>
+          <p>Start the day right. James's breakfasts range from quick power
+          bowls to elaborate weekend brunch spreads.</p>
+        </div>
+        <a href="recipes.html?cat=breakfast" class="spec-card__link">Browse →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 6 · GALLERY — FETCH FROM BACKEND
+     ═══════════════════════════════════════════════════════════ -->
+<!-- FETCH FROM BACKEND: GET /api/chef/gallery → [{ url, caption }] -->
+<section class="gallery" id="gallery">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <span class="section-eyebrow">Behind the Scenes</span>
+      <h2 class="section-title">James in the <em>Kitchen</em></h2>
+      <p class="section-desc">A glimpse into the world of James Thew — at work, on set, and teaching.</p>
+    </div>
+  </div>
+
+  <!-- Full-bleed masonry grid — JS fills from backend -->
+  <div class="gallery__grid" id="galleryGrid">
+    <!-- Skeleton placeholders -->
+    <div class="gallery__item skeleton"></div>
+    <div class="gallery__item skeleton gallery__item--tall"></div>
+    <div class="gallery__item skeleton"></div>
+    <div class="gallery__item skeleton gallery__item--wide"></div>
+    <div class="gallery__item skeleton"></div>
+    <div class="gallery__item skeleton"></div>
+  </div>
+
+  <!-- Lightbox overlay (JS controls) -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox__close" id="lightboxClose" aria-label="Close">✕</button>
+    <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" aria-label="Previous">‹</button>
+    <div class="lightbox__img-wrap">
+      <img class="lightbox__img" id="lightboxImg" src="" alt="">
+      <p class="lightbox__caption" id="lightboxCaption"></p>
+    </div>
+    <button class="lightbox__nav lightbox__nav--next" id="lightboxNext" aria-label="Next">›</button>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 7 · BOOKS & MEDIA
+     ═══════════════════════════════════════════════════════════ -->
+<!-- FETCH FROM BACKEND: GET /api/chef/books → [{ title, cover, year, desc }] -->
+<section class="books" id="books">
+  <div class="books__bg"></div>
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <span class="section-eyebrow section-eyebrow--light">Published Works</span>
+      <h2 class="section-title section-title--light">Books &amp; <em>Media</em></h2>
+      <p class="section-desc section-desc--light">
+        James's knowledge, captured in print and on screen for you to enjoy
+        anywhere, any time.
+      </p>
+    </div>
+
+    <div class="books__track" id="booksTrack">
+      <!-- JS fills from backend -->
+      <div class="book-card skeleton"></div>
+      <div class="book-card skeleton"></div>
+      <div class="book-card skeleton"></div>
+    </div>
+
+    <!-- TV / Media appearances -->
+    <div class="media-strip" data-reveal>
+      <span class="media-strip__label">As Seen On</span>
+      <!-- FETCH FROM BACKEND: GET /api/chef/media → [{ name, logo }] -->
+      <!-- JS fills logos; static fallback below -->
+      <div class="media-strip__logos" id="mediaLogos">
+        <div class="media-logo">📺 Culinary TV</div>
+        <div class="media-logo">🎙️ Food Radio</div>
+        <div class="media-logo">📰 Food &amp; Wine Mag</div>
+        <div class="media-logo">📺 Chef's Table Network</div>
+        <div class="media-logo">📰 Culinary Arts Review</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 8 · WEEKEND CLASSES DEEP DIVE
+     ═══════════════════════════════════════════════════════════ -->
+<section class="classes-about" id="classes">
+  <div class="container classes-about__inner">
+
+    <div class="classes-about__copy" data-reveal>
+      <span class="section-eyebrow">Learn Directly from James</span>
+      <h2 class="section-title">Weekend Cookery <em>Classes</em></h2>
+      <p>
+        James started these classes for one simple reason: he wanted to cook
+        <em>with</em> people, not just <em>for</em> them. Held every Saturday
+        and Sunday at his studio near home, the sessions are hands-on, relaxed,
+        and packed with professional-level knowledge delivered without jargon.
+      </p>
+      <p>
+        Whether you're a complete beginner or a seasoned home cook looking to
+        refine your technique, James's classes are designed to meet you where
+        you are — and take you somewhere better.
+      </p>
+
+      <div class="classes-about__features">
+        <div class="class-feature">
+          <span class="class-feature__icon">📅</span>
+          <div>
+            <strong>Every Saturday & Sunday</strong>
+            <span>10:00 AM – 2:00 PM</span>
+          </div>
+        </div>
+        <div class="class-feature">
+          <span class="class-feature__icon">📍</span>
+          <div>
+            <strong>123 Chef Street</strong>
+            <span>Culinary District, NY</span>
+          </div>
+        </div>
+        <div class="class-feature">
+          <span class="class-feature__icon">💰</span>
+          <div>
+            <strong>Affordable for All</strong>
+            <span>Very low fares to maximise access</span>
+          </div>
+        </div>
+        <div class="class-feature">
+          <span class="class-feature__icon">👥</span>
+          <div>
+            <strong>Small Groups Only</strong>
+            <span>Personal attention guaranteed</span>
+          </div>
+        </div>
+      </div>
+
+      <a href="#" class="btn btn--primary">Enquire About Classes</a>
+    </div>
+
+    <div class="classes-about__visual" data-reveal data-delay="150">
+      <!-- FETCH FROM BACKEND: GET /api/classes/upcoming → [{ date, topic, spots }] -->
+      <div class="classes-about__upcoming" id="aboutUpcomingClasses">
+        <div class="upcoming-header">
+          <h3>Upcoming Sessions</h3>
+          <span class="upcoming-header__sub">Tap to reserve your spot</span>
+        </div>
+        <!-- JS fills upcoming sessions -->
+        <div class="upcoming-card skeleton"></div>
+        <div class="upcoming-card skeleton"></div>
+        <div class="upcoming-card skeleton"></div>
+      </div>
+
+      <!-- Student counter card — FETCH FROM BACKEND -->
+      <!-- Backend: GET /api/stats → { studentsTotal } -->
+      <div class="classes-about__counter">
+        <div class="counter-circle">
+          <span class="counter-circle__num" data-count="5000">0</span>
+          <span class="counter-circle__label">Students &amp; counting</span>
+        </div>
+        <p>Join a community of passionate cooks who have already learned from James in person.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 9 · TESTIMONIALS — FETCH FROM BACKEND
+     ═══════════════════════════════════════════════════════════ -->
+<!-- FETCH FROM BACKEND: GET /api/feedback?featured=true&limit=6
+     Response: [{ id, userName, userAvatar, rating, comment, recipeTitle }] -->
+<section class="about-testimonials" id="testimonials">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <span class="section-eyebrow">Community Love</span>
+      <h2 class="section-title">What People Say <em>About James</em></h2>
+    </div>
+
+    <div class="about-testimonials__grid" id="aboutTestimonialsGrid">
+      <!-- JS injects cards -->
+      <div class="about-tcard skeleton"></div>
+      <div class="about-tcard skeleton"></div>
+      <div class="about-tcard skeleton"></div>
+      <div class="about-tcard skeleton"></div>
+      <div class="about-tcard skeleton"></div>
+      <div class="about-tcard skeleton"></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 10 · CONTACT / CONNECT CTA
+     ═══════════════════════════════════════════════════════════ -->
+<section class="connect" id="connect">
+  <div class="connect__bg"></div>
+  <div class="container connect__inner" data-reveal>
+
+    <div class="connect__copy">
+      <span class="section-eyebrow section-eyebrow--light">Get In Touch</span>
+      <h2 class="section-title section-title--light">Connect with <em>James</em></h2>
+      <p class="connect__desc">
+        Whether you have a question about a recipe, want to enquire about cookery
+        classes, or simply want to share your cooking story — James loves hearing
+        from his community.
+      </p>
+
+      <div class="connect__details">
+        <div class="connect-detail">
+          <span class="connect-detail__icon">📍</span>
+          <div>
+            <strong>Visit</strong>
+            <span>123 Chef Street, Culinary District, NY</span>
+          </div>
+        </div>
+        <div class="connect-detail">
+          <span class="connect-detail__icon">📞</span>
+          <div>
+            <strong>Call</strong>
+            <span>+1 (555) 123-4567</span>
+          </div>
+        </div>
+        <div class="connect-detail">
+          <span class="connect-detail__icon">✉️</span>
+          <div>
+            <strong>Email</strong>
+            <!-- FETCH FROM BACKEND: GET /api/chef/contact → { email } -->
+            <span id="contactEmail">contact@jamesthew.com</span>
+          </div>
+        </div>
+        <div class="connect-detail">
+          <span class="connect-detail__icon">⏰</span>
+          <div>
+            <strong>Weekend Classes</strong>
+            <span>Sat – Sun, 10AM – 2PM</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="connect__social">
+        <a href="#" class="social-btn" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+        <a href="#" class="social-btn" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="#" class="social-btn" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42A2.78 2.78 0 0020.59 4.4C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-2.02A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon fill="white" points="9.75,15.02 15.5,12 9.75,8.98 9.75,15.02"/></svg>
+        </a>
+        <a href="#" class="social-btn" aria-label="Twitter">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+        </a>
+        <a href="#" class="social-btn" aria-label="Pinterest">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12c0 5.1 3.1 9.4 7.5 11.3-.1-.9-.2-2.3 0-3.3.2-.9 1.5-6.3 1.5-6.3s-.4-.8-.4-2c0-1.8 1.1-3.2 2.4-3.2 1.1 0 1.7.8 1.7 1.8 0 1.1-.7 2.8-1 4.3-.3 1.3.6 2.3 1.8 2.3 2.1 0 3.7-2.2 3.7-5.4 0-2.8-2-4.8-4.9-4.8-3.3 0-5.3 2.5-5.3 5 0 1 .4 2.1.9 2.6.1.1.1.3.1.4-.1.4-.3 1.3-.3 1.4-.1.2-.2.3-.4.2-1.5-.7-2.4-2.9-2.4-4.6 0-3.7 2.7-7.2 7.8-7.2 4.1 0 7.3 2.9 7.3 6.8 0 4-2.5 7.3-6 7.3-1.2 0-2.3-.6-2.7-1.3l-.7 2.8c-.3 1-.9 2.1-1.4 2.9.9.3 1.9.4 2.9.4 6.6 0 12-5.4 12-12S18.6 0 12 0z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Quick contact card -->
+    <div class="connect__card">
+      <h3 class="connect__card-title">Send James a Message</h3>
+      <div class="connect__form" id="connectForm">
+        <!-- FETCH FROM BACKEND: POST /api/contact { name, email, subject, message } -->
+        <div class="form-group">
+          <label for="contactName">Your Name</label>
+          <input type="text" id="contactName" placeholder="e.g. Maria Rossi">
+        </div>
+        <div class="form-group">
+          <label for="contactEmailInput">Email Address</label>
+          <input type="email" id="contactEmailInput" placeholder="you@email.com">
+        </div>
+        <div class="form-group">
+          <label for="contactSubject">Subject</label>
+          <input type="text" id="contactSubject" placeholder="Recipe question, class enquiry…">
+        </div>
+        <div class="form-group">
+          <label for="contactMessage">Message</label>
+          <textarea id="contactMessage" rows="4" placeholder="Tell James what's on your mind…"></textarea>
+        </div>
+        <button class="btn btn--primary btn--full" id="contactSubmitBtn" onclick="submitContact(event)">
+          Send Message
+        </button>
+        <p class="connect__form-note" id="contactFormMsg"></p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+     <div id="footer"></div>
+<script src="assets/js/component.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

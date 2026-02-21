@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JamesThew — Auth Modals Test</title>
+
+  <!-- ✅ FIX 1: Google Fonts — these were missing, causing broken layout -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── Page base (just for this test page) ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1a0a10 0%, #2d1020 50%, #1a0a10 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 40px 20px;
+    }
+    .test-logo {
+      font-family: 'Great Vibes', cursive;
+      font-size: 56px;
+      color: #C9A84C;
+      text-align: center;
+    }
+    .test-logo span { color: rgba(255,255,255,0.85); }
+    .test-sub {
+      font-family: 'Poppins', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      text-align: center;
+      margin-top: -12px;
+    }
+    .test-btns {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 16px;
+    }
+    /* ✅ FIX 2: Trigger buttons with data-modal attribute */
+    .btn-login {
+      padding: 14px 36px;
+      background: transparent;
+      border: 2px solid rgba(201,168,76,0.6);
+      border-radius: 99px;
+      color: #C9A84C;
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.25s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-login:hover {
+      background: rgba(201,168,76,0.1);
+      border-color: #C9A84C;
+      transform: translateY(-2px);
+    }
+    .btn-register {
+      padding: 14px 36px;
+      background: #C9A84C;
+      border: 2px solid #C9A84C;
+      border-radius: 99px;
+      color: #6D1A36;
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.25s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-register:hover {
+      background: #b8933e;
+      border-color: #b8933e;
+      box-shadow: 0 8px 28px rgba(201,168,76,0.4);
+      transform: translateY(-2px);
+    }
+    .test-note {
+      font-family: 'Poppins', sans-serif;
+      font-size: 11px;
+      color: rgba(255,255,255,0.25);
+      text-align: center;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Test page content -->
+  <div class="test-logo">James<span>Thew</span></div>
+  <p class="test-sub">Master Chef &amp; Culinary Artist</p>
+
+  <!-- ✅ FIX 2: These buttons trigger the modals via data-modal attribute -->
+  <div class="test-btns">
+    <a href="#" class="btn-login" data-modal="login">Sign In</a>
+    <a href="#" class="btn-register" data-modal="register">Create Account</a>
+  </div>
+  <p class="test-note">Click either button to open the modal overlay</p>
+
+
+  <!-- ================================================================
+       AUTH MODALS — paste everything below before </body> on every page
+       The <style> block includes all modal CSS.
+       The <script> block handles all modal interactivity.
+  ================================================================ -->
+
+  <style>
+  /* ── Modal reset ── */
+  .jt-modal *, .jt-modal *::before, .jt-modal *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ── Backdrop ── */
+  .jt-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(8,3,6,0.78);
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+    z-index: 9000;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.32s ease;
+  }
+  .jt-backdrop.open { opacity: 1; pointer-events: all; }
+
+  /* ── Modal wrapper (centres the box) ── */
+  .jt-modal {
+    position: fixed; inset: 0; z-index: 9001;
+    display: flex; align-items: center; justify-content: center;
+    padding: 16px;
+    pointer-events: none;
+  }
+
+  /* ── Modal box ── */
+  .jt-modal__box {
+    position: relative; display: flex;
+    width: 100%; max-width: 920px; max-height: 92vh;
+    background: #FAF6F0;
+    border-radius: 20px;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,168,76,0.2);
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(28px) scale(0.97);
+    transition: opacity 0.36s ease, transform 0.36s cubic-bezier(0.34,1.25,0.64,1);
+    pointer-events: none;
+  }
+  .jt-modal.open .jt-modal__box {
+    opacity: 1; transform: translateY(0) scale(1); pointer-events: all;
+  }
+  #jtLoginModal .jt-modal__box { max-width: 720px; }
+
+  /* ── Side panel ── */
+  .jt-modal__side {
+    width: 255px; flex-shrink: 0;
+    background: #6D1A36;
+    padding: 36px 26px 32px;
+    display: flex; flex-direction: column; gap: 22px;
+    position: relative; overflow: hidden;
+  }
+  .jt-modal__side::before {
+    content: ''; position: absolute; top: -90px; right: -90px;
+    width: 240px; height: 240px; border-radius: 50%;
+    background: rgba(201,168,76,0.13); pointer-events: none;
+  }
+  .jt-modal__side::after {
+    content: ''; position: absolute; bottom: -70px; left: -70px;
+    width: 200px; height: 200px; border-radius: 50%;
+    background: rgba(201,168,76,0.07); pointer-events: none;
+  }
+  .jt-side__logo {
+    font-family: 'Great Vibes', cursive;
+    font-size: 34px; color: #C9A84C; line-height: 1; position: relative; z-index: 1;
+  }
+  .jt-side__logo span { color: rgba(255,255,255,0.9); }
+  .jt-side__tagline {
+    font-family: 'Poppins', sans-serif; font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.45); position: relative; z-index: 1;
+  }
+  .jt-side__perks {
+    list-style: none; display: flex; flex-direction: column; gap: 9px;
+    position: relative; z-index: 1;
+  }
+  .jt-side__perks li {
+    font-family: 'Poppins', sans-serif; font-size: 12.5px;
+    color: rgba(255,255,255,0.78); display: flex; align-items: center; gap: 8px;
+  }
+  .jt-side__plans {
+    display: flex; flex-direction: column; gap: 10px;
+    margin-top: auto; position: relative; z-index: 1;
+  }
+  .jt-side__plan {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(201,168,76,0.22);
+    border-radius: 10px; padding: 10px 14px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: 'Poppins', sans-serif; font-size: 12px;
+    color: rgba(255,255,255,0.65); position: relative;
+  }
+  .jt-side__plan strong { font-family: 'Playfair Display', serif; font-size: 18px; color: #C9A84C; }
+  .jt-side__plan--best { border-color: #C9A84C; background: rgba(201,168,76,0.1); }
+  .jt-side__plan em {
+    position: absolute; top: -9px; right: 10px;
+    font-style: normal; font-size: 9px; background: #C9A84C; color: #6D1A36;
+    padding: 2px 8px; border-radius: 99px; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .jt-side__quote {
+    font-family: 'Poppins', sans-serif; font-size: 12px; font-style: italic;
+    color: rgba(255,255,255,0.6); line-height: 1.7;
+    border-left: 2px solid rgba(201,168,76,0.4); padding-left: 14px;
+    margin-top: auto; position: relative; z-index: 1;
+  }
+  .jt-side__quote cite { display: block; margin-top: 8px; font-size: 10px; color: #C9A84C; font-style: normal; }
+
+  /* ── Body panel ── */
+  .jt-modal__body { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; }
+  .jt-modal__scroll {
+    flex: 1; overflow-y: auto; padding: 36px 34px 32px;
+    scrollbar-width: thin; scrollbar-color: rgba(201,168,76,0.3) transparent;
+  }
+  .jt-modal__scroll::-webkit-scrollbar { width: 4px; }
+  .jt-modal__scroll::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 2px; }
+
+  /* ── Close button ── */
+  .jt-modal__close {
+    position: absolute; top: 14px; right: 14px; z-index: 10;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(0,0,0,0.06); border: 1.5px solid rgba(0,0,0,0.09);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; color: #555; transition: all 0.22s ease;
+  }
+  .jt-modal__close svg { width: 15px; height: 15px; }
+  .jt-modal__close:hover { background: #6D1A36; border-color: #6D1A36; color: #fff; transform: rotate(90deg); }
+
+  /* ── Heading ── */
+  .jt-form__heading { margin-bottom: 22px; }
+  .jt-form__heading h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 3vw, 25px); color: #6D1A36; margin-bottom: 4px;
+  }
+  .jt-form__heading p { font-family: 'Poppins', sans-serif; font-size: 13px; color: #888; }
+
+  /* ── Step bar ── */
+  .jt-steps { display: flex; align-items: center; margin-bottom: 26px; }
+  .jt-step-dot-wrap { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .jt-step-dot {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: rgba(0,0,0,0.06); border: 2px solid rgba(0,0,0,0.12);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Poppins', sans-serif; font-size: 11px; font-weight: 700; color: #aaa;
+    transition: all 0.3s ease;
+  }
+  .jt-step-label {
+    font-family: 'Poppins', sans-serif; font-size: 9px;
+    text-transform: uppercase; letter-spacing: 0.1em; color: #bbb; transition: all 0.3s;
+  }
+  .jt-step-line {
+    flex: 1; height: 2px; background: rgba(0,0,0,0.08);
+    margin: 0 6px 16px; transition: background 0.4s ease;
+  }
+  .jt-step-dot-wrap.active .jt-step-dot { background: #6D1A36; border-color: #6D1A36; color: #fff; box-shadow: 0 0 0 4px rgba(109,26,54,0.14); }
+  .jt-step-dot-wrap.active .jt-step-label { color: #6D1A36; font-weight: 600; }
+  .jt-step-dot-wrap.done .jt-step-dot { background: #C9A84C; border-color: #C9A84C; color: #6D1A36; font-size: 0; }
+  .jt-step-dot-wrap.done .jt-step-dot::after { content: '✓'; font-size: 13px; }
+  .jt-step-dot-wrap.done .jt-step-label { color: #C9A84C; }
+  .jt-step-line.done { background: #C9A84C; }
+
+  /* ── Step panels ── */
+  .jt-step-panel { display: none; }
+  .jt-step-panel.active { display: block; animation: jtFadeIn 0.3s ease; }
+  @keyframes jtFadeIn { from { opacity: 0; transform: translateX(12px); } to { opacity: 1; transform: translateX(0); } }
+
+  /* ── Fields ── */
+  .jt-field { display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
+  .jt-field label {
+    font-family: 'Poppins', sans-serif; font-size: 10px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.12em; color: #777;
+  }
+  .jt-field label .req { color: #C0392B; }
+  .jt-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .jt-input-wrap { position: relative; display: flex; align-items: center; }
+  .jt-input-ico { position: absolute; left: 13px; font-size: 15px; pointer-events: none; line-height: 1; z-index: 1; }
+  .jt-input-wrap input {
+    width: 100%; padding: 11px 42px 11px 40px;
+    font-family: 'Poppins', sans-serif; font-size: 13.5px; color: #2d2d2d;
+    background: #fff; border: 1.5px solid rgba(0,0,0,0.1); border-radius: 10px;
+    outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+    -webkit-appearance: none; appearance: none;
+  }
+  .jt-input-wrap input::placeholder { color: rgba(0,0,0,0.25); }
+  .jt-input-wrap input:focus { border-color: #C9A84C; background: #fffdf9; box-shadow: 0 0 0 3px rgba(201,168,76,0.15); }
+  .jt-input-wrap input.err { border-color: #C0392B; box-shadow: 0 0 0 3px rgba(192,57,43,0.1); }
+  .jt-input-wrap input.ok  { border-color: #27AE60; }
+  .jt-field-err { font-family: 'Poppins', sans-serif; font-size: 10.5px; color: #C0392B; min-height: 13px; }
+  .jt-eye {
+    position: absolute; right: 12px; background: none; border: none;
+    cursor: pointer; padding: 3px; color: #bbb; display: flex; transition: color 0.2s;
+  }
+  .jt-eye svg { width: 17px; height: 17px; }
+  .jt-eye:hover { color: #6D1A36; }
+  .jt-card-badge {
+    position: absolute; right: 13px; font-size: 11px; font-weight: 700;
+    font-family: 'Poppins', sans-serif; color: #C9A84C; pointer-events: none; letter-spacing: 0.05em;
+  }
+
+  /* ── Password strength ── */
+  .jt-pw-strength { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+  .jt-pw-track { flex: 1; height: 4px; background: rgba(0,0,0,0.08); border-radius: 2px; overflow: hidden; }
+  .jt-pw-fill { height: 100%; width: 0%; border-radius: 2px; transition: width 0.35s ease, background 0.35s ease; }
+  .jt-pw-txt { font-family: 'Poppins', sans-serif; font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; min-width: 42px; }
+
+  /* ── Plan cards ── */
+  .jt-plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 8px; }
+  .jt-plan-card {
+    position: relative; cursor: pointer; border-radius: 12px;
+    border: 2px solid rgba(0,0,0,0.09); overflow: hidden;
+    transition: border-color 0.25s, box-shadow 0.25s;
+  }
+  .jt-plan-card input[type=radio] { position: absolute; opacity: 0; width: 0; height: 0; }
+  .jt-plan-card__inner { padding: 16px 14px; display: flex; align-items: center; gap: 12px; background: #fff; transition: background 0.2s; }
+  .jt-plan-card:hover .jt-plan-card__inner { background: #fffdf8; }
+  .jt-plan-card.selected { border-color: #C9A84C; box-shadow: 0 0 0 3px rgba(201,168,76,0.18); }
+  .jt-plan-card__ico { font-size: 26px; }
+  .jt-plan-card__info { flex: 1; }
+  .jt-plan-card__info strong { display: block; font-family: 'Playfair Display', serif; font-size: 14px; color: #2d2d2d; }
+  .jt-plan-card__info span { font-family: 'Poppins', sans-serif; font-size: 10px; color: #999; }
+  .jt-plan-card__price { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #6D1A36; }
+  .jt-plan-card__price small { font-family: 'Poppins', sans-serif; font-size: 10px; font-weight: 400; color: #999; }
+  .jt-plan-badge {
+    position: absolute; top: 0; right: 0; background: #C9A84C; color: #6D1A36;
+    font-family: 'Poppins', sans-serif; font-size: 8px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.08em; padding: 3px 10px; border-radius: 0 0 0 10px;
+  }
+  .jt-plan-perks { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin: 12px 0 18px; }
+  .jt-plan-perk { font-family: 'Poppins', sans-serif; font-size: 11px; color: #888; display: flex; align-items: center; gap: 5px; }
+
+  /* ── Order summary ── */
+  .jt-order {
+    background: rgba(109,26,54,0.04); border: 1px solid rgba(109,26,54,0.12);
+    border-radius: 10px; padding: 14px 16px;
+    display: grid; grid-template-columns: 1fr auto; gap: 6px 12px; margin-bottom: 18px;
+  }
+  .jt-order__label { font-family: 'Poppins', sans-serif; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #888; align-self: center; }
+  .jt-order__val { font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 600; color: #2d2d2d; text-align: right; }
+  .jt-order__val--price { font-family: 'Playfair Display', serif; font-size: 20px; color: #6D1A36; }
+
+  /* ── Checkbox ── */
+  .jt-check { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; margin-bottom: 5px; }
+  .jt-check input[type=checkbox] { position: absolute; opacity: 0; width: 0; height: 0; }
+  .jt-check__box {
+    flex-shrink: 0; width: 18px; height: 18px; border-radius: 5px;
+    border: 2px solid rgba(0,0,0,0.15); background: #fff; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+  }
+  .jt-check input:checked ~ .jt-check__box { background: #6D1A36; border-color: #6D1A36; }
+  .jt-check input:checked ~ .jt-check__box::after {
+    content: ''; display: block; width: 5px; height: 9px;
+    border: 2px solid #fff; border-top: none; border-left: none;
+    transform: rotate(45deg) translate(-1px,-1px);
+  }
+  .jt-check__txt { font-family: 'Poppins', sans-serif; font-size: 12.5px; color: #777; line-height: 1.55; }
+  .jt-check__txt a { color: #C9A84C; }
+
+  /* ── Buttons ── */
+  .jt-btn-primary {
+    width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 13px 24px; background: #C9A84C; color: #6D1A36;
+    border: none; border-radius: 99px; font-family: 'Poppins', sans-serif;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.25s; margin-top: 4px;
+  }
+  .jt-btn-primary:hover { background: #b8933e; box-shadow: 0 8px 24px rgba(201,168,76,0.35); transform: translateY(-2px); }
+  .jt-btn-primary svg { width: 15px; height: 15px; }
+
+  .jt-btn-dark {
+    width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 13px 24px; background: #6D1A36; color: #fff;
+    border: none; border-radius: 99px; font-family: 'Poppins', sans-serif;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.25s; margin-top: 4px;
+  }
+  .jt-btn-dark:hover { background: #8a2040; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(109,26,54,0.3); }
+
+  .jt-btn-ghost {
+    display: flex; align-items: center; gap: 6px; padding: 13px 20px;
+    background: transparent; border: 1.5px solid rgba(0,0,0,0.12); border-radius: 99px;
+    font-family: 'Poppins', sans-serif; font-size: 12px; font-weight: 600;
+    color: #888; cursor: pointer; transition: all 0.2s; white-space: nowrap;
+  }
+  .jt-btn-ghost svg { width: 15px; height: 15px; }
+  .jt-btn-ghost:hover { border-color: #6D1A36; color: #6D1A36; }
+  .jt-step-nav { display: grid; grid-template-columns: auto 1fr; gap: 12px; margin-top: 4px; }
+
+  /* ── Spinner ── */
+  .jt-spin { display: none; width: 17px; height: 17px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: jtSpin 0.65s linear infinite; }
+  .jt-spin.on { display: inline-block; }
+  @keyframes jtSpin { to { transform: rotate(360deg); } }
+  .jt-btn-primary .jt-spin { border-color: rgba(109,26,54,0.25); border-top-color: #6D1A36; }
+
+  /* ── Switch / divider ── */
+  .jt-switch { font-family: 'Poppins', sans-serif; font-size: 12.5px; color: #999; text-align: center; margin-top: 16px; }
+  .jt-switch a { color: #C9A84C; font-weight: 600; text-decoration: none; }
+  .jt-switch a:hover { text-decoration: underline; }
+  .jt-divider { display: flex; align-items: center; gap: 12px; margin: 18px 0; }
+  .jt-divider::before, .jt-divider::after { content: ''; flex: 1; height: 1px; background: rgba(0,0,0,0.08); }
+  .jt-divider span { font-family: 'Poppins', sans-serif; font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; color: #bbb; }
+
+  /* ── Login extras ── */
+  .jt-login-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+  .jt-forgot { font-family: 'Poppins', sans-serif; font-size: 12px; color: #C9A84C; text-decoration: none; }
+  .jt-forgot:hover { text-decoration: underline; }
+
+  /* ── Success screen ── */
+  .jt-success { display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 56px 32px; gap: 16px; }
+  .jt-success.show { display: flex; animation: jtFadeIn 0.4s ease; }
+  .jt-success__ico { font-size: 64px; animation: jtBounce 0.55s ease; }
+  @keyframes jtBounce { 0% { transform: scale(0.2); opacity: 0; } 65% { transform: scale(1.18); } 100% { transform: scale(1); opacity: 1; } }
+  .jt-success h2 { font-family: 'Playfair Display', serif; font-size: 22px; color: #6D1A36; }
+  .jt-success p { font-family: 'Poppins', sans-serif; font-size: 13px; color: #888; max-width: 320px; line-height: 1.65; }
+
+  /* ── Form message ── */
+  .jt-msg { font-family: 'Poppins', sans-serif; font-size: 12.5px; text-align: center; padding: 10px 14px; border-radius: 8px; min-height: 20px; margin-top: 10px; }
+  .jt-msg.err { background: rgba(192,57,43,0.08); color: #C0392B; border: 1px solid rgba(192,57,43,0.2); }
+  .jt-msg.ok  { background: rgba(39,174,96,0.08);  color: #27AE60; border: 1px solid rgba(39,174,96,0.2); }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .jt-modal__box { flex-direction: column; }
+    .jt-modal__side { width: 100%; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 14px; padding: 18px 20px; }
+    .jt-modal__side::before, .jt-modal__side::after { display: none; }
+    .jt-side__perks, .jt-side__plans, .jt-side__quote { display: none; }
+    .jt-side__logo { font-size: 26px; }
+    .jt-modal__scroll { padding: 22px 18px; }
+    .jt-plan-grid { grid-template-columns: 1fr; }
+    .jt-plan-perks { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .jt-modal { padding: 0; align-items: flex-end; }
+    .jt-modal__box { max-height: 95dvh; border-radius: 20px 20px 0 0; transform: translateY(30px); }
+    .jt-modal.open .jt-modal__box { transform: translateY(0); }
+    .jt-field-row, .jt-step-nav { grid-template-columns: 1fr; }
+    .jt-step-label { display: none; }
+    .jt-modal__scroll { padding: 18px 14px 24px; }
+  }
+  </style>
+
+  <!-- Backdrop -->
+  <div class="jt-backdrop" id="jtBackdrop"></div>
+
+  <!-- ░░ REGISTER MODAL ░░ -->
+  <div class="jt-modal" id="jtRegModal" role="dialog" aria-modal="true" aria-label="Register">
+    <div class="jt-modal__box">
+      <div class="jt-modal__side">
+        <div class="jt-side__logo">James<span>Thew</span></div>
+        <p class="jt-side__tagline">Master Chef &amp; Culinary Artist</p>
+        <ul class="jt-side__perks">
+          <li>👑 Full recipe library access</li>
+          <li>🔥 Exclusive pro cooking tips</li>
+          <li>🏆 Contest participation</li>
+          <li>📖 Recipe submission &amp; feedback</li>
+          <li>📢 Early announcements</li>
+        </ul>
+        <div class="jt-side__plans">
+          <div class="jt-side__plan"><span>Monthly</span><strong>$10</strong></div>
+          <div class="jt-side__plan jt-side__plan--best"><span>Yearly</span><strong>$100</strong><em>Best Value</em></div>
+        </div>
+      </div>
+      <div class="jt-modal__body">
+        <button class="jt-modal__close" id="jtRegClose" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <div class="jt-modal__scroll">
+          <!-- Step bar -->
+          <div class="jt-steps" id="regStepBar">
+            <div class="jt-step-dot-wrap active" data-s="1"><div class="jt-step-dot">1</div><span class="jt-step-label">Personal</span></div>
+            <div class="jt-step-line" id="regLine1"></div>
+            <div class="jt-step-dot-wrap" data-s="2"><div class="jt-step-dot">2</div><span class="jt-step-label">Plan</span></div>
+            <div class="jt-step-line" id="regLine2"></div>
+            <div class="jt-step-dot-wrap" data-s="3"><div class="jt-step-dot">3</div><span class="jt-step-label">Payment</span></div>
+          </div>
+
+          <!-- Step 1 -->
+          <div class="jt-step-panel active" id="rStep1">
+            <div class="jt-form__heading"><h2>Create Your Account</h2><p>Join thousands of food lovers learning from James Thew.</p></div>
+            <div class="jt-field-row">
+              <div class="jt-field"><label>First Name <span class="req">*</span></label><div class="jt-input-wrap"><span class="jt-input-ico">👤</span><input type="text" id="rFirstName" placeholder="Maria" autocomplete="given-name"></div><div class="jt-field-err" id="eFirstName"></div></div>
+              <div class="jt-field"><label>Last Name <span class="req">*</span></label><div class="jt-input-wrap"><span class="jt-input-ico">👤</span><input type="text" id="rLastName" placeholder="Rossi" autocomplete="family-name"></div><div class="jt-field-err" id="eLastName"></div></div>
+            </div>
+            <div class="jt-field"><label>Email Address <span class="req">*</span></label><div class="jt-input-wrap"><span class="jt-input-ico">✉️</span><input type="email" id="rEmail" placeholder="you@example.com" autocomplete="email"></div><div class="jt-field-err" id="eEmail"></div></div>
+            <div class="jt-field"><label>Phone Number <span class="req">*</span></label><div class="jt-input-wrap"><span class="jt-input-ico">📞</span><input type="tel" id="rPhone" placeholder="+1 (555) 000-0000" autocomplete="tel"></div><div class="jt-field-err" id="ePhone"></div></div>
+            <div class="jt-field-row">
+              <div class="jt-field">
+                <label>Password <span class="req">*</span></label>
+                <div class="jt-input-wrap"><span class="jt-input-ico">🔒</span><input type="password" id="rPassword" placeholder="Min. 8 characters" autocomplete="new-password"><button type="button" class="jt-eye" data-tgt="rPassword"><svg class="ev-show" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><svg class="ev-hide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94"/><line x1="1" y1="1" x2="23" y2="23"/></svg></button></div>
+                <div class="jt-pw-strength"><div class="jt-pw-track"><div class="jt-pw-fill" id="pwFill"></div></div><span class="jt-pw-txt" id="pwTxt"></span></div>
+                <div class="jt-field-err" id="ePassword"></div>
+              </div>
+              <div class="jt-field">
+                <label>Confirm Password <span class="req">*</span></label>
+                <div class="jt-input-wrap"><span class="jt-input-ico">🔒</span><input type="password" id="rConfirm" placeholder="Repeat password" autocomplete="new-password"><button type="button" class="jt-eye" data-tgt="rConfirm"><svg class="ev-show" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><svg class="ev-hide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94"/><line x1="1" y1="1" x2="23" y2="23"/></svg></button></div>
+                <div class="jt-field-err" id="eConfirm"></div>
+              </div>
+            </div>
+            <div class="jt-field"><label>Date of Birth <span class="req">*</span></label><div class="jt-input-wrap"><span class="jt-input-ico">🎂</span><input type="date" id="rDob" autocomplete="bday"></div><div class="jt-field-err" id="eDob"></div></div>
+            <button class="jt-btn-primary" id="rNext1">Continue to Plan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></button>
+            <p class="jt-switch">Already have an account? <a href="#" data-modal="login">Sign In</a></p>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="jt-step-panel" id="rStep2">
+            <div class="jt-form__heading"><h2>Choose Your Plan</h2><p>Unlock the full James Thew experience.</p></div>
+            <div class="jt-plan-grid">
+              <label class="jt-plan-card" id="pcMonthly" for="planMonthly"><input type="radio" name="jtPlan" id="planMonthly" value="monthly"><div class="jt-plan-card__inner"><div class="jt-plan-card__ico">📅</div><div class="jt-plan-card__info"><strong>Monthly</strong><span>Billed each month</span></div><div class="jt-plan-card__price">$10<small>/mo</small></div></div></label>
+              <label class="jt-plan-card" id="pcYearly" for="planYearly"><div class="jt-plan-badge">Best Value</div><input type="radio" name="jtPlan" id="planYearly" value="yearly" checked><div class="jt-plan-card__inner"><div class="jt-plan-card__ico">🏆</div><div class="jt-plan-card__info"><strong>Yearly</strong><span>Billed annually</span></div><div class="jt-plan-card__price">$100<small>/yr</small></div></div></label>
+            </div>
+            <div class="jt-field-err" id="ePlan"></div>
+            <div class="jt-plan-perks"><div class="jt-plan-perk">✔ All recipes unlocked</div><div class="jt-plan-perk">✔ Exclusive tips access</div><div class="jt-plan-perk">✔ Contest participation</div><div class="jt-plan-perk">✔ Feedback from James</div></div>
+            <div class="jt-step-nav">
+              <button class="jt-btn-ghost" id="rBack2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg> Back</button>
+              <button class="jt-btn-primary" id="rNext2">Continue to Payment <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></button>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="jt-step-panel" id="rStep3">
+            <div class="jt-form__heading"><h2>Payment Details</h2><p>Secure &amp; encrypted. 🔐 We never store your card.</p></div>
+            <div class="jt-order"><span class="jt-order__label">Selected Plan</span><span class="jt-order__val" id="oSummaryPlan">Yearly Membership</span><span class="jt-order__label">Total Due Today</span><span class="jt-order__val jt-order__val--price" id="oSummaryPrice">$100.00</span></div>
+            <div class="jt-field"><label>Name on Card <span class="req">*</span></label><div class="jt-input-wrap"><span class="jt-input-ico">👤</span><input type="text" id="rCardName" placeholder="As on card" autocomplete="cc-name"></div><div class="jt-field-err" id="eCardName"></div></div>
+            <div class="jt-field"><label>Card Number <span class="req">*</span></label><div class="jt-input-wrap"><span class="jt-input-ico">💳</span><input type="text" id="rCardNum" placeholder="1234  5678  9012  3456" maxlength="19" inputmode="numeric"><span class="jt-card-badge" id="cardBrand"></span></div><div class="jt-field-err" id="eCardNum"></div></div>
+            <div class="jt-field-row">
+              <div class="jt-field"><label>Expiry <span class="req">*</span></label><div class="jt-input-wrap"><span class="jt-input-ico">📅</span><input type="text" id="rExpiry" placeholder="MM / YY" maxlength="7" inputmode="numeric"></div><div class="jt-field-err" id="eExpiry"></div></div>
+              <div class="jt-field"><label>CVV <span class="req">*</span></label><div class="jt-input-wrap"><span class="jt-input-ico">🔒</span><input type="text" id="rCvv" placeholder="3–4 digits" maxlength="4" inputmode="numeric"></div><div class="jt-field-err" id="eCvv"></div></div>
+            </div>
+            <label class="jt-check" for="rTerms"><input type="checkbox" id="rTerms"><span class="jt-check__box"></span><span class="jt-check__txt">I agree to the <a href="terms.html" target="_blank">Terms &amp; Conditions</a> and <a href="privacy.html" target="_blank">Privacy Policy</a></span></label>
+            <div class="jt-field-err" id="eTerms"></div>
+            <div class="jt-step-nav">
+              <button class="jt-btn-ghost" id="rBack3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg> Back</button>
+              <button class="jt-btn-dark" id="rSubmit"><span id="rSubmitLbl">Complete Registration</span><span class="jt-spin" id="rSpin"></span></button>
+            </div>
+            <div class="jt-msg" id="rMsg"></div>
+          </div>
+
+          <!-- Success -->
+          <div class="jt-success" id="rSuccess">
+            <div class="jt-success__ico">🎉</div>
+            <h2>Welcome to James Thew!</h2>
+            <p>Your account is ready. Start exploring world-class recipes, tips, and contests.</p>
+            <button class="jt-btn-primary" onclick="jtCloseAll()">Start Cooking →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ░░ LOGIN MODAL ░░ -->
+  <div class="jt-modal" id="jtLoginModal" role="dialog" aria-modal="true" aria-label="Sign In">
+    <div class="jt-modal__box">
+      <div class="jt-modal__side">
+        <div class="jt-side__logo">James<span>Thew</span></div>
+        <p class="jt-side__tagline">Welcome Back, Chef 👨‍🍳</p>
+        <div class="jt-side__quote">"Cooking is not just about food — it is about passion, love, and the joy of sharing."<cite>— James Thew</cite></div>
+      </div>
+      <div class="jt-modal__body">
+        <button class="jt-modal__close" id="jtLoginClose" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <div class="jt-modal__scroll">
+          <div class="jt-form__heading"><h2>Sign In to Your Account</h2><p>Access your recipes, tips, and contest entries.</p></div>
+          <div class="jt-field"><label>Email Address <span class="req">*</span></label><div class="jt-input-wrap"><span class="jt-input-ico">✉️</span><input type="email" id="lEmail" placeholder="you@example.com" autocomplete="email"></div><div class="jt-field-err" id="eLEmail"></div></div>
+          <div class="jt-field"><label>Password <span class="req">*</span></label><div class="jt-input-wrap"><span class="jt-input-ico">🔒</span><input type="password" id="lPassword" placeholder="Your password" autocomplete="current-password"><button type="button" class="jt-eye" data-tgt="lPassword"><svg class="ev-show" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><svg class="ev-hide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94"/><line x1="1" y1="1" x2="23" y2="23"/></svg></button></div><div class="jt-field-err" id="eLPass"></div></div>
+          <div class="jt-login-row"><label class="jt-check" for="lRemember"><input type="checkbox" id="lRemember"><span class="jt-check__box"></span><span class="jt-check__txt">Remember me</span></label><a href="#" class="jt-forgot">Forgot password?</a></div>
+          <button class="jt-btn-dark" id="lSubmit"><span id="lSubmitLbl">Sign In</span><span class="jt-spin" id="lSpin"></span></button>
+          <div class="jt-msg" id="lMsg"></div>
+          <div class="jt-divider"><span>or</span></div>
+          <p class="jt-switch">Don't have an account? <a href="#" data-modal="register">Create one free →</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function () {
+    'use strict';
+    const backdrop   = document.getElementById('jtBackdrop');
+    const regModal   = document.getElementById('jtRegModal');
+    const loginModal = document.getElementById('jtLoginModal');
+    const $ = id => document.getElementById(id);
+
+    function openModal(which) {
+      jtCloseAll(false);
+      backdrop.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      if (which === 'register') { regModal.classList.add('open'); setTimeout(() => $('rFirstName')?.focus(), 350); }
+      else { loginModal.classList.add('open'); setTimeout(() => $('lEmail')?.focus(), 350); }
+    }
+
+    window.jtCloseAll = function (unlock) {
+      if (unlock !== false) document.body.style.overflow = '';
+      backdrop.classList.remove('open');
+      regModal.classList.remove('open');
+      loginModal.classList.remove('open');
+    };
+
+    backdrop.addEventListener('click', () => jtCloseAll());
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') jtCloseAll(); });
+    $('jtRegClose').addEventListener('click',   () => jtCloseAll());
+    $('jtLoginClose').addEventListener('click', () => jtCloseAll());
+
+    document.addEventListener('click', e => {
+      const t = e.target.closest('[data-modal]');
+      if (t) { e.preventDefault(); openModal(t.dataset.modal); }
+    });
+
+    /* Steps */
+    let curStep = 1;
+    function goStep(n) {
+      curStep = n;
+      document.querySelectorAll('#jtRegModal .jt-step-panel').forEach((p, i) => p.classList.toggle('active', i + 1 === n));
+      document.querySelectorAll('#jtRegModal .jt-step-dot-wrap').forEach(d => {
+        const s = +d.dataset.s;
+        d.classList.toggle('active', s === n);
+        d.classList.toggle('done', s < n);
+      });
+      $('regLine1').classList.toggle('done', n > 1);
+      $('regLine2').classList.toggle('done', n > 2);
+      regModal.querySelector('.jt-modal__scroll').scrollTop = 0;
+    }
+    $('rNext1').addEventListener('click', () => { if (v1()) goStep(2); });
+    $('rNext2').addEventListener('click', () => { if (v2()) { syncOrder(); goStep(3); } });
+    $('rBack2').addEventListener('click', () => goStep(1));
+    $('rBack3').addEventListener('click', () => goStep(2));
+
+    /* Validation */
+    function setE(i, e, m) { const inp=$( i),err=$(e); inp&&(inp.classList.add('err'),inp.classList.remove('ok')); err&&(err.textContent=m); }
+    function clrE(i, e)    { const inp=$(i),err=$(e); inp&&(inp.classList.remove('err'),inp.classList.add('ok')); err&&(err.textContent=''); }
+    function req(i, e, m)  { const v=$(i)?.value.trim(); if(!v){setE(i,e,m);return false;} clrE(i,e);return true; }
+
+    function v1() {
+      let ok=true;
+      ok=req('rFirstName','eFirstName','First name required')&&ok;
+      ok=req('rLastName','eLastName','Last name required')&&ok;
+      const em=$('rEmail')?.value.trim();
+      if(!em||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){setE('rEmail','eEmail','Enter a valid email');ok=false;}else clrE('rEmail','eEmail');
+      ok=req('rPhone','ePhone','Phone number required')&&ok;
+      const pw=$('rPassword')?.value;
+      if(!pw||pw.length<8){setE('rPassword','ePassword','Min. 8 characters');ok=false;}else clrE('rPassword','ePassword');
+      const cp=$('rConfirm')?.value;
+      if(!cp){setE('rConfirm','eConfirm','Please confirm password');ok=false;}
+      else if(pw!==cp){setE('rConfirm','eConfirm','Passwords do not match');ok=false;}
+      else clrE('rConfirm','eConfirm');
+      ok=req('rDob','eDob','Date of birth required')&&ok;
+      return ok;
+    }
+    function v2() {
+      if(!document.querySelector('input[name="jtPlan"]:checked')){$('ePlan').textContent='Please choose a plan.';return false;}
+      $('ePlan').textContent='';return true;
+    }
+    function v3() {
+      let ok=true;
+      ok=req('rCardName','eCardName','Name on card required')&&ok;
+      const cn=$('rCardNum')?.value.replace(/\s/g,'');
+      if(!cn||cn.length<13){setE('rCardNum','eCardNum','Enter a valid card number');ok=false;}else clrE('rCardNum','eCardNum');
+      const ex=$('rExpiry')?.value.trim();
+      if(!ex||!/^\d{2}\s*\/\s*\d{2}$/.test(ex)){setE('rExpiry','eExpiry','Use MM / YY format');ok=false;}else clrE('rExpiry','eExpiry');
+      const cv=$('rCvv')?.value.trim();
+      if(!cv||cv.length<3){setE('rCvv','eCvv','Enter a valid CVV');ok=false;}else clrE('rCvv','eCvv');
+      if(!$('rTerms')?.checked){$('eTerms').textContent='You must agree to continue.';ok=false;}else $('eTerms').textContent='';
+      return ok;
+    }
+
+    function syncOrder() {
+      const p=document.querySelector('input[name="jtPlan"]:checked')?.value;
+      $('oSummaryPlan').textContent=p==='yearly'?'Yearly Membership':'Monthly Membership';
+      $('oSummaryPrice').textContent=p==='yearly'?'$100.00':'$10.00';
+    }
+
+    /* Plan highlight */
+    document.querySelectorAll('input[name="jtPlan"]').forEach(r => r.addEventListener('change', () => {
+      $('pcMonthly').classList.toggle('selected',$('planMonthly').checked);
+      $('pcYearly').classList.toggle('selected',$('planYearly').checked);
+    }));
+    $('pcYearly').classList.add('selected');
+
+    /* Password strength */
+    $('rPassword')?.addEventListener('input', function() {
+      const pw=this.value; let s=0;
+      if(pw.length>=8)s++; if(/[A-Z]/.test(pw))s++; if(/[0-9]/.test(pw))s++; if(/[^A-Za-z0-9]/.test(pw))s++;
+      const lvl=[{w:'0%',c:'transparent',t:''},{w:'25%',c:'#C0392B',t:'Weak'},{w:'50%',c:'#F39C12',t:'Fair'},{w:'75%',c:'#2980B9',t:'Good'},{w:'100%',c:'#27AE60',t:'Strong'}][s];
+      $('pwFill').style.width=lvl.w; $('pwFill').style.background=lvl.c;
+      $('pwTxt').textContent=lvl.t; $('pwTxt').style.color=lvl.c;
+    });
+
+    /* Eye toggles */
+    document.querySelectorAll('.jt-eye').forEach(btn => btn.addEventListener('click', () => {
+      const inp=$(btn.dataset.tgt); if(!inp)return;
+      const t=inp.type==='text'; inp.type=t?'password':'text';
+      btn.querySelector('.ev-show').style.display=t?'block':'none';
+      btn.querySelector('.ev-hide').style.display=t?'none':'block';
+    }));
+
+    /* Card formatting */
+    $('rCardNum')?.addEventListener('input', function() {
+      const v=this.value.replace(/\D/g,'').slice(0,16);
+      this.value=v.replace(/(.{4})/g,'$1  ').trim();
+      const b=$('cardBrand');
+      b.textContent=/^4/.test(v)?'VISA':/^5[1-5]/.test(v)?'MC':/^3[47]/.test(v)?'AMEX':/^6(?:011|5)/.test(v)?'DISC':'';
+    });
+    $('rExpiry')?.addEventListener('input', function() {
+      let v=this.value.replace(/\D/g,'').slice(0,4);
+      if(v.length>=3)v=v.slice(0,2)+' / '+v.slice(2); this.value=v;
+    });
+    $('rCvv')?.addEventListener('input', function() { this.value=this.value.replace(/\D/g,'').slice(0,4); });
+
+    /* Register submit */
+    $('rSubmit')?.addEventListener('click', () => {
+      if(!v3())return;
+      const btn=$('rSubmit'),lbl=$('rSubmitLbl'),spin=$('rSpin');
+      btn.disabled=true; lbl.textContent='Processing…'; spin.classList.add('on');
+      setTimeout(() => {
+        btn.disabled=false; lbl.textContent='Complete Registration'; spin.classList.remove('on');
+        document.querySelectorAll('#jtRegModal .jt-step-panel').forEach(p=>p.classList.remove('active'));
+        $('regStepBar').style.display='none';
+        $('rSuccess').classList.add('show');
+        regModal.querySelector('.jt-modal__scroll').scrollTop=0;
+      }, 1500);
+    });
+
+    /* Login submit */
+    $('lSubmit')?.addEventListener('click', () => {
+      const em=$('lEmail')?.value.trim(), pw=$('lPassword')?.value; let ok=true;
+      if(!em||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){setE('lEmail','eLEmail','Enter a valid email');ok=false;}else clrE('lEmail','eLEmail');
+      if(!pw){setE('lPassword','eLPass','Password is required');ok=false;}else clrE('lPassword','eLPass');
+      if(!ok)return;
+      const btn=$('lSubmit'),lbl=$('lSubmitLbl'),spin=$('lSpin'),msg=$('lMsg');
+      btn.disabled=true; lbl.textContent='Signing in…'; spin.classList.add('on'); msg.textContent=''; msg.className='jt-msg';
+      setTimeout(() => {
+        btn.disabled=false; lbl.textContent='Sign In'; spin.classList.remove('on');
+        msg.textContent='✓ Signed in successfully! Welcome back.'; msg.className='jt-msg ok';
+      }, 1200);
+    });
+
+    /* Reset on close */
+    const _orig=window.jtCloseAll;
+    window.jtCloseAll=function(unlock) {
+      _orig(unlock);
+      document.querySelectorAll('#jtRegModal input').forEach(i => {
+        if(i.type==='radio'){i.checked=i.value==='yearly';return;} if(i.type==='checkbox'){i.checked=false;return;}
+        i.value=''; i.classList.remove('err','ok');
+      });
+      document.querySelectorAll('#jtRegModal .jt-field-err').forEach(e=>e.textContent='');
+      $('pwFill').style.cssText='width:0%;background:transparent';
+      $('pwTxt').textContent=''; $('cardBrand').textContent='';
+      $('regStepBar').style.display=''; $('rSuccess').classList.remove('show');
+      $('pcYearly').classList.add('selected'); $('pcMonthly').classList.remove('selected');
+      goStep(1);
+      document.querySelectorAll('#jtLoginModal input').forEach(i => { if(i.type!=='checkbox')i.value=''; i.classList.remove('err','ok'); });
+      document.querySelectorAll('#jtLoginModal .jt-field-err').forEach(e=>e.textContent='');
+      $('lMsg').textContent=''; $('lMsg').className='jt-msg';
+    };
+  })();
+  </script>
+
+</body>
+</html>

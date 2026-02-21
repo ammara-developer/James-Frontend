@@ -18,22 +18,527 @@
   <link rel="stylesheet" href="assets/css/style.css">
 <link rel="stylesheet" href="assets/css/components.css">
 <link rel="stylesheet" href="assets/css/responsive.css">
+<link rel="stylesheet" href="assets/css/login-register.css">
   <title>James Thew - Premium Chef</title>
 </head>
 <body>
  
-  <div id="navbar"></div>
+  <div id="navbar"></div> 
+<section class="chef-hero">
+    <div class="hero-spotlight"></div>
+
+    <div class="hero-inner">
+        <div class="orbit-wheel left-orbit">
+            <div class="orbit-item" style="--i:1;" data-name="Italian"><span>🍕</span></div>
+            <div class="orbit-item" style="--i:2;" data-name="Vegetarian"><span>🥗</span></div>
+            <div class="orbit-item" style="--i:3;" data-name="Indian"><span>🥘</span></div>
+            <div class="orbit-item" style="--i:4;" data-name="Mexican"><span>🌮</span></div>
+            <div class="orbit-item" style="--i:5;" data-name="Chinese"><span>🥡</span></div>
+            <div class="orbit-item" style="--i:6;" data-name="Baking"><span>🧁</span></div>
+        </div>
+
+        <div class="hero-content">
+            <div class="chef-frame">
+    <img src="assets/images/hero-chef.png" alt="Chef James Thew" class="chef-image">
+</div>
+            
+            <div class="hero-text">
+                <h2 class="signature">James Thew</h2>
+                <h1 class="main-title">Master the Art of <span class="gold-text">Fine Cooking</span></h1>
+                <p class="subtitle">Bringing world-class recipes and culinary expertise to your kitchen.</p>
+                <button class="cta-button">Start Cooking</button>
+            </div>
+        </div>
+
+        <div class="orbit-wheel right-orbit">
+            <div class="orbit-item" style="--i:1;" data-name="Desserts"><span>🍰</span></div>
+            <div class="orbit-item" style="--i:2;" data-name="French"><span>🥐</span></div>
+            <div class="orbit-item" style="--i:3;" data-name="Japanese"><span>🍣</span></div>
+            <div class="orbit-item" style="--i:4;" data-name="Steaks"><span>🥩</span></div>
+            <div class="orbit-item" style="--i:5;" data-name="Seafood"><span>🍤</span></div>
+            <div class="orbit-item" style="--i:6;" data-name="Healthy"><span>🥑</span></div>
+        </div>
+    </div>
+</section>
 
 
-  
 
 
- 
+<!-- ============================================================
+     JamesThew.com — Home Page Main Content
+     Plug this between your <navbar> and <footer> includes.
+     Link: <link rel="stylesheet" href="home.css">
+           <script defer src="home.js"></script>
+     ============================================================ -->
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 1 · HERO
+     ═══════════════════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero__bg-pattern"></div>
+  <div class="hero__glow"></div>
+
+  <div class="container hero__inner">
+    <!-- Left copy -->
+    <div class="hero__copy" data-reveal>
+      <span class="hero__eyebrow">Master Chef &amp; Culinary Artist</span>
+      <h1 class="hero__title">
+        The Art of <br>
+        <em class="hero__title-script">Fine Cooking</em><br>
+        by James Thew
+      </h1>
+      <p class="hero__sub">
+        World-class recipes, professional tips, and the passion of a
+        five-star kitchen — brought straight to your home.
+      </p>
+      <div class="hero__actions">
+        <a href="recipes.html" class="btn btn--primary">Explore Recipes</a>
+        <a href="about.html" class="btn btn--ghost">Meet James</a>
+      </div>
+
+      <!-- Stats row — FETCH FROM BACKEND -->
+      <div class="hero__stats" id="heroStats">
+        <!-- Backend: GET /api/stats → { recipes, members, contests } -->
+        <div class="stat">
+          <span class="stat__num" data-count="320">0</span>
+          <span class="stat__label">Recipes</span>
+        </div>
+        <div class="stat__divider"></div>
+        <div class="stat">
+          <span class="stat__num" data-count="12000">0</span>
+          <span class="stat__label">Members</span>
+        </div>
+        <div class="stat__divider"></div>
+        <div class="stat">
+          <span class="stat__num" data-count="48">0</span>
+          <span class="stat__label">Contests Held</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right image placeholder — FETCH FROM BACKEND -->
+    <!-- Backend: GET /api/chef/profile-image → { url } -->
+    <div class="hero__portrait" data-reveal data-delay="200">
+      <div class="hero__portrait-frame">
+        <div class="hero__portrait-img">
+          <!-- Replace src with backend image URL -->
+          <img src="assets/images/profile.jpg" alt="Chef James Thew" onerror="this.parentElement.classList.add('no-img')">
+          <div class="hero__portrait-placeholder">
+            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="40" cy="28" r="16" stroke="currentColor" stroke-width="2"/>
+              <path d="M10 74c0-16.569 13.431-30 30-30s30 13.431 30 30" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            <span>Chef Photo</span>
+          </div>
+        </div>
+        <div class="hero__badge">
+          <span class="hero__badge-icon">👨‍🍳</span>
+          <div>
+            <strong>James Thew</strong>
+            <small>5-Star Chef</small>
+          </div>
+        </div>
+      </div>
+      <div class="hero__portrait-accent"></div>
+    </div>
+  </div>
+
+  <!-- Wave separator -->
+  <div class="hero__wave">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,40 C240,90 480,0 720,45 C960,90 1200,10 1440,50 L1440,90 L0,90 Z" fill="var(--color-background)"/>
+    </svg>
+  </div>
+</section>
 
 
-  
-  <div id="footer"></div>
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 2 · ABOUT / INTRODUCTION
+     ═══════════════════════════════════════════════════════════ -->
+<section class="about" id="about">
+  <div class="container about__inner">
+
+    <div class="about__media" data-reveal>
+      <div class="about__img-stack">
+        <!-- FETCH FROM BACKEND: GET /api/chef/gallery → [{ url, alt }] -->
+        <div class="about__img about__img--main">
+          <img src="assets/images/img1.jpg" alt="James Thew cooking" onerror="this.parentElement.classList.add('no-img')">
+          <div class="about__img-placeholder">Cooking Photo</div>
+        </div>
+        <div class="about__img about__img--accent">
+          <img src="assets/images/italian.jpg" alt="James in kitchen" onerror="this.parentElement.classList.add('no-img')">
+          <div class="about__img-placeholder">Kitchen Photo</div>
+        </div>
+      </div>
+      <div class="about__experience-card">
+        <span class="about__exp-num">20+</span>
+        <span class="about__exp-label">Years of Culinary Excellence</span>
+      </div>
+    </div>
+
+    <div class="about__copy" data-reveal data-delay="150">
+      <span class="section-eyebrow">About James Thew</span>
+      <h2 class="section-title">A Passion Cooked <br><em>Over a Lifetime</em></h2>
+
+      <p>
+        James Thew is one of the most celebrated chefs working in the finest five-star
+        hotels in the city. His talent caught the attention of publishers who invited him
+        to author recipe books, and television producers who featured him on popular
+        cookery shows — spanning everything from vibrant juices and drinks to intricate
+        Italian cuisine, hearty non-vegetarian feasts, and delicate vegetarian plates.
+      </p>
+      <p>
+        But for James, cooking has always been more than a profession. During his free
+        time he experiments with new recipes he discovers on his travels, constantly
+        refining techniques and discovering unexpected flavour combinations. That same
+        curiosity drove him to open weekend cookery classes near his home — intimate,
+        affordable sessions where he shares his expertise with anyone eager to learn.
+      </p>
+      <p>
+        Today, James brings that same spirit online. This website is his kitchen table
+        open to the world — a place to explore his recipes, pick up professional tips,
+        join exciting contests, and become part of a growing community of food lovers.
+      </p>
+
+      <div class="about__highlights">
+        <div class="highlight-pill">📺 TV Show Appearances</div>
+        <div class="highlight-pill">📖 Published Recipe Books</div>
+        <div class="highlight-pill">🍴 Weekend Cookery Classes</div>
+        <div class="highlight-pill">🏆 Award-Winning Chef</div>
+      </div>
+
+      <a href="about.html" class="btn btn--primary">Full Biography</a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 3 · PASSION / SPECIALITIES
+     ═══════════════════════════════════════════════════════════ -->
+<section class="passion" id="passion">
+  <div class="passion__bg"></div>
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <span class="section-eyebrow section-eyebrow--light">His Craft</span>
+      <h2 class="section-title section-title--light">Where Passion <em>Meets the Plate</em></h2>
+      <p class="section-desc section-desc--light">
+        James's culinary world spans continents and cultures — each category
+        a story told through flavour, technique, and heart.
+      </p>
+    </div>
+
+    <div class="passion__grid">
+      <div class="passion__card" data-reveal data-delay="0">
+        <div class="passion__card-icon">🥗</div>
+        <h3>Vegetarian</h3>
+        <p>Garden-fresh ingredients elevated to restaurant-grade dishes full of colour, texture, and depth.</p>
+        <a href="recipes.html?cat=vegetarian" class="passion__link">Browse Recipes →</a>
+      </div>
+      <div class="passion__card" data-reveal data-delay="80">
+        <div class="passion__card-icon">🥩</div>
+        <h3>Non-Vegetarian</h3>
+        <p>Classic and contemporary meat dishes crafted with precision — from slow-cooked roasts to bold grills.</p>
+        <a href="recipes.html?cat=non-vegetarian" class="passion__link">Browse Recipes →</a>
+      </div>
+      <div class="passion__card" data-reveal data-delay="160">
+        <div class="passion__card-icon">🍝</div>
+        <h3>Italian</h3>
+        <p>Handmade pasta, rich ragùs, delicate risottos — James's Italian repertoire honours tradition and innovation.</p>
+        <a href="recipes.html?cat=italian" class="passion__link">Browse Recipes →</a>
+      </div>
+      <div class="passion__card" data-reveal data-delay="240">
+        <div class="passion__card-icon">🥤</div>
+        <h3>Juices &amp; Drinks</h3>
+        <p>Vibrant blends, infused waters, and artisanal mocktails that complement every meal James creates.</p>
+        <a href="recipes.html?cat=juices" class="passion__link">Browse Recipes →</a>
+      </div>
+      <div class="passion__card" data-reveal data-delay="320">
+        <div class="passion__card-icon">🍮</div>
+        <h3>Desserts</h3>
+        <p>From silky panna cottas to layered tarts — James's sweet finales leave a lasting impression.</p>
+        <a href="recipes.html?cat=desserts" class="passion__link">Browse Recipes →</a>
+      </div>
+      <div class="passion__card" data-reveal data-delay="400">
+        <div class="passion__card-icon">🥞</div>
+        <h3>Breakfast</h3>
+        <p>Nourishing mornings, elevated. Power-packed stacks, continental spreads, and wholesome bowls.</p>
+        <a href="recipes.html?cat=breakfast" class="passion__link">Browse Recipes →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 4 · FEATURED RECIPES — FETCH FROM BACKEND
+     ═══════════════════════════════════════════════════════════ -->
+<section class="featured-recipes" id="featuredRecipes">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <span class="section-eyebrow">On The Menu</span>
+      <h2 class="section-title">Featured <em>Recipes</em></h2>
+      <p class="section-desc">Hand-picked by James — try these fan favourites today.</p>
+    </div>
+
+    <!-- FETCH FROM BACKEND: GET /api/recipes?featured=true&limit=6
+         Response: [{ id, title, category, image, isFree, rating, prepTime }] -->
+    <div class="recipe-grid" id="recipeGrid">
+      <!-- JS will inject recipe cards here from backend -->
+      <!-- Skeleton loaders shown until data arrives -->
+      <div class="recipe-card skeleton"></div>
+      <div class="recipe-card skeleton"></div>
+      <div class="recipe-card skeleton"></div>
+      <div class="recipe-card skeleton"></div>
+      <div class="recipe-card skeleton"></div>
+      <div class="recipe-card skeleton"></div>
+    </div>
+
+    <div class="featured-recipes__cta" data-reveal>
+      <a href="recipes.html" class="btn btn--primary">View All Recipes</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 5 · LATEST TIPS — FETCH FROM BACKEND
+     ═══════════════════════════════════════════════════════════ -->
+<section class="tips" id="tips">
+  <div class="container">
+    <div class="tips__inner">
+
+      <div class="tips__header" data-reveal>
+        <span class="section-eyebrow">Pro Knowledge</span>
+        <h2 class="section-title">James's <em>Cooking Tips</em></h2>
+        <p class="section-desc">Bite-sized wisdom straight from the professional kitchen.</p>
+        <a href="tips.html" class="btn btn--outline">All Tips</a>
+      </div>
+
+      <!-- FETCH FROM BACKEND: GET /api/tips?limit=4
+           Response: [{ id, title, excerpt, isFree, category }] -->
+      <div class="tips__cards" id="tipsGrid">
+        <!-- Skeleton -->
+        <div class="tip-card skeleton"></div>
+        <div class="tip-card skeleton"></div>
+        <div class="tip-card skeleton"></div>
+        <div class="tip-card skeleton"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 6 · ACTIVE CONTEST BANNER — FETCH FROM BACKEND
+     ═══════════════════════════════════════════════════════════ -->
+<!-- FETCH FROM BACKEND: GET /api/contests?active=true&limit=1
+     Response: { id, title, description, prize, deadline, entries } -->
+<section class="contest-banner" id="contestBanner">
+  <div class="contest-banner__bg"></div>
+  <div class="container contest-banner__inner" data-reveal>
+    <div class="contest-banner__left">
+      <span class="contest-banner__tag">🏆 Live Contest</span>
+      <!-- JS fills in: title, description, deadline -->
+      <h2 id="contestTitle" class="contest-banner__title">Loading contest…</h2>
+      <p id="contestDesc" class="contest-banner__desc"></p>
+      <div class="contest-banner__meta">
+        <span id="contestDeadline" class="contest-meta-item">📅 —</span>
+        <span id="contestEntries" class="contest-meta-item">✍️ — entries</span>
+      </div>
+    </div>
+    <div class="contest-banner__right">
+      <div class="contest-prize">
+        <span class="contest-prize__label">Prize</span>
+        <!-- JS fills in: prize -->
+        <strong id="contestPrize" class="contest-prize__value">—</strong>
+      </div>
+      <a href="contests.html" class="btn btn--secondary btn--lg">Enter Now</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 7 · WEEKEND CLASSES
+     ═══════════════════════════════════════════════════════════ -->
+<section class="classes" id="classes">
+  <div class="container classes__inner">
+
+    <div class="classes__copy" data-reveal>
+      <span class="section-eyebrow">Learn with James</span>
+      <h2 class="section-title">Weekend <em>Cookery Classes</em></h2>
+      <p>
+        James opened his intimate weekend classes to share his love of cooking
+        with anyone willing to learn. Held near his home on Saturday and Sunday
+        mornings, the sessions are affordable, hands-on, and packed with the
+        kind of professional secrets you won't find in any cookbook.
+      </p>
+      <ul class="classes__details">
+        <li>📅 <strong>Sat &amp; Sun</strong> — 10:00 AM to 2:00 PM</li>
+        <li>📍 <strong>123 Chef Street</strong>, Culinary District, NY</li>
+        <li>💰 Very affordable fares — open to all skill levels</li>
+        <li>👥 Small groups for personal attention</li>
+      </ul>
+      <a href="#" class="btn btn--primary">Enquire About Classes</a>
+    </div>
+
+    <div class="classes__visual" data-reveal data-delay="150">
+      <div class="classes__schedule">
+        <div class="schedule-day">
+          <span class="schedule-day__name">Saturday</span>
+          <span class="schedule-day__time">10:00 AM – 2:00 PM</span>
+        </div>
+        <div class="schedule-divider"></div>
+        <div class="schedule-day">
+          <span class="schedule-day__name">Sunday</span>
+          <span class="schedule-day__time">10:00 AM – 2:00 PM</span>
+        </div>
+      </div>
+
+      <!-- FETCH FROM BACKEND: GET /api/classes/upcoming → [{ date, topic, spots }] -->
+      <div class="classes__upcoming" id="upcomingClasses">
+        <div class="classes__upcoming-title">Upcoming Sessions</div>
+        <!-- JS fills upcoming class dates/topics -->
+        <div class="upcoming-item skeleton"></div>
+        <div class="upcoming-item skeleton"></div>
+        <div class="upcoming-item skeleton"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 8 · MEMBERSHIP CTA
+     ═══════════════════════════════════════════════════════════ -->
+<section class="membership" id="membership">
+  <div class="membership__bg"></div>
+  <div class="container membership__inner" data-reveal>
+    <div class="membership__crown">👑</div>
+    <span class="section-eyebrow section-eyebrow--light">Premium Access</span>
+    <h2 class="section-title section-title--light">Unlock the Full <em>James Thew Experience</em></h2>
+    <p class="membership__desc">
+      Premium members get access to all recipes, exclusive tips, early contest entry,
+      and the full archive of James's culinary content.
+    </p>
+
+    <div class="membership__plans">
+      <div class="plan-card">
+        <span class="plan-card__period">Monthly</span>
+        <div class="plan-card__price">$10 <small>/month</small></div>
+        <ul class="plan-card__perks">
+          <li>✔ All recipes unlocked</li>
+          <li>✔ Exclusive tips access</li>
+          <li>✔ Contest participation</li>
+          <li>✔ Feedback on your recipes</li>
+        </ul>
+        <a href="register.html?plan=monthly" class="btn btn--secondary">Get Monthly</a>
+      </div>
+      <div class="plan-card plan-card--featured">
+        <span class="plan-card__badge">Best Value</span>
+        <span class="plan-card__period">Yearly</span>
+        <div class="plan-card__price">$100 <small>/year</small></div>
+        <ul class="plan-card__perks">
+          <li>✔ All recipes unlocked</li>
+          <li>✔ Exclusive tips access</li>
+          <li>✔ Contest participation</li>
+          <li>✔ Feedback on your recipes</li>
+          <li>✔ 2 months FREE vs monthly</li>
+        </ul>
+        <a href="register.html?plan=yearly" class="btn btn--primary">Get Yearly</a>
+      </div>
+    </div>
+
+    <p class="membership__free-note">
+      Not ready? <a href="recipes.html?filter=free">Browse free recipes</a> — no account needed.
+    </p>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 9 · ANNOUNCEMENTS — FETCH FROM BACKEND
+     ═══════════════════════════════════════════════════════════ -->
+<!-- FETCH FROM BACKEND: GET /api/announcements?limit=3
+     Response: [{ id, title, date, excerpt }] -->
+<section class="announcements" id="announcements">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <span class="section-eyebrow">Stay Updated</span>
+      <h2 class="section-title">Latest <em>Announcements</em></h2>
+    </div>
+    <div class="announcements__list" id="announcementsList">
+      <!-- JS injects announcement cards -->
+      <div class="announcement-card skeleton"></div>
+      <div class="announcement-card skeleton"></div>
+      <div class="announcement-card skeleton"></div>
+    </div>
+    <div class="announcements__more" data-reveal>
+      <a href="announcements.html" class="btn btn--outline">All Announcements</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 10 · TESTIMONIALS / FEEDBACK — FETCH FROM BACKEND
+     ═══════════════════════════════════════════════════════════ -->
+<!-- FETCH FROM BACKEND: GET /api/feedback?featured=true&limit=4
+     Response: [{ id, userName, userAvatar, rating, comment, recipeTitle }] -->
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <span class="section-eyebrow">Community Love</span>
+      <h2 class="section-title">What Our <em>Members Say</em></h2>
+    </div>
+    <div class="testimonials__track" id="testimonialsTrack">
+      <!-- JS injects testimonial cards & handles infinite scroll animation -->
+      <div class="testimonial-card skeleton"></div>
+      <div class="testimonial-card skeleton"></div>
+      <div class="testimonial-card skeleton"></div>
+      <div class="testimonial-card skeleton"></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 11 · FAQ PREVIEW
+     ═══════════════════════════════════════════════════════════ -->
+<section class="faq-preview" id="faqPreview">
+  <div class="container faq-preview__inner">
+    <div class="faq-preview__copy" data-reveal>
+      <span class="section-eyebrow">Quick Answers</span>
+      <h2 class="section-title">Frequently <em>Asked Questions</em></h2>
+      <a href="faq.html" class="btn btn--outline">Full FAQ</a>
+    </div>
+    <div class="faq-list" data-reveal data-delay="100">
+      <details class="faq-item">
+        <summary>How do I become a member of this site?</summary>
+        <p>Click <strong>Register</strong> in the top navigation, choose a Monthly ($10) or Yearly ($100) plan, complete the payment, and you're in — instant access to all premium content.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Will there be any subscription charges?</summary>
+        <p>Yes — premium recipes and tips require a subscription. However, a selection of recipes and all contest participation is available completely free of charge.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How do I view recipes and tips?</summary>
+        <p>Free recipes are accessible to everyone — no account needed. Premium content is unlocked immediately after subscribing. Use the search and category filters to find what you're after.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can I participate in contests without a membership?</summary>
+        <p>Yes! Contests are open to registered users and guests alike. Simply view the active contest and submit your recipe or tip. James personally reviews all entries and announces winners on the site.</p>
+      </details>
+    </div>
+  </div>
+</section>
+ <div id="footer"></div>
 <script src="assets/js/component.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="assets/js/main.js"></script>
   
