@@ -406,3 +406,339 @@
 
   .classes-about__counter { flex-direction: column; text-align: center; }
 }
+
+
+
+/* -----------------------FAQS RESPONSIVE CODE START  ------------------- */
+/* ============================================================
+   faq-responsive.css — FAQ Page Responsive Styles
+   JamesThew.com
+   ============================================================ */
+
+
+/* ── Large Tablets / Small Laptops ── */
+@media (max-width: 1024px) {
+
+  .faq-hero__inner {
+    padding: 0 30px;
+    padding-top: var(--navbar-height, 85px);
+  }
+
+  .faq-section__container {
+    padding: 0 30px;
+  }
+
+  .faq-hero {
+    height: 400px;
+  }
+}
+
+
+/* ── Tablets ── */
+@media (max-width: 768px) {
+
+  /* Hero */
+  .faq-hero {
+    height: auto;
+    min-height: 360px;
+    padding-bottom: 50px;
+  }
+
+  .faq-hero__inner {
+    padding: 0 24px;
+    padding-top: var(--navbar-height, 85px);
+  }
+
+  .faq-hero__title {
+    font-size: clamp(28px, 6vw, 40px);
+  }
+
+  .faq-hero__subtitle {
+    font-size: var(--text-sm);
+    max-width: 100%;
+  }
+
+  .faq-hero__pills {
+    gap: 10px;
+  }
+
+  .faq-pill {
+    font-size: 11px;
+    padding: 7px 14px;
+  }
+
+  /* Section */
+  .faq-section {
+    padding: 60px 0 80px;
+  }
+
+  .faq-section__container {
+    padding: 0 24px;
+  }
+
+  .faq-section__subheading {
+    margin-bottom: 40px;
+  }
+
+  /* FAQ items */
+  .faq-item__trigger {
+    padding: 18px 20px;
+    gap: 14px;
+  }
+
+  .faq-item__answer {
+    padding: 0 20px 22px 70px;
+  }
+
+  .faq-item.open .faq-item__answer {
+    margin-left: 20px;
+    padding-left: 46px;
+  }
+
+  /* CTA */
+  .faq-cta {
+    flex-direction: column;
+    text-align: center;
+    padding: 32px 28px;
+    gap: 18px;
+  }
+
+  .faq-cta__icon {
+    margin: 0 auto;
+  }
+
+  .faq-cta__btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+
+/* ── Large Phones ── */
+@media (max-width: 576px) {
+
+  /* Hero */
+  .faq-hero {
+    min-height: 320px;
+  }
+
+  .faq-hero__inner {
+    padding: 0 18px;
+    padding-top: var(--navbar-height, 85px);
+  }
+
+  .faq-hero__script {
+    font-size: 22px;
+  }
+
+  .faq-hero__pills {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  /* Section */
+  .faq-section {
+    padding: 50px 0 70px;
+  }
+
+  .faq-section__container {
+    padding: 0 18px;
+  }
+
+  .faq-section__subheading {
+    font-size: var(--text-sm);
+    margin-bottom: 32px;
+  }
+
+  /* FAQ items */
+  .faq-grid {
+    gap: 12px;
+  }
+
+  .faq-item__trigger {
+    padding: 16px 18px;
+    gap: 12px;
+  }
+
+  .faq-item__number {
+    min-width: 32px;
+    height: 32px;
+    font-size: 11px;
+  }
+
+  .faq-item__question {
+    font-size: var(--text-sm);
+  }
+
+  .faq-item__icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .faq-item__answer {
+    padding: 0 18px 20px 62px;
+    font-size: 13px;
+  }
+
+  .faq-item.open .faq-item__answer {
+    margin-left: 18px;
+    padding-left: 40px;
+  }
+
+  /* CTA */
+  .faq-cta {
+    padding: 26px 22px;
+    border-radius: var(--radius-md, 8px);
+  }
+
+  .faq-cta__text h3 {
+    font-size: var(--text-md, 18px);
+  }
+}
+
+
+/* ── Small Phones ── */
+@media (max-width: 375px) {
+
+  .faq-hero__inner {
+    padding: 0 14px;
+    padding-top: var(--navbar-height, 85px);
+  }
+
+  .faq-section__container {
+    padding: 0 14px;
+  }
+
+  .faq-item__trigger {
+    padding: 14px 14px;
+    gap: 10px;
+  }
+
+  .faq-item__answer {
+    padding: 0 14px 18px 56px;
+  }
+
+  .faq-item.open .faq-item__answer {
+    margin-left: 14px;
+    padding-left: 36px;
+  }
+
+  .faq-cta {
+    padding: 22px 16px;
+  }
+
+  .label-line {
+    max-width: 40px;
+  }
+}
+/* ---------------Faqs responsiveness code end------------------ */ 
+
+/* ============================================================
+   tips-responsive.css — Tips Page Responsive Styles */
+   /* ============================================================
+   tips-page-responsive.css — JamesThew Tips Page
+   ============================================================ */
+
+
+/* ── Large Tablets / Small Laptops ── */
+@media (max-width: 1024px) {
+  .tips-hero__inner  { padding: 0 30px; padding-top: var(--navbar-height); }
+  .tips-container    { padding: 0 30px; }
+  .tips-hero         { height: 400px; }
+  .tips-grid         { grid-template-columns: repeat(2, 1fr); }
+}
+
+
+/* ── Tablets ── */
+@media (max-width: 768px) {
+
+  /* Hero */
+  .tips-hero {
+    height: auto;
+    min-height: 340px;
+    padding-bottom: 50px;
+  }
+  .tips-hero__inner     { padding: 0 24px; padding-top: var(--navbar-height); }
+  .tips-hero__title     { font-size: clamp(26px, 6vw, 38px); }
+  .tips-hero__subtitle  { font-size: var(--text-sm); max-width: 100%; }
+  .tips-stat__val       { font-size: var(--text-lg); }
+
+  /* Controls */
+  .tips-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .tips-search { min-width: 100%; }
+  .tips-filters { flex-wrap: wrap; }
+  .tips-sort    { justify-content: flex-start; }
+  .tips-sort__select { flex: 1; }
+
+  /* Grid */
+  .tips-container { padding: 0 24px; }
+  .tips-section   { padding: 48px 0 80px; }
+  .tips-grid      { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+
+  /* Lock modal */
+  .tips-modal--lock { padding: 28px 22px; }
+  .tips-lock__plans { flex-direction: column; }
+}
+
+
+/* ── Large Phones ── */
+@media (max-width: 576px) {
+
+  /* Hero */
+  .tips-hero        { min-height: 300px; }
+  .tips-hero__inner { padding: 0 18px; padding-top: var(--navbar-height); }
+  .tips-hero__script { font-size: 22px; }
+  .tips-hero__stats { gap: 14px; }
+  .tips-stat__divider { height: 28px; }
+
+  /* Controls */
+  .tips-controls  { padding: 14px 16px; }
+  .tips-filters   { gap: 6px; }
+  .tips-filter-btn { height: 34px; padding: 0 14px; font-size: 11px; }
+
+  /* Grid — single column */
+  .tips-container { padding: 0 18px; }
+  .tips-section   { padding: 40px 0 70px; }
+  .tips-grid      { grid-template-columns: 1fr; gap: 14px; }
+
+  /* Cards */
+  .tips-card__top { padding: 16px 16px 10px; }
+  .tips-card__body { padding: 0 16px 12px; }
+  .tips-card__footer { padding: 10px 16px; }
+  .tips-card__action { padding: 0 16px 16px; }
+
+  /* Modal */
+  .tips-modal-overlay { padding: 0; align-items: flex-end; }
+  .tips-modal {
+    max-height: 92vh;
+    border-radius: 18px 18px 0 0;
+  }
+  .tips-modal__body { padding: 16px 20px 24px; }
+
+  /* Pagination */
+  .tips-page-btn { min-width: 34px; height: 34px; font-size: 12px; }
+}
+
+
+/* ── Small Phones ── */
+@media (max-width: 375px) {
+  .tips-hero__inner  { padding: 0 14px; padding-top: var(--navbar-height); }
+  .tips-container    { padding: 0 14px; }
+
+  .tips-controls     { padding: 12px 14px; gap: 10px; }
+  .tips-sort         { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .tips-sort__select { width: 100%; }
+
+  .tips-hero__stats  { gap: 10px; }
+  .tips-stat__val    { font-size: var(--text-md); }
+  .tips-stat__divider { height: 24px; }
+
+  .tips-modal__body  { padding: 14px 16px 22px; }
+  .tips-modal--lock  { padding: 22px 16px; }
+}
+/* -----------------------tips responsiveness code end------------------ */

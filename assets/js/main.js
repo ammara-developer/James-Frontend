@@ -770,328 +770,660 @@ function initAboutPage() {
 }
 
 
-// ======================================================
-// AUTH MODAL — paste this at the BOTTOM of your main.js
-// replacing everything from "// -------- login and register"
-// to the end of the file
-// ======================================================
 
-(function () {
-  'use strict';
 
-  /* ── 1. Inject modal HTML into every page automatically ── */
-  if (!document.getElementById('modalOverlay')) {
-    document.body.insertAdjacentHTML('beforeend', `
-      <div class="jt-modal-overlay" id="modalOverlay">
 
-        <!-- LOGIN -->
-        <div class="jt-modal" id="loginModal" role="dialog" aria-modal="true">
-          <div class="jt-modal-panel">
-            <div class="jt-panel-logo">James Thew</div>
-            <p class="jt-panel-tagline">Welcome back to the kitchen.</p>
-            <div class="jt-panel-divider"></div>
-            <p class="jt-panel-sub">Sign in to access exclusive recipes, contests, and culinary tips curated just for you.</p>
-            <div class="jt-panel-switch">
-              <span>Don't have an account?</span>
-              <button class="jt-switch-btn" id="switchToRegister">Create one →</button>
-            </div>
-          </div>
-          <div class="jt-modal-form-wrap">
-            <button class="jt-modal-close" id="closeLogin" aria-label="Close">
-              <i class="fa fa-xmark"></i>
-            </button>
-            <div class="jt-form-header">
-              <h2 class="jt-form-title">Sign In</h2>
-              <p class="jt-form-subtitle">Enter your credentials to continue</p>
-            </div>
-            <form class="jt-form" id="loginForm" novalidate>
 
-              <div class="jt-field">
-                <label class="jt-label" for="loginEmail">Email Address</label>
-                <div class="jt-input-wrap">
-                  <span class="jt-input-icon"><i class="fa fa-envelope"></i></span>
-                  <input type="email" id="loginEmail" class="jt-input" placeholder="you@example.com" autocomplete="email"/>
-                </div>
-              </div>
 
-              <div class="jt-field">
-                <label class="jt-label" for="loginPassword">Password</label>
-                <div class="jt-input-wrap">
-                  <span class="jt-input-icon"><i class="fa fa-lock"></i></span>
-                  <input type="password" id="loginPassword" class="jt-input" placeholder="Enter your password" autocomplete="current-password"/>
-                  <button type="button" class="jt-eye-btn" data-target="loginPassword">
-                    <i class="fa fa-eye eye-open"></i>
-                    <i class="fa fa-eye-slash eye-closed" style="display:none"></i>
-                  </button>
-                </div>
-              </div>
+// <!-- ============================================================
+//        JAVASCRIPT — minimal, only essential UI logic
+//        No backend calls here. Add your C# .NET submit where noted.
+//        ============================================================ -->
+  
+    'use strict';
 
-              <div class="jt-row-between">
-                <label class="jt-checkbox-wrap">
-                  <input type="checkbox" id="rememberMe" class="jt-checkbox"/>
-                  <span class="jt-checkbox-custom"></span>
-                  <span class="jt-checkbox-label">Remember me</span>
-                </label>
-                <a href="#" class="jt-forgot">Forgot password?</a>
-              </div>
+    const JTAuth = {
 
-              <button type="submit" class="jt-btn-submit">
-                <i class="fa fa-right-to-bracket"></i> Sign In
-              </button>
+      /* Open login modal — call this from your navbar Login button */
+      openLogin() {
+        document.getElementById('registerOverlay').classList.remove('active');
+        document.getElementById('loginOverlay').classList.add('active');
+        document.body.style.overflow = 'hidden'; // lock background scroll
+      },
 
-              <div class="jt-or-divider"><span>or continue with</span></div>
+      /* Open register modal — call this from your navbar Register button */
+      openRegister() {
+        document.getElementById('loginOverlay').classList.remove('active');
+        document.getElementById('registerOverlay').classList.add('active');
+        document.body.style.overflow = 'hidden';
+      },
 
-              <div class="jt-social-row">
-                <button type="button" class="jt-social-btn">
-                  <svg width="18" height="18" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-                  Google
-                </button>
-                <button type="button" class="jt-social-btn">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                  Facebook
-                </button>
-              </div>
+      /* Close modal by overlay element ID */
+      close(overlayId) {
+        document.getElementById(overlayId).classList.remove('active');
+        document.body.style.overflow = ''; // unlock scroll
+      },
 
-              <p class="jt-mobile-switch">
-                Don't have an account?
-                <button type="button" class="jt-switch-btn" id="switchToRegMob">Register</button>
-              </p>
+      /* Switch between forms without closing */
+      switchToRegister() { this.close('loginOverlay'); this.openRegister(); },
+      switchToLogin()     { this.close('registerOverlay'); this.openLogin(); },
 
-            </form>
-          </div>
+      /* Toggle password field between hidden and visible */
+      togglePw(inputId, btn) {
+        const input   = document.getElementById(inputId);
+        const showEye = btn.querySelector('.icon-eye-show');
+        const hideEye = btn.querySelector('.icon-eye-hide');
+        const hidden  = input.type === 'password';
+        input.type            = hidden ? 'text'     : 'password';
+        showEye.style.display = hidden ? 'none'     : '';
+        hideEye.style.display = hidden ? ''         : 'none';
+      },
+
+      /* Helper: apply or clear error state on a field */
+      setError(inputId, errId, hasError) {
+        const input = document.getElementById(inputId);
+        const err   = document.getElementById(errId);
+        if (!input || !err) return hasError;
+        input.classList.toggle('error', hasError);
+        err.classList.toggle('visible', hasError);
+        return hasError;
+      },
+
+      /* ── Login UI validation ──
+         TODO (.NET): Replace console.log with form.submit() or fetch('/Account/Login')
+      */
+      validateLogin() {
+        const email    = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value.trim();
+        let valid      = true;
+
+        if (!email)    valid = !this.setError('loginEmail',    'loginEmailErr',    true)  && valid;
+        else                   this.setError('loginEmail',    'loginEmailErr',    false);
+        if (!password) valid = !this.setError('loginPassword', 'loginPasswordErr', true)  && valid;
+        else                   this.setError('loginPassword', 'loginPasswordErr', false);
+
+        if (valid) {
+          /* ── TODO: Replace with your C# .NET backend call ──
+             Example 1 — standard form submit:
+               document.getElementById('loginForm').submit();
+
+             Example 2 — AJAX fetch:
+               const form = document.getElementById('loginForm');
+               fetch('/Account/Login', { method: 'POST', body: new FormData(form) })
+                 .then(res => res.json())
+                 .then(data => { if (data.success) window.location.href = '/member/dashboard'; })
+          */
+          console.log('✅ Login ready to submit:', { email });
+        }
+      },
+
+      /* ── Register UI validation ──
+         TODO (.NET): Replace console.log with form.submit() or fetch('/Account/Register')
+      */
+      validateRegister() {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        let valid        = true;
+        const v          = (id, errId, condition) => {
+          if (condition) { this.setError(id, errId, true);  valid = false; }
+          else             this.setError(id, errId, false);
+        };
+
+        const fullName  = document.getElementById('regFullName').value.trim();
+        const username  = document.getElementById('regUsername').value.trim();
+        const email     = document.getElementById('regEmail').value.trim();
+        const phone     = document.getElementById('regPhone').value.trim();
+        const password  = document.getElementById('regPassword').value;
+        const confirm   = document.getElementById('regConfirmPassword').value;
+        const address   = document.getElementById('regAddress').value.trim();
+        const method    = document.getElementById('regPaymentMethod').value;
+        const txn       = document.getElementById('regTransactionId').value.trim();
+        const terms     = document.getElementById('regTerms').checked;
+
+        v('regFullName',        'regFullNameErr',        !fullName);
+        v('regUsername',        'regUsernameErr',        !username);
+        v('regEmail',           'regEmailErr',           !email || !emailRegex.test(email));
+        v('regPhone',           'regPhoneErr',           !phone);
+        v('regPassword',        'regPasswordErr',        password.length < 8);
+        v('regConfirmPassword', 'regConfirmPasswordErr', !confirm || confirm !== password);
+        v('regAddress',         'regAddressErr',         !address);
+        v('regPaymentMethod',   'regPaymentMethodErr',   !method);
+        v('regTransactionId',   'regTransactionIdErr',   !txn);
+
+        // Terms checkbox
+        const termsErr = document.getElementById('regTermsErr');
+        if (!terms) { termsErr.classList.add('visible'); valid = false; }
+        else          termsErr.classList.remove('visible');
+
+        if (valid) {
+          /* ── TODO: Replace with your C# .NET backend call ──
+             Example 1 — standard form submit:
+               document.getElementById('registerForm').submit();
+
+             Example 2 — AJAX fetch:
+               const form = document.getElementById('registerForm');
+               fetch('/Account/Register', { method: 'POST', body: new FormData(form) })
+                 .then(res => res.json())
+                 .then(data => { if (data.success) window.location.href = '/member/dashboard'; })
+          */
+          console.log('✅ Register ready to submit:', { fullName, username, email });
+        }
+      }
+    };
+
+    /* Close when clicking dark background outside the modal box */
+    document.getElementById('loginOverlay').addEventListener('click', function(e) {
+      if (e.target === this) JTAuth.close('loginOverlay');
+    });
+    document.getElementById('registerOverlay').addEventListener('click', function(e) {
+      if (e.target === this) JTAuth.close('registerOverlay');
+    });
+
+    /* Close on Escape key */
+    document.addEventListener('keydown', function(e) {
+      if (e.key !== 'Escape') return;
+      JTAuth.close('loginOverlay');
+      JTAuth.close('registerOverlay');
+    });
+
+    /*
+      ════════════════════════════════════════════════════════
+      HOW TO WIRE YOUR EXISTING NAVBAR BUTTONS (real project)
+      ════════════════════════════════════════════════════════
+      Find your Login and Register anchor tags in your navbar HTML
+      and add onclick attributes like this:
+
+      Login button:
+        <a href="login.html" class="btn-jt-login"
+           onclick="event.preventDefault(); JTAuth.openLogin()">Login</a>
+
+      Register button:
+        <a href="register.html" class="btn-jt-register"
+           onclick="event.preventDefault(); JTAuth.openRegister()">Register</a>
+
+      Make sure this script runs AFTER the navbar HTML in the DOM,
+      or wrap it in DOMContentLoaded.
+      ════════════════════════════════════════════════════════
+    */
+  
+      // ------------tips js started--------
+      /**
+ * tips-page.js — JamesThew Tips Page UI Controller
+ * All classes prefixed "tips-" to avoid conflicts with other pages.
+ *
+ * This file handles:
+ *  - Skeleton → real card transitions (once backend injects data)
+ *  - Client-side filter / search / sort (operates on rendered cards)
+ *  - Pagination UI
+ *  - Tip detail modal (free tips)
+ *  - Premium lock modal (premium tips for non-members)
+ *  - Save/bookmark toggle UI
+ *
+ * ════════════════════════════════════════════════════════════════
+ * BACKEND INTEGRATION POINTS are marked with:
+ *   // ⬇ BACKEND HOOK
+ * Replace those sections with your actual fetch() / Axios calls.
+ * ════════════════════════════════════════════════════════════════
+ */
+
+'use strict';
+
+const TipsPage = (() => {
+
+  /* ── State ──────────────────────────────────────────────── */
+  let _allCards   = [];   // all rendered .tips-card elements (NodeList → Array)
+  let _filter     = 'all';
+  let _sort       = 'newest';
+  let _search     = '';
+  let _searchTimer = null;
+  let _currentPage = 1;
+  let _totalPages  = 1;
+  let _savedTips   = new Set(); // tip ids the user has saved (UI state only)
+
+  /* ── DOM refs ───────────────────────────────────────────── */
+  const grid       = () => document.getElementById('tipsGrid');
+  const meta       = () => document.getElementById('tipsMeta');
+  const emptyState = () => document.getElementById('tipsEmpty');
+  const pagination = () => document.getElementById('tipsPagination');
+
+  /* ══════════════════════════════════════════════════════════
+     PUBLIC: renderCard(tip)
+     Called by backend integration code for each tip returned.
+     tip = { id, content, isFree, uploaderName, createdAt }
+
+     Usage after fetch:
+       const tips = await fetch('/api/tips').then(r => r.json());
+       TipsPage.clearSkeletons();
+       tips.forEach(tip => TipsPage.renderCard(tip));
+       TipsPage.afterRender();
+     ══════════════════════════════════════════════════════════ */
+  function renderCard(tip) {
+    const card = document.createElement('article');
+    card.className = 'tips-card';
+    card.dataset.id     = tip.id;
+    card.dataset.free   = tip.isFree ? 'true' : 'false';
+    card.dataset.date   = tip.createdAt || '';
+    card.dataset.search = (tip.content || '').toLowerCase();
+
+    const isFree    = tip.isFree;
+    const badgeCls  = isFree ? 'tips-badge--free'    : 'tips-badge--premium';
+    const badgeTxt  = isFree ? 'Free'                : 'Premium';
+    const badgeIcon = isFree
+      ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`
+      : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`;
+
+    // Preview — first 120 chars of content
+    const preview = tip.content
+      ? tip.content.length > 120
+        ? tip.content.substring(0, 120).trim() + '…'
+        : tip.content
+      : '';
+
+    // Format date
+    const dateStr = tip.createdAt
+      ? new Date(tip.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+      : '';
+
+    card.innerHTML = `
+      <div class="tips-card__top">
+        <span class="tips-badge ${badgeCls}">
+          ${badgeIcon}
+          ${badgeTxt}
+        </span>
+        <div class="tips-card__quote-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
         </div>
-
-        <!-- REGISTER -->
-        <div class="jt-modal" id="registerModal" role="dialog" aria-modal="true" style="display:none">
-          <div class="jt-modal-panel">
-            <div class="jt-panel-logo">James Thew</div>
-            <p class="jt-panel-tagline">Join the culinary journey.</p>
-            <div class="jt-panel-divider"></div>
-            <p class="jt-panel-sub">Create your free account and unlock a world of recipes, tips, and exclusive chef contests.</p>
-            <div class="jt-panel-switch">
-              <span>Already have an account?</span>
-              <button class="jt-switch-btn" id="switchToLogin">Sign in →</button>
-            </div>
-          </div>
-          <div class="jt-modal-form-wrap">
-            <button class="jt-modal-close" id="closeRegister" aria-label="Close">
-              <i class="fa fa-xmark"></i>
-            </button>
-            <div class="jt-form-header">
-              <h2 class="jt-form-title">Create Account</h2>
-              <p class="jt-form-subtitle">Fill in your details to get started</p>
-            </div>
-            <form class="jt-form" id="registerForm" novalidate>
-
-              <div class="jt-fields-row">
-                <div class="jt-field">
-                  <label class="jt-label" for="regFirstName">First Name</label>
-                  <div class="jt-input-wrap">
-                    <span class="jt-input-icon"><i class="fa fa-user"></i></span>
-                    <input type="text" id="regFirstName" class="jt-input" placeholder="James" autocomplete="given-name"/>
-                  </div>
-                </div>
-                <div class="jt-field">
-                  <label class="jt-label" for="regLastName">Last Name</label>
-                  <div class="jt-input-wrap">
-                    <span class="jt-input-icon"><i class="fa fa-user"></i></span>
-                    <input type="text" id="regLastName" class="jt-input" placeholder="Thew" autocomplete="family-name"/>
-                  </div>
-                </div>
-              </div>
-
-              <div class="jt-field">
-                <label class="jt-label" for="regUsername">Username</label>
-                <div class="jt-input-wrap">
-                  <span class="jt-input-icon"><i class="fa fa-at"></i></span>
-                  <input type="text" id="regUsername" class="jt-input" placeholder="@chef_username" autocomplete="username"/>
-                </div>
-              </div>
-
-              <div class="jt-field">
-                <label class="jt-label" for="regEmail">Email Address</label>
-                <div class="jt-input-wrap">
-                  <span class="jt-input-icon"><i class="fa fa-envelope"></i></span>
-                  <input type="email" id="regEmail" class="jt-input" placeholder="you@example.com" autocomplete="email"/>
-                </div>
-              </div>
-
-              <div class="jt-field">
-                <label class="jt-label" for="regPassword">Password</label>
-                <div class="jt-input-wrap">
-                  <span class="jt-input-icon"><i class="fa fa-lock"></i></span>
-                  <input type="password" id="regPassword" class="jt-input" placeholder="Create a strong password" autocomplete="new-password"/>
-                  <button type="button" class="jt-eye-btn" data-target="regPassword">
-                    <i class="fa fa-eye eye-open"></i>
-                    <i class="fa fa-eye-slash eye-closed" style="display:none"></i>
-                  </button>
-                </div>
-              </div>
-
-              <div class="jt-field">
-                <label class="jt-label" for="regConfirm">Confirm Password</label>
-                <div class="jt-input-wrap">
-                  <span class="jt-input-icon"><i class="fa fa-shield-halved"></i></span>
-                  <input type="password" id="regConfirm" class="jt-input" placeholder="Repeat your password" autocomplete="new-password"/>
-                  <button type="button" class="jt-eye-btn" data-target="regConfirm">
-                    <i class="fa fa-eye eye-open"></i>
-                    <i class="fa fa-eye-slash eye-closed" style="display:none"></i>
-                  </button>
-                </div>
-              </div>
-
-              <div class="jt-field">
-                <label class="jt-checkbox-wrap">
-                  <input type="checkbox" id="agreeTerms" class="jt-checkbox"/>
-                  <span class="jt-checkbox-custom"></span>
-                  <span class="jt-checkbox-label">
-                    I agree to the <a href="#" class="jt-link">Terms of Service</a> and <a href="#" class="jt-link">Privacy Policy</a>
-                  </span>
-                </label>
-              </div>
-
-              <button type="submit" class="jt-btn-submit">
-                <i class="fa fa-user-plus"></i> Create Account
-              </button>
-
-              <p class="jt-mobile-switch">
-                Already have an account?
-                <button type="button" class="jt-switch-btn" id="switchToLogMob">Sign In</button>
-              </p>
-
-            </form>
-          </div>
-        </div>
-
       </div>
-    `);
+
+      <div class="tips-card__body">
+        <p class="tips-card__preview">${preview || '<em>No preview available.</em>'}</p>
+      </div>
+
+      <div class="tips-card__footer">
+        <div class="tips-card__author">
+          <span class="tips-card__author-avatar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </span>
+          <span class="tips-card__author-name">${tip.uploaderName || 'Chef James'}</span>
+        </div>
+        <div class="tips-card__meta">
+          <span class="tips-card__date">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            ${dateStr}
+          </span>
+        </div>
+      </div>
+
+      <div class="tips-card__action">
+        ${isFree
+          ? `<button class="tips-card__btn tips-card__btn--read" onclick="TipsPage.openTip(${tip.id})" aria-label="Read tip">
+               Read Tip
+               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+             </button>`
+          : `<button class="tips-card__btn tips-card__btn--lock" onclick="TipsPage.openLock()" aria-label="Unlock premium tip">
+               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+               Unlock Premium
+             </button>`
+        }
+      </div>
+    `;
+
+    grid().appendChild(card);
   }
 
-  /* ── 2. Grab all elements AFTER injection ── */
-  const overlay        = document.getElementById('modalOverlay');
-  const loginModal     = document.getElementById('loginModal');
-  const registerModal  = document.getElementById('registerModal');
-
-  /* ── 3. Helpers ── */
-  function openOverlay() {
-    overlay.classList.add('is-open');
-    document.body.style.overflow = 'hidden';
+  /* Remove skeleton loaders after backend data loads */
+  function clearSkeletons() {
+    document.querySelectorAll('.tips-skeleton').forEach(s => s.remove());
   }
 
-  function closeAll() {
-    overlay.classList.remove('is-open');
-    document.body.style.overflow = '';
-    setTimeout(function () {
-      loginModal.style.display    = 'none';
-      registerModal.style.display = 'none';
+  /* Called after all cards are rendered — indexes them and updates UI */
+  function afterRender() {
+    _allCards = Array.from(document.querySelectorAll('.tips-card'));
+    _applyFilters();
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     PUBLIC: setStats(total, free, premium)
+     Call this after fetching count from backend.
+     Example: TipsPage.setStats(48, 20, 28);
+     ══════════════════════════════════════════════════════════ */
+  function setStats(total, free, premium) {
+    _animateCount('statTotal',   total);
+    _animateCount('statFree',    free);
+    _animateCount('statPremium', premium);
+  }
+
+  function _animateCount(id, target) {
+    const el = document.getElementById(id);
+    if (!el || isNaN(target)) return;
+    let current = 0;
+    const step  = Math.ceil(target / 30);
+    const timer = setInterval(() => {
+      current += step;
+      if (current >= target) { el.textContent = target; clearInterval(timer); return; }
+      el.textContent = current;
+    }, 30);
+  }
+
+
+  /* ── FILTER / SEARCH / SORT ─────────────────────────────── */
+
+  function setFilter(filter, btn) {
+    _filter = filter;
+    document.querySelectorAll('.tips-filter-btn').forEach(b => b.classList.remove('tips-filter-btn--active'));
+    btn.classList.add('tips-filter-btn--active');
+    _currentPage = 1;
+    _applyFilters();
+  }
+
+  function onSearch(val) {
+    clearTimeout(_searchTimer);
+    _search = val.trim().toLowerCase();
+    const clearBtn = document.getElementById('searchClearBtn');
+    if (clearBtn) clearBtn.style.display = _search ? 'flex' : 'none';
+    _searchTimer = setTimeout(() => {
+      _currentPage = 1;
+      _applyFilters();
     }, 280);
   }
 
-  function show(which) {
-    if (which === 'login') {
-      registerModal.style.display = 'none';
-      loginModal.style.display    = 'flex';
-      focusFirst(loginModal);
+  function clearSearch() {
+    const input = document.getElementById('tipsSearchInput');
+    if (input) input.value = '';
+    const clearBtn = document.getElementById('searchClearBtn');
+    if (clearBtn) clearBtn.style.display = 'none';
+    _search = '';
+    _currentPage = 1;
+    _applyFilters();
+  }
+
+  function onSort(val) {
+    _sort = val;
+    _currentPage = 1;
+    _applyFilters();
+  }
+
+  function resetAll() {
+    clearSearch();
+    _filter = 'all';
+    _sort   = 'newest';
+    document.querySelectorAll('.tips-filter-btn').forEach((b, i) => {
+      b.classList.toggle('tips-filter-btn--active', i === 0);
+    });
+    const sel = document.getElementById('tipsSortSelect');
+    if (sel) sel.value = 'newest';
+    _applyFilters();
+  }
+
+  function _applyFilters() {
+    if (!_allCards.length) return;
+
+    // Step 1: filter
+    let visible = _allCards.filter(card => {
+      const isFree   = card.dataset.free === 'true';
+      const content  = card.dataset.search || '';
+
+      if (_filter === 'free'    && !isFree)  return false;
+      if (_filter === 'premium' && isFree)   return false;
+      if (_search && !content.includes(_search)) return false;
+      return true;
+    });
+
+    // Step 2: sort
+    visible.sort((a, b) => {
+      const da = new Date(a.dataset.date || 0);
+      const db = new Date(b.dataset.date || 0);
+      const fa = a.dataset.free === 'true';
+      const fb = b.dataset.free === 'true';
+
+      if (_sort === 'newest')        return db - da;
+      if (_sort === 'oldest')        return da - db;
+      if (_sort === 'free-first')    return (fa === fb) ? 0 : fa ? -1 : 1;
+      if (_sort === 'premium-first') return (fa === fb) ? 0 : fa ? 1 : -1;
+      return 0;
+    });
+
+    // Step 3: hide all, show matching
+    _allCards.forEach(c => { c.style.display = 'none'; c.classList.remove('tips-card--visible'); });
+
+    // Pagination
+    const perPage   = 9;
+    _totalPages     = Math.max(1, Math.ceil(visible.length / perPage));
+    _currentPage    = Math.min(_currentPage, _totalPages);
+    const start     = (_currentPage - 1) * perPage;
+    const pageCards = visible.slice(start, start + perPage);
+
+    pageCards.forEach((c, i) => {
+      c.style.display = '';
+      setTimeout(() => c.classList.add('tips-card--visible'), i * 60);
+    });
+
+    // Meta text
+    const metaEl = meta();
+    if (metaEl) {
+      metaEl.textContent = visible.length
+        ? `Showing ${pageCards.length} of ${visible.length} tip${visible.length !== 1 ? 's' : ''}`
+        : '';
+    }
+
+    // Empty state
+    const emEl = emptyState();
+    if (emEl) emEl.style.display = visible.length === 0 ? 'flex' : 'none';
+
+    renderPagination(_currentPage, _totalPages, visible.length);
+  }
+
+
+  /* ── PAGINATION ─────────────────────────────────────────── */
+  function renderPagination(current, total, totalItems) {
+    const el = pagination();
+    if (!el) return;
+
+    if (total <= 1) { el.style.display = 'none'; return; }
+    el.style.display = 'flex';
+    el.innerHTML = '';
+
+    // Prev
+    const prev = _makePageBtn('‹', current > 1, () => { _currentPage = current - 1; _applyFilters(); });
+    prev.classList.add('tips-page-btn--arrow');
+    el.appendChild(prev);
+
+    // Page numbers
+    for (let i = 1; i <= total; i++) {
+      if (total > 7 && i > 2 && i < total - 1 && Math.abs(i - current) > 1) {
+        if (i === 3 || i === total - 2) {
+          const dots = document.createElement('span');
+          dots.className = 'tips-page-dots';
+          dots.textContent = '…';
+          el.appendChild(dots);
+        }
+        continue;
+      }
+      const btn = _makePageBtn(i, true, () => { _currentPage = i; _applyFilters(); });
+      if (i === current) btn.classList.add('tips-page-btn--active');
+      el.appendChild(btn);
+    }
+
+    // Next
+    const next = _makePageBtn('›', current < total, () => { _currentPage = current + 1; _applyFilters(); });
+    next.classList.add('tips-page-btn--arrow');
+    el.appendChild(next);
+  }
+
+  function _makePageBtn(label, enabled, onClick) {
+    const btn = document.createElement('button');
+    btn.className = 'tips-page-btn';
+    btn.textContent = label;
+    btn.disabled = !enabled;
+    if (enabled) btn.addEventListener('click', onClick);
+    return btn;
+  }
+
+
+  /* ── TIP DETAIL MODAL (free tips) ───────────────────────── */
+  function openTip(tipId) {
+    /*
+      ⬇ BACKEND HOOK:
+      Fetch full tip detail: GET /api/tips/{tipId}
+      Then populate the modal fields below.
+
+      Example:
+        fetch(`/api/tips/${tipId}`)
+          .then(r => r.json())
+          .then(tip => {
+            _populateTipModal(tip);
+            _openModal('tipModalOverlay');
+          });
+
+      For now the modal opens with whatever the card already has.
+      Replace this block once your API is ready.
+    */
+
+    // Find the card element to get data from
+    const card = document.querySelector(`.tips-card[data-id="${tipId}"]`);
+    if (!card) return;
+
+    const preview   = card.querySelector('.tips-card__preview')?.textContent || '';
+    const author    = card.querySelector('.tips-card__author-name')?.textContent || 'Chef James';
+    const dateStr   = card.querySelector('.tips-card__date')?.textContent?.trim() || '';
+
+    document.getElementById('tipModalTitle').textContent   = 'Chef\'s Tip';
+    document.getElementById('tipModalContent').textContent = preview;
+    document.getElementById('tipModalBadge').innerHTML     = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Free Tip`;
+    document.getElementById('tipModalBadge').className     = 'tips-modal__badge tips-badge--free';
+    document.getElementById('tipModalMeta').innerHTML      = `
+      <span class="tips-modal__meta-author">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        ${author}
+      </span>
+      <span class="tips-modal__meta-sep">·</span>
+      <span class="tips-modal__meta-date">${dateStr}</span>
+    `;
+    document.getElementById('tipModalAuthor').innerHTML    = `
+      <div class="tips-modal__author-avatar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <div class="tips-modal__author-info">
+        <span class="tips-modal__author-name">${author}</span>
+        <span class="tips-modal__author-role">Head Chef &amp; Founder</span>
+      </div>
+    `;
+
+    // Save button state
+    const saveBtn = document.getElementById('tipModalSaveBtn');
+    if (saveBtn) {
+      saveBtn.dataset.tipId = tipId;
+      const saved = _savedTips.has(tipId);
+      saveBtn.classList.toggle('tips-modal__save-btn--saved', saved);
+      saveBtn.querySelector('span').textContent = saved ? 'Saved!' : 'Save Tip';
+    }
+
+    _openModal('tipModalOverlay');
+  }
+
+  function closeModal() { _closeModal('tipModalOverlay'); }
+
+  function openLock()   { _openModal('tipLockOverlay'); }
+  function closeLock()  { _closeModal('tipLockOverlay'); }
+
+  function _openModal(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.add('tips-modal-overlay--active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function _closeModal(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.remove('tips-modal-overlay--active');
+    document.body.style.overflow = '';
+  }
+
+  function toggleSave(btn) {
+    /*
+      ⬇ BACKEND HOOK:
+      POST /api/tips/{tipId}/save  → save
+      DELETE /api/tips/{tipId}/save → unsave
+    */
+    const tipId = btn.dataset.tipId;
+    if (!tipId) return;
+    const id = parseInt(tipId);
+    if (_savedTips.has(id)) {
+      _savedTips.delete(id);
+      btn.classList.remove('tips-modal__save-btn--saved');
+      btn.querySelector('span').textContent = 'Save Tip';
     } else {
-      loginModal.style.display    = 'none';
-      registerModal.style.display = 'flex';
-      focusFirst(registerModal);
+      _savedTips.add(id);
+      btn.classList.add('tips-modal__save-btn--saved');
+      btn.querySelector('span').textContent = 'Saved!';
     }
   }
 
-  function focusFirst(modal) {
-    setTimeout(function () {
-      var first = modal.querySelector('.jt-input');
-      if (first) first.focus();
-    }, 300);
-  }
 
-  /* ── 4. Bind open buttons — runs AFTER DOMContentLoaded so navbar exists ── */
-  function bindButtons() {
+  /* ── INIT ───────────────────────────────────────────────── */
+  document.addEventListener('DOMContentLoaded', () => {
 
-    /* Desktop navbar buttons */
-    var btnLogin    = document.getElementById('openLogin');
-    var btnRegister = document.getElementById('openRegister');
-
-    /* Mobile navbar buttons */
-    var btnLoginMob = document.getElementById('openLoginMob');
-    var btnRegMob   = document.getElementById('openRegisterMob');
-
-    btnLogin && btnLogin.addEventListener('click', function (e) {
-      e.preventDefault();
-      loginModal.style.display    = 'flex';
-      registerModal.style.display = 'none';
-      openOverlay();
-      focusFirst(loginModal);
+    /* Close modals on overlay click or Escape */
+    ['tipModalOverlay', 'tipLockOverlay'].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener('click', e => {
+        if (e.target === el) id === 'tipModalOverlay' ? closeModal() : closeLock();
+      });
     });
 
-    btnRegister && btnRegister.addEventListener('click', function (e) {
-      e.preventDefault();
-      registerModal.style.display = 'flex';
-      loginModal.style.display    = 'none';
-      openOverlay();
-      focusFirst(registerModal);
+    document.addEventListener('keydown', e => {
+      if (e.key !== 'Escape') return;
+      closeModal();
+      closeLock();
     });
 
-    btnLoginMob && btnLoginMob.addEventListener('click', function (e) {
-      e.preventDefault();
-      loginModal.style.display    = 'flex';
-      registerModal.style.display = 'none';
-      openOverlay();
-      focusFirst(loginModal);
-    });
+    /*
+      ⬇ BACKEND HOOK — INITIAL DATA LOAD:
+      Replace the block below with your actual API call.
 
-    btnRegMob && btnRegMob.addEventListener('click', function (e) {
-      e.preventDefault();
-      registerModal.style.display = 'flex';
-      loginModal.style.display    = 'none';
-      openOverlay();
-      focusFirst(registerModal);
-    });
-  }
+      Example with fetch():
+      ─────────────────────────────────────────────────────
+      Promise.all([
+        fetch('/api/tips/count').then(r => r.json()),
+        fetch('/api/tips?sort=newest&page=1').then(r => r.json())
+      ])
+      .then(([counts, tips]) => {
+        TipsPage.setStats(counts.total, counts.free, counts.premium);
+        TipsPage.clearSkeletons();
+        tips.forEach(tip => TipsPage.renderCard(tip));
+        TipsPage.afterRender();
+      })
+      .catch(err => {
+        console.error('Failed to load tips:', err);
+        TipsPage.clearSkeletons();
+        TipsPage.afterRender(); // will show empty state
+      });
+      ─────────────────────────────────────────────────────
+      ⬆ END BACKEND HOOK
+    */
 
-  /* ── 5. Close ── */
-  document.getElementById('closeLogin').addEventListener('click', closeAll);
-  document.getElementById('closeRegister').addEventListener('click', closeAll);
-
-  overlay.addEventListener('click', function (e) {
-    if (e.target === overlay) closeAll();
   });
 
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeAll();
-  });
 
-  /* ── 6. Switch Login ↔ Register ── */
-  document.getElementById('switchToRegister').addEventListener('click', function () { show('register'); });
-  document.getElementById('switchToLogin').addEventListener('click',    function () { show('login');    });
-  document.getElementById('switchToRegMob').addEventListener('click',   function () { show('register'); });
-  document.getElementById('switchToLogMob').addEventListener('click',   function () { show('login');    });
-
-  /* ── 7. Password eye toggle ── */
-  document.querySelectorAll('.jt-eye-btn').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var input     = document.getElementById(this.dataset.target);
-      var eyeOpen   = this.querySelector('.eye-open');
-      var eyeClosed = this.querySelector('.eye-closed');
-      if (!input) return;
-      var hidden    = input.type === 'password';
-      input.type    = hidden ? 'text' : 'password';
-      if (eyeOpen)   eyeOpen.style.display   = hidden ? 'none' : '';
-      if (eyeClosed) eyeClosed.style.display = hidden ? ''     : 'none';
-      input.focus();
-    });
-  });
-
-  /* ── 8. Form submit — UI only ── */
-  document.getElementById('loginForm').addEventListener('submit',    function (e) { e.preventDefault(); });
-  document.getElementById('registerForm').addEventListener('submit', function (e) { e.preventDefault(); });
-
-  /* ── 9. Bind navbar buttons after DOM is ready ── */
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', bindButtons);
-  } else {
-    bindButtons();
-  }
+  /* ── PUBLIC API ─────────────────────────────────────────── */
+  return {
+    renderCard,
+    clearSkeletons,
+    afterRender,
+    setStats,
+    setFilter,
+    onSearch,
+    clearSearch,
+    onSort,
+    resetAll,
+    openTip,
+    closeModal,
+    openLock,
+    closeLock,
+    toggleSave,
+    renderPagination,
+  };
 
 })();
+// ----------tips js end------------

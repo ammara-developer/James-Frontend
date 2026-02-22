@@ -3,53 +3,127 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Auth Modals – James Thew</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="assets/css/login-register.css"/>
-  <link rel="stylesheet" href="assets/css/responsive.css"/>
+  <link rel="stylesheet" href="assets/css/login-register.css">
+  <title>Auth Modals – JamesThew</title>
+
+  <!-- Google Fonts — matching your site -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet"/>
+
+
 </head>
 <body>
 
-  <!-- ═══════════════════════════════════════════
-       DEMO NAVBAR — mirrors your real navbar
-  ═══════════════════════════════════════════ -->
-  
+  <!-- ============================================================
+       DEMO TRIGGERS
+       In your real project, DELETE this div entirely.
+       Instead, add onclick attributes to your existing navbar buttons:
 
-
-  <!-- ═══════════════════════════════════════════
-       MODAL OVERLAY
-  <!-- From Uiverse.io by Smit-Prajapati --> 
-<div class="container">
-    <div class="heading">Sign In</div>
-    <form action="" class="form">
-      <input required="" class="input" type="email" name="email" id="email" placeholder="E-mail">
-      <input required="" class="input" type="password" name="password" id="password" placeholder="Password">
-      <span class="forgot-password"><a href="#">Forgot Password ?</a></span>
-      <input class="login-button" type="submit" value="Sign In">
-      
-    </form>
-    <div class="social-account-container">
-        <span class="title">Or Sign in with</span>
-        <div class="social-accounts">
-          <button class="social-button google">
-            <svg class="svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 488 512">
-              <path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"></path>
-            </svg></button>
-          <button class="social-button apple">
-            <svg class="svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512">
-              <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"></path>
-            </svg>
-          </button>
-          <button class="social-button twitter">
-            <svg class="svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
-              <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"></path>
-            </svg>
-          </button>
-        </div>
-      </div>
-      <span class="agreement"><a href="#">Learn user licence agreement</a></span>
+         Login:    onclick="event.preventDefault(); JTAuth.openLogin()"
+         Register: onclick="event.preventDefault(); JTAuth.openRegister()"
+       ============================================================ -->
+  <div class="demo-triggers">
+    <button class="btn-jt-login"    onclick="JTAuth.openLogin()">Login</button>
+    <button class="btn-jt-register" onclick="JTAuth.openRegister()">Register</button>
   </div>
 
-  <script src="assets/js/main.js"></script>
+
+  <!-- ============================================================
+       LOGIN MODAL
+       ============================================================ -->
+  <div class="jt-modal-overlay" id="loginOverlay" role="dialog" aria-modal="true" aria-label="Login form">
+
+    <div class="jt-modal" id="loginModal">
+
+      <!-- Header -->
+      <div class="jt-modal__header">
+        <span class="jt-modal__logo">JamesThew</span>
+        <h2 class="jt-modal__title">Welcome Back</h2>
+        <p class="jt-modal__subtitle">Sign in to access your membership</p>
+        <button class="jt-modal__close" onclick="JTAuth.close('loginOverlay')" aria-label="Close">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <!-- Body -->
+      <div class="jt-modal__body">
+        <!--
+          LOGIN FORM
+          ─────────────────────────────────────────────────────────
+          C# / .NET integration:
+            Action:  POST /Account/Login
+            Model:   LoginViewModel { EmailOrUsername, Password, RememberMe }
+            On success: redirect to dashboard or previous page
+            On fail:    return model with error message
+          ─────────────────────────────────────────────────────────
+        -->
+        <form id="loginForm" novalidate>
+
+          <!-- Email or Username -->
+          <div class="form-field" style="margin-bottom:13px;">
+            <label for="loginEmail">Email or Username</label>
+            <div class="input-wrap">
+              <span class="input-icon">
+                <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </span>
+              <input
+                type="text"
+                id="loginEmail"
+                name="EmailOrUsername"
+                class="jt-input"
+                placeholder="Enter email or username"
+                autocomplete="username"
+              />
+            </div>
+            <span class="field-error" id="loginEmailErr">Please enter your email or username.</span>
+          </div>
+
+          <!-- Password -->
+          <div class="form-field">
+            <label for="loginPassword">Password</label>
+            <div class="input-wrap">
+              <span class="input-icon">
+                <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </span>
+              <input
+                type="password"
+                id="loginPassword"
+                name="Password"
+                class="jt-input"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+              />
+              <button type="button" class="btn-toggle-pw" onclick="JTAuth.togglePw('loginPassword', this)" aria-label="Toggle password visibility">
+                <svg viewBox="0 0 24 24" class="icon-eye-show"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <svg viewBox="0 0 24 24" class="icon-eye-hide" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+              </button>
+            </div>
+            <span class="field-error" id="loginPasswordErr">Please enter your password.</span>
+          </div>
+
+          <!-- Forgot password -->
+          <div class="forgot-pw">
+            <a href="#">Forgot password?</a>
+          </div>
+
+          <!-- Submit -->
+          <button type="button" class="btn-jt-submit" onclick="JTAuth.validateLogin()">
+            Sign In
+          </button>
+
+        </form>
+      </div>
+
+      <!-- Footer -->
+      <div class="jt-modal__footer">
+        Don't have an account?
+        <button class="link-btn" onclick="JTAuth.switchToRegister()">Register here</button>
+      </div>
+
+    </div>
+  </div><!-- /loginOverlay -->
+
+
+  
+
 </body>
 </html>

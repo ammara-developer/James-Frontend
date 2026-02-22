@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/login-register.css">
+    <title>Register</title>
+</head>
+<body>
+    
+
+ <!-- ============================================================
+       REGISTER MODAL
+       ============================================================ -->
+  <div class="jt-modal-overlay" id="registerOverlay" role="dialog" aria-modal="true" aria-label="Register form">
+
+    <div class="jt-modal jt-modal--register" id="registerModal">
+
+      <!-- Header -->
+      <div class="jt-modal__header">
+        <span class="jt-modal__logo">JamesThew</span>
+        <h2 class="jt-modal__title">Create Your Account</h2>
+        <p class="jt-modal__subtitle">Join the community — unlock all recipes &amp; tips</p>
+        <button class="jt-modal__close" onclick="JTAuth.close('registerOverlay')" aria-label="Close">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <!-- Body -->
+      <div class="jt-modal__body">
+        <!--
+          REGISTER FORM
+          ─────────────────────────────────────────────────────────
+          C# / .NET integration:
+            Action:  POST /Account/Register
+            Model:   RegisterViewModel {
+              FullName, Email, Username, Password, ConfirmPassword,
+              ContactNumber, Address, SubscriptionType,
+              PaymentMethod, TransactionId, AgreeToTerms
+            }
+            On success: redirect to member dashboard
+            On fail:    return model with validation errors
+          ─────────────────────────────────────────────────────────
+        -->
+        <form id="registerForm" novalidate>
+
+
+          <!-- ══ SECTION 1: Personal Information ══ -->
+          <div class="form-section">
+            <div class="form-section__title">Personal Information</div>
+
+            <div class="form-grid">
+
+              <!-- Full Name -->
+              <div class="form-field">
+                <label for="regFullName">Full Name</label>
+                <div class="input-wrap">
+                  <span class="input-icon">
+                    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  </span>
+                  <input type="text" id="regFullName" name="FullName" class="jt-input" placeholder="John Doe" />
+                </div>
+                <span class="field-error" id="regFullNameErr">Full name is required.</span>
+              </div>
+
+              <!-- Username -->
+              <div class="form-field">
+                <label for="regUsername">Username</label>
+                <div class="input-wrap">
+                  <span class="input-icon">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M6 20v-1a6 6 0 0 1 12 0v1"/></svg>
+                  </span>
+                  <input type="text" id="regUsername" name="Username" class="jt-input" placeholder="johndoe123" />
+                </div>
+                <span class="field-error" id="regUsernameErr">Username is required.</span>
+              </div>
+
+              <!-- Email -->
+              <div class="form-field">
+                <label for="regEmail">Email Address</label>
+                <div class="input-wrap">
+                  <span class="input-icon">
+                    <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  </span>
+                  <input type="email" id="regEmail" name="Email" class="jt-input" placeholder="john@example.com" />
+                </div>
+                <span class="field-error" id="regEmailErr">Please enter a valid email address.</span>
+              </div>
+
+              <!-- Contact Number -->
+              <div class="form-field">
+                <label for="regPhone">Contact Number</label>
+                <div class="input-wrap">
+                  <span class="input-icon">
+                    <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.46 2 2 0 0 1 3.58 1.25h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 5.29 5.29l.91-1.92a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 14.92v2z"/></svg>
+                  </span>
+                  <input type="tel" id="regPhone" name="ContactNumber" class="jt-input" placeholder="+1 (555) 000-0000" />
+                </div>
+                <span class="field-error" id="regPhoneErr">Contact number is required.</span>
+              </div>
+
+              <!-- Password -->
+              <div class="form-field">
+                <label for="regPassword">Password</label>
+                <div class="input-wrap">
+                  <span class="input-icon">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  </span>
+                  <input type="password" id="regPassword" name="Password" class="jt-input" placeholder="Min 8 characters" autocomplete="new-password" />
+                  <button type="button" class="btn-toggle-pw" onclick="JTAuth.togglePw('regPassword', this)" aria-label="Toggle password">
+                    <svg viewBox="0 0 24 24" class="icon-eye-show"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    <svg viewBox="0 0 24 24" class="icon-eye-hide" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                  </button>
+                </div>
+                <span class="field-error" id="regPasswordErr">Password must be at least 8 characters.</span>
+              </div>
+
+              <!-- Confirm Password -->
+              <div class="form-field">
+                <label for="regConfirmPassword">Confirm Password</label>
+                <div class="input-wrap">
+                  <span class="input-icon">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  </span>
+                  <input type="password" id="regConfirmPassword" name="ConfirmPassword" class="jt-input" placeholder="Repeat password" autocomplete="new-password" />
+                  <button type="button" class="btn-toggle-pw" onclick="JTAuth.togglePw('regConfirmPassword', this)" aria-label="Toggle password">
+                    <svg viewBox="0 0 24 24" class="icon-eye-show"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    <svg viewBox="0 0 24 24" class="icon-eye-hide" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                  </button>
+                </div>
+                <span class="field-error" id="regConfirmPasswordErr">Passwords do not match.</span>
+              </div>
+
+              <!-- Address — full width -->
+              <div class="form-field form-field--full">
+                <label for="regAddress">Address</label>
+                <div class="input-wrap">
+                  <span class="input-icon input-icon--top">
+                    <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  </span>
+                  <textarea id="regAddress" name="Address" class="jt-input" placeholder="Street, City, Country"></textarea>
+                </div>
+                <span class="field-error" id="regAddressErr">Address is required.</span>
+              </div>
+
+            </div><!-- /form-grid -->
+          </div><!-- /section 1 -->
+
+
+          <!-- ══ SECTION 2: Membership Plan ══ -->
+          <div class="form-section">
+            <div class="form-section__title">Membership Plan</div>
+            <!--
+              SubscriptionType values passed to C# model: "Monthly" | "Yearly"
+            -->
+            <div class="plan-options">
+              <div class="plan-option">
+                <input type="radio" id="planMonthly" name="SubscriptionType" value="Monthly" />
+                <label for="planMonthly">
+                  <span class="plan-option__name">Monthly</span>
+                  <span class="plan-option__price">$10</span>
+                  <span class="plan-option__period">per month</span>
+                </label>
+              </div>
+              <div class="plan-option">
+                <input type="radio" id="planYearly" name="SubscriptionType" value="Yearly" checked />
+                <label for="planYearly">
+                  <span class="plan-option__badge">Best Value</span>
+                  <span class="plan-option__name">Yearly</span>
+                  <span class="plan-option__price">$100</span>
+                  <span class="plan-option__period">per year · 2 months free</span>
+                </label>
+              </div>
+            </div>
+            <span class="field-error" id="regPlanErr" style="margin-top:6px;">Please select a plan.</span>
+          </div><!-- /section 2 -->
+
+
+          <!-- ══ SECTION 3: Payment Details ══ -->
+          <div class="form-section">
+            <div class="form-section__title">Payment Details</div>
+
+            <div class="form-grid">
+
+              <!-- Payment Method -->
+              <div class="form-field">
+                <label for="regPaymentMethod">Payment Method</label>
+                <div class="input-wrap">
+                  <span class="input-icon">
+                    <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                  </span>
+                  <!--
+                    PaymentMethod values: "CreditCard" | "DebitCard" | "OnlinePayment"
+                  -->
+                  <select id="regPaymentMethod" name="PaymentMethod" class="jt-input">
+                    <option value="" disabled selected>Select method</option>
+                    <option value="CreditCard">Credit Card</option>
+                    <option value="DebitCard">Debit Card</option>
+                    <option value="OnlinePayment">Online Payment</option>
+                  </select>
+                </div>
+                <span class="field-error" id="regPaymentMethodErr">Please select a payment method.</span>
+              </div>
+
+              <!-- Transaction ID -->
+              <div class="form-field">
+                <label for="regTransactionId">Transaction / Reference ID</label>
+                <div class="input-wrap">
+                  <span class="input-icon">
+                    <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                  </span>
+                  <input type="text" id="regTransactionId" name="TransactionId" class="jt-input" placeholder="e.g. TXN-2024-00123" />
+                </div>
+                <span class="field-error" id="regTransactionIdErr">Transaction ID is required.</span>
+              </div>
+
+            </div><!-- /form-grid -->
+          </div><!-- /section 3 -->
+
+
+          <!-- ══ Terms & Conditions ══ -->
+          <!--
+            AgreeToTerms: C# model bool property
+            Add [Range(typeof(bool), "true", "true")] validation attribute
+          -->
+          <div class="form-field" style="margin-bottom:18px;">
+            <div class="terms-field">
+              <input type="checkbox" id="regTerms" name="AgreeToTerms" value="true" />
+              <label for="regTerms">
+                I agree to the <a href="#">Terms &amp; Conditions</a> and
+                <a href="#">Privacy Policy</a> of JamesThew.com
+              </label>
+            </div>
+            <span class="field-error" id="regTermsErr" style="margin-top:4px;">You must agree to continue.</span>
+          </div>
+
+          <!-- Submit -->
+          <button type="button" class="btn-jt-submit" onclick="JTAuth.validateRegister()">
+            Create Account &amp; Pay
+          </button>
+
+        </form>
+      </div><!-- /body -->
+
+      <!-- Footer -->
+      <div class="jt-modal__footer">
+        Already have an account?
+        <button class="link-btn" onclick="JTAuth.switchToLogin()">Sign in here</button>
+      </div>
+
+    </div>
+  </div><!-- /registerOverlay -->
+
+
+
+
+
+
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

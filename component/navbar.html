@@ -14,9 +14,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet"/>
 
   <!-- ✅ Your CSS Files — ORDER MATTERS -->
-<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/style.css">
 <link rel="stylesheet" href="assets/css/components.css">
 <link rel="stylesheet" href="assets/css/responsive.css">
+<link rel="stylesheet" href="../assets/css/login-register.css">
+
     <title>Document</title>
 </head>
 <body>
@@ -77,7 +79,7 @@
       </li>
 
       <li>
-        <a href="tips-list.html">Tips</a>
+        <a href="tips.html">Tips</a>
       </li>
 
       <li>
@@ -89,7 +91,7 @@
       </li>
 
       <li>
-        <a href="faq.html">FAQ</a>
+        <a href="faqs.html">FAQ</a>
       </li>
 
     </ul>
@@ -98,11 +100,11 @@
     <div class="jt-nav-right">
 
       <!-- Login Button -->
-      <a href="login.html" class="btn-jt-login" id="openLogin">Login</a>
+   
+<a href="login.html" class="btn-jt-login" onclick="event.preventDefault(); JTAuth.openLogin()">Login</a>
 
-      <!-- Register Button -->
-      <a href="register.html" class="btn-jt-register" id="openRegister">Register</a>
-
+<!-- Register Button -->
+<a href="register.html" class="btn-jt-register" onclick="event.preventDefault(); JTAuth.openRegister()">Register</a>
       <!-- Profile Icon (visible after login) -->
       <div class="jt-profile-wrapper">
         <a href="#" class="jt-profile-btn" title="My Profile">
@@ -355,8 +357,8 @@
 
     <!-- Mobile Auth Buttons -->
     <div class="jt-mobile-auth">
-      <a href="login.html"    class="btn-jt-login"   id="openLoginMob">Login</a>
-      <a href="register.html" class="btn-jt-register" id="openRegisterMob">Register</a>
+      <a href="login.html"    class="btn-jt-login"   >Login</a>
+      <a href="register.html" class="btn-jt-register" >Register</a>
     </div>
 
   </div>
@@ -368,182 +370,299 @@
 
   
 
+<!-- ── AUTH MODALS — paste once in navbar/layout file ── -->
 
-<!-- ----login and register------------- -->
- <!-- ═══════════════ AUTH MODAL OVERLAY ═══════════════ -->
-<div class="jt-modal-overlay" id="modalOverlay">
-
-  <!-- LOGIN MODAL -->
-  <div class="jt-modal" id="loginModal" role="dialog" aria-modal="true">
-    <div class="jt-modal-panel">
-      <div class="jt-panel-logo">James Thew</div>
-      <p class="jt-panel-tagline">Welcome back to the kitchen.</p>
-      <div class="jt-panel-divider"></div>
-      <p class="jt-panel-sub">Sign in to access exclusive recipes, contests, and culinary tips curated just for you.</p>
-      <div class="jt-panel-switch">
-        <span>Don't have an account?</span>
-        <button class="jt-switch-btn" id="switchToRegister">Create one →</button>
-      </div>
-    </div>
-    <div class="jt-modal-form-wrap">
-      <button class="jt-modal-close" id="closeLogin" aria-label="Close">
-        <i class="fa fa-xmark"></i>
+<!-- Login Modal -->
+<div class="jt-modal-overlay" id="loginOverlay" role="dialog" aria-modal="true">
+  <div class="jt-modal">
+    <div class="jt-modal__header">
+      <span class="jt-modal__logo">JamesThew</span>
+      <h2 class="jt-modal__title">Welcome Back</h2>
+      <p class="jt-modal__subtitle">Sign in to access your membership</p>
+      <button class="jt-modal__close" onclick="JTAuth.close('loginOverlay')" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
-      <div class="jt-form-header">
-        <h2 class="jt-form-title">Sign In</h2>
-        <p class="jt-form-subtitle">Enter your credentials to continue</p>
-      </div>
-      <form class="jt-form" id="loginForm" novalidate>
-
-        <div class="jt-field">
-          <label class="jt-label" for="loginEmail">Email Address</label>
-          <div class="jt-input-wrap">
-            <span class="jt-input-icon"><i class="fa fa-envelope"></i></span>
-            <input type="email" id="loginEmail" class="jt-input" placeholder="you@example.com"/>
+    </div>
+    <div class="jt-modal__body">
+      <form id="loginForm" novalidate>
+        <div class="form-field" style="margin-bottom:13px;">
+          <label for="loginEmail">Email or Username</label>
+          <div class="input-wrap">
+            <span class="input-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+            <input type="text" id="loginEmail" name="EmailOrUsername" class="jt-input" placeholder="Enter email or username" autocomplete="username"/>
           </div>
+          <span class="field-error" id="loginEmailErr">Please enter your email or username.</span>
         </div>
-
-        <div class="jt-field">
-          <label class="jt-label" for="loginPassword">Password</label>
-          <div class="jt-input-wrap">
-            <span class="jt-input-icon"><i class="fa fa-lock"></i></span>
-            <input type="password" id="loginPassword" class="jt-input" placeholder="Enter your password"/>
-            <button type="button" class="jt-eye-btn" data-target="loginPassword">
-              <i class="fa fa-eye eye-open"></i>
-              <i class="fa fa-eye-slash eye-closed" style="display:none"></i>
+        <div class="form-field">
+          <label for="loginPassword">Password</label>
+          <div class="input-wrap">
+            <span class="input-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+            <input type="password" id="loginPassword" name="Password" class="jt-input" placeholder="Enter your password" autocomplete="current-password"/>
+            <button type="button" class="btn-toggle-pw" onclick="JTAuth.togglePw('loginPassword', this)">
+              <svg viewBox="0 0 24 24" class="icon-eye-show" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg viewBox="0 0 24 24" class="icon-eye-hide" style="display:none" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
             </button>
           </div>
+          <span class="field-error" id="loginPasswordErr">Please enter your password.</span>
         </div>
-
-        <div class="jt-row-between">
-          <label class="jt-checkbox-wrap">
-            <input type="checkbox" id="rememberMe" class="jt-checkbox"/>
-            <span class="jt-checkbox-custom"></span>
-            <span class="jt-checkbox-label">Remember me</span>
-          </label>
-          <a href="#" class="jt-forgot">Forgot password?</a>
-        </div>
-
-        <button type="submit" class="jt-btn-submit">
-          <i class="fa fa-right-to-bracket"></i> Sign In
-        </button>
-
-        <div class="jt-or-divider"><span>or continue with</span></div>
-
-        <div class="jt-social-row">
-          <button type="button" class="jt-social-btn">
-            <svg width="18" height="18" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-            Google
-          </button>
-          <button type="button" class="jt-social-btn">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-            Facebook
-          </button>
-        </div>
-
-        <p class="jt-mobile-switch">Don't have an account? <button type="button" class="jt-switch-btn" id="switchToRegMob">Register</button></p>
+        <div class="forgot-pw"><a href="#">Forgot password?</a></div>
+        <button type="button" class="btn-jt-submit" onclick="JTAuth.validateLogin()">Sign In</button>
       </form>
     </div>
-  </div>
-
-  <!-- REGISTER MODAL -->
-  <div class="jt-modal" id="registerModal" role="dialog" aria-modal="true" style="display:none">
-    <div class="jt-modal-panel">
-      <div class="jt-panel-logo">James Thew</div>
-      <p class="jt-panel-tagline">Join the culinary journey.</p>
-      <div class="jt-panel-divider"></div>
-      <p class="jt-panel-sub">Create your free account and unlock a world of recipes, tips, and exclusive chef contests.</p>
-      <div class="jt-panel-switch">
-        <span>Already have an account?</span>
-        <button class="jt-switch-btn" id="switchToLogin">Sign in →</button>
-      </div>
-    </div>
-    <div class="jt-modal-form-wrap">
-      <button class="jt-modal-close" id="closeRegister" aria-label="Close">
-        <i class="fa fa-xmark"></i>
-      </button>
-      <div class="jt-form-header">
-        <h2 class="jt-form-title">Create Account</h2>
-        <p class="jt-form-subtitle">Fill in your details to get started</p>
-      </div>
-      <form class="jt-form" id="registerForm" novalidate>
-
-        <div class="jt-fields-row">
-          <div class="jt-field">
-            <label class="jt-label" for="regFirstName">First Name</label>
-            <div class="jt-input-wrap">
-              <span class="jt-input-icon"><i class="fa fa-user"></i></span>
-              <input type="text" id="regFirstName" class="jt-input" placeholder="James"/>
-            </div>
-          </div>
-          <div class="jt-field">
-            <label class="jt-label" for="regLastName">Last Name</label>
-            <div class="jt-input-wrap">
-              <span class="jt-input-icon"><i class="fa fa-user"></i></span>
-              <input type="text" id="regLastName" class="jt-input" placeholder="Thew"/>
-            </div>
-          </div>
-        </div>
-
-        <div class="jt-field">
-          <label class="jt-label" for="regUsername">Username</label>
-          <div class="jt-input-wrap">
-            <span class="jt-input-icon"><i class="fa fa-at"></i></span>
-            <input type="text" id="regUsername" class="jt-input" placeholder="@chef_username"/>
-          </div>
-        </div>
-
-        <div class="jt-field">
-          <label class="jt-label" for="regEmail">Email Address</label>
-          <div class="jt-input-wrap">
-            <span class="jt-input-icon"><i class="fa fa-envelope"></i></span>
-            <input type="email" id="regEmail" class="jt-input" placeholder="you@example.com"/>
-          </div>
-        </div>
-
-        <div class="jt-field">
-          <label class="jt-label" for="regPassword">Password</label>
-          <div class="jt-input-wrap">
-            <span class="jt-input-icon"><i class="fa fa-lock"></i></span>
-            <input type="password" id="regPassword" class="jt-input" placeholder="Create a strong password"/>
-            <button type="button" class="jt-eye-btn" data-target="regPassword">
-              <i class="fa fa-eye eye-open"></i>
-              <i class="fa fa-eye-slash eye-closed" style="display:none"></i>
-            </button>
-          </div>
-        </div>
-
-        <div class="jt-field">
-          <label class="jt-label" for="regConfirm">Confirm Password</label>
-          <div class="jt-input-wrap">
-            <span class="jt-input-icon"><i class="fa fa-shield-halved"></i></span>
-            <input type="password" id="regConfirm" class="jt-input" placeholder="Repeat your password"/>
-            <button type="button" class="jt-eye-btn" data-target="regConfirm">
-              <i class="fa fa-eye eye-open"></i>
-              <i class="fa fa-eye-slash eye-closed" style="display:none"></i>
-            </button>
-          </div>
-        </div>
-
-        <div class="jt-field">
-          <label class="jt-checkbox-wrap">
-            <input type="checkbox" id="agreeTerms" class="jt-checkbox"/>
-            <span class="jt-checkbox-custom"></span>
-            <span class="jt-checkbox-label">I agree to the <a href="#" class="jt-link">Terms of Service</a> and <a href="#" class="jt-link">Privacy Policy</a></span>
-          </label>
-        </div>
-
-        <button type="submit" class="jt-btn-submit">
-          <i class="fa fa-user-plus"></i> Create Account
-        </button>
-
-        <p class="jt-mobile-switch">Already have an account? <button type="button" class="jt-switch-btn" id="switchToLogMob">Sign In</button></p>
-      </form>
+    <div class="jt-modal__footer">
+      Don't have an account?
+      <button class="link-btn" onclick="JTAuth.switchToRegister()">Register here</button>
     </div>
   </div>
-
 </div>
-<!-- ═══════════════ END AUTH MODAL ═══════════════ -->
+
+<!-- Register Modal -->
+<div class="jt-modal-overlay" id="registerOverlay" role="dialog" aria-modal="true">
+  <div class="jt-modal jt-modal--register">
+    <div class="jt-modal__header">
+      <span class="jt-modal__logo">JamesThew</span>
+      <h2 class="jt-modal__title">Create Your Account</h2>
+      <p class="jt-modal__subtitle">Join the community — unlock all recipes &amp; tips</p>
+      <button class="jt-modal__close" onclick="JTAuth.close('registerOverlay')" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="jt-modal__body">
+      <form id="registerForm" novalidate>
+
+        <div class="form-section">
+          <div class="form-section__title">Personal Information</div>
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="regFullName">Full Name</label>
+              <div class="input-wrap">
+                <span class="input-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+                <input type="text" id="regFullName" name="FullName" class="jt-input" placeholder="John Doe"/>
+              </div>
+              <span class="field-error" id="regFullNameErr">Full name is required.</span>
+            </div>
+            <div class="form-field">
+              <label for="regUsername">Username</label>
+              <div class="input-wrap">
+                <span class="input-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M6 20v-1a6 6 0 0 1 12 0v1"/></svg></span>
+                <input type="text" id="regUsername" name="Username" class="jt-input" placeholder="johndoe123"/>
+              </div>
+              <span class="field-error" id="regUsernameErr">Username is required.</span>
+            </div>
+            <div class="form-field">
+              <label for="regEmail">Email Address</label>
+              <div class="input-wrap">
+                <span class="input-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
+                <input type="email" id="regEmail" name="Email" class="jt-input" placeholder="john@example.com"/>
+              </div>
+              <span class="field-error" id="regEmailErr">Please enter a valid email.</span>
+            </div>
+            <div class="form-field">
+              <label for="regPhone">Contact Number</label>
+              <div class="input-wrap">
+                <span class="input-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.46 2 2 0 0 1 3.58 1.25h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 5.29 5.29l.91-1.92a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 14.92v2z"/></svg></span>
+                <input type="tel" id="regPhone" name="ContactNumber" class="jt-input" placeholder="+1 (555) 000-0000"/>
+              </div>
+              <span class="field-error" id="regPhoneErr">Contact number is required.</span>
+            </div>
+            <div class="form-field">
+              <label for="regPassword">Password</label>
+              <div class="input-wrap">
+                <span class="input-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+                <input type="password" id="regPassword" name="Password" class="jt-input" placeholder="Min 8 characters" autocomplete="new-password"/>
+                <button type="button" class="btn-toggle-pw" onclick="JTAuth.togglePw('regPassword', this)">
+                  <svg viewBox="0 0 24 24" class="icon-eye-show" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  <svg viewBox="0 0 24 24" class="icon-eye-hide" style="display:none" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                </button>
+              </div>
+              <span class="field-error" id="regPasswordErr">Password must be at least 8 characters.</span>
+            </div>
+            <div class="form-field">
+              <label for="regConfirmPassword">Confirm Password</label>
+              <div class="input-wrap">
+                <span class="input-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+                <input type="password" id="regConfirmPassword" name="ConfirmPassword" class="jt-input" placeholder="Repeat password" autocomplete="new-password"/>
+                <button type="button" class="btn-toggle-pw" onclick="JTAuth.togglePw('regConfirmPassword', this)">
+                  <svg viewBox="0 0 24 24" class="icon-eye-show" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  <svg viewBox="0 0 24 24" class="icon-eye-hide" style="display:none" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                </button>
+              </div>
+              <span class="field-error" id="regConfirmPasswordErr">Passwords do not match.</span>
+            </div>
+            <div class="form-field form-field--full">
+              <label for="regAddress">Address</label>
+              <div class="input-wrap">
+                <span class="input-icon input-icon--top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+                <textarea id="regAddress" name="Address" class="jt-input" placeholder="Street, City, Country"></textarea>
+              </div>
+              <span class="field-error" id="regAddressErr">Address is required.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="form-section__title">Membership Plan</div>
+          <div class="plan-options">
+            <div class="plan-option">
+              <input type="radio" id="planMonthly" name="SubscriptionType" value="Monthly"/>
+              <label for="planMonthly">
+                <span class="plan-option__name">Monthly</span>
+                <span class="plan-option__price">$10</span>
+                <span class="plan-option__period">per month</span>
+              </label>
+            </div>
+            <div class="plan-option">
+              <input type="radio" id="planYearly" name="SubscriptionType" value="Yearly" checked/>
+              <label for="planYearly">
+                <span class="plan-option__badge">Best Value</span>
+                <span class="plan-option__name">Yearly</span>
+                <span class="plan-option__price">$100</span>
+                <span class="plan-option__period">per year · 2 months free</span>
+              </label>
+            </div>
+          </div>
+          <span class="field-error" id="regPlanErr" style="margin-top:6px;">Please select a plan.</span>
+        </div>
+
+        <div class="form-section">
+          <div class="form-section__title">Payment Details</div>
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="regPaymentMethod">Payment Method</label>
+              <div class="input-wrap">
+                <span class="input-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></span>
+                <select id="regPaymentMethod" name="PaymentMethod" class="jt-input">
+                  <option value="" disabled selected>Select method</option>
+                  <option value="CreditCard">Credit Card</option>
+                  <option value="DebitCard">Debit Card</option>
+                  <option value="OnlinePayment">Online Payment</option>
+                </select>
+              </div>
+              <span class="field-error" id="regPaymentMethodErr">Please select a payment method.</span>
+            </div>
+            <div class="form-field">
+              <label for="regTransactionId">Transaction / Reference ID</label>
+              <div class="input-wrap">
+                <span class="input-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></span>
+                <input type="text" id="regTransactionId" name="TransactionId" class="jt-input" placeholder="e.g. TXN-2024-00123"/>
+              </div>
+              <span class="field-error" id="regTransactionIdErr">Transaction ID is required.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-field" style="margin-bottom:18px;">
+          <div class="terms-field">
+            <input type="checkbox" id="regTerms" name="AgreeToTerms" value="true"/>
+            <label for="regTerms">I agree to the <a href="#">Terms &amp; Conditions</a> and <a href="#">Privacy Policy</a> of JamesThew.com</label>
+          </div>
+          <span class="field-error" id="regTermsErr" style="margin-top:4px;">You must agree to continue.</span>
+        </div>
+
+        <button type="button" class="btn-jt-submit" onclick="JTAuth.validateRegister()">Create Account &amp; Pay</button>
+      </form>
+    </div>
+    <div class="jt-modal__footer">
+      Already have an account?
+      <button class="link-btn" onclick="JTAuth.switchToLogin()">Sign in here</button>
+    </div>
+  </div>
+</div>
+
+<!-- Auth JS — must load after the modal HTML above -->
+<script>
+'use strict';
+const JTAuth = {
+  openLogin() {
+    document.getElementById('registerOverlay').classList.remove('active');
+    document.getElementById('loginOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  },
+  openRegister() {
+    document.getElementById('loginOverlay').classList.remove('active');
+    document.getElementById('registerOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  },
+  close(overlayId) {
+    document.getElementById(overlayId).classList.remove('active');
+    document.body.style.overflow = '';
+  },
+  switchToRegister() { this.close('loginOverlay');    this.openRegister(); },
+  switchToLogin()     { this.close('registerOverlay'); this.openLogin();    },
+  togglePw(inputId, btn) {
+    const input   = document.getElementById(inputId);
+    const showEye = btn.querySelector('.icon-eye-show');
+    const hideEye = btn.querySelector('.icon-eye-hide');
+    const hidden  = input.type === 'password';
+    input.type            = hidden ? 'text'  : 'password';
+    showEye.style.display = hidden ? 'none'  : '';
+    hideEye.style.display = hidden ? ''      : 'none';
+  },
+  setError(inputId, errId, hasError) {
+    const input = document.getElementById(inputId);
+    const err   = document.getElementById(errId);
+    if (!input || !err) return hasError;
+    input.classList.toggle('error', hasError);
+    err.classList.toggle('visible', hasError);
+    return hasError;
+  },
+  validateLogin() {
+    const email    = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value.trim();
+    let valid      = true;
+    if (!email)    { this.setError('loginEmail',    'loginEmailErr',    true);  valid = false; }
+    else             this.setError('loginEmail',    'loginEmailErr',    false);
+    if (!password) { this.setError('loginPassword', 'loginPasswordErr', true);  valid = false; }
+    else             this.setError('loginPassword', 'loginPasswordErr', false);
+    if (valid) {
+      /* TODO: document.getElementById('loginForm').submit(); */
+      console.log('Login ready');
+    }
+  },
+  validateRegister() {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let valid        = true;
+    const v = (id, errId, condition) => {
+      if (condition) { this.setError(id, errId, true);  valid = false; }
+      else             this.setError(id, errId, false);
+    };
+    v('regFullName',        'regFullNameErr',        !document.getElementById('regFullName').value.trim());
+    v('regUsername',        'regUsernameErr',        !document.getElementById('regUsername').value.trim());
+    const email = document.getElementById('regEmail').value.trim();
+    v('regEmail',           'regEmailErr',           !email || !emailRegex.test(email));
+    v('regPhone',           'regPhoneErr',           !document.getElementById('regPhone').value.trim());
+    const pw = document.getElementById('regPassword').value;
+    v('regPassword',        'regPasswordErr',        pw.length < 8);
+    const cpw = document.getElementById('regConfirmPassword').value;
+    v('regConfirmPassword', 'regConfirmPasswordErr', !cpw || cpw !== pw);
+    v('regAddress',         'regAddressErr',         !document.getElementById('regAddress').value.trim());
+    v('regPaymentMethod',   'regPaymentMethodErr',   !document.getElementById('regPaymentMethod').value);
+    v('regTransactionId',   'regTransactionIdErr',   !document.getElementById('regTransactionId').value.trim());
+    const termsErr = document.getElementById('regTermsErr');
+    if (!document.getElementById('regTerms').checked) { termsErr.classList.add('visible'); valid = false; }
+    else termsErr.classList.remove('visible');
+    if (valid) {
+      /* TODO: document.getElementById('registerForm').submit(); */
+      console.log('Register ready');
+    }
+  }
+};
+
+document.getElementById('loginOverlay').addEventListener('click', function(e) {
+  if (e.target === this) JTAuth.close('loginOverlay');
+});
+document.getElementById('registerOverlay').addEventListener('click', function(e) {
+  if (e.target === this) JTAuth.close('registerOverlay');
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key !== 'Escape') return;
+  JTAuth.close('loginOverlay');
+  JTAuth.close('registerOverlay');
+});
+</script>
+
+
+
  
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="/assets/js/main.js"></script>

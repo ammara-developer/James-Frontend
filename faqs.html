@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <link rel="stylesheet" href="assets/css/login-register.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet"/>
+  <title>FAQ – JamesThew</title>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div id="navbar"></div>
+
+
+  <!-- ============================================================
+       FAQ PAGE HERO BANNER
+       All classes prefixed with "faqp-" to avoid conflict with
+       the home page FAQ section classes
+       ============================================================ -->
+  <section class="faqp-hero">
+    <div class="faqp-hero__bg"></div>
+    <div class="faqp-hero__pattern"></div>
+
+    <div class="faqp-hero__inner">
+
+      <!-- Breadcrumb -->
+      <nav class="faqp-hero__breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span>&#8250;</span>
+        <span class="faqp-active">FAQ</span>
+      </nav>
+
+      <!-- Content -->
+      <div class="faqp-hero__content">
+        <span class="faqp-hero__script">JamesThew</span>
+
+        <h1 class="faqp-hero__title">
+          Frequently Asked
+          <em class="faqp-hero__title-em">Questions</em>
+        </h1>
+
+        <p class="faqp-hero__subtitle">
+          Everything you need to know about membership, recipes, contests &amp; more.
+          Can't find an answer? Reach out directly.
+        </p>
+
+        <!-- Info pills -->
+        <div class="faqp-hero__pills">
+          <div class="faqp-pill">
+            <span class="faqp-pill__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </span>
+            <span>6 Questions Answered</span>
+          </div>
+          <div class="faqp-pill">
+            <span class="faqp-pill__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </span>
+            <span>2 Min Read</span>
+          </div>
+          <div class="faqp-pill">
+            <span class="faqp-pill__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </span>
+            <span>Still have questions? Contact us</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom wave -->
+    <div class="faqp-hero__wave">
+      <svg viewBox="0 0 1440 70" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,35 C240,70 480,0 720,35 C960,70 1200,10 1440,35 L1440,70 L0,70 Z" fill="var(--color-background)"/>
+      </svg>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FAQ PAGE ACCORDION SECTION
+       ============================================================ -->
+  <section class="faqp-section">
+    <div class="faqp-container">
+
+      <!-- Label -->
+      <div class="faqp-label">
+        <span class="faqp-label__line"></span>
+        <span class="faqp-label__text">Help Center</span>
+        <span class="faqp-label__line"></span>
+      </div>
+
+      <h2 class="faqp-heading">We've Got <em>Answers</em></h2>
+      <p class="faqp-subheading">
+        Browse through the most commonly asked questions about JamesThew.com
+      </p>
+
+      <!-- Accordion -->
+      <div class="faqp-accordion">
+
+        <!-- Q1 -->
+        <div class="faqp-item">
+          <button class="faqp-item__btn" aria-expanded="false" onclick="JTFaqPage.toggle(this)">
+            <span class="faqp-item__num">01</span>
+            <span class="faqp-item__q">Will there be any subscription charges?</span>
+            <span class="faqp-item__ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </span>
+          </button>
+          <div class="faqp-item__body">
+            <div class="faqp-item__ans">
+              <p>Yes, JamesThew.com operates on a paid membership model to ensure you receive premium, curated culinary content from Chef James himself. We offer two flexible plans:</p>
+              <ul>
+                <li><strong>Monthly Plan — $10/month:</strong> Full access to all recipes, exclusive tips, contest participation, and personalised recipe feedback. Cancel anytime.</li>
+                <li><strong>Yearly Plan — $100/year:</strong> Everything in the monthly plan with the added benefit of <strong>2 months completely free</strong> compared to paying monthly. Best value for food enthusiasts.</li>
+              </ul>
+              <p>A small selection of recipes and introductory tips are available free of charge so you can explore the site before committing to a plan.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="faqp-item">
+          <button class="faqp-item__btn" aria-expanded="false" onclick="JTFaqPage.toggle(this)">
+            <span class="faqp-item__num">02</span>
+            <span class="faqp-item__q">How to view the recipes and tips? Will there be any charges for that?</span>
+            <span class="faqp-item__ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </span>
+          </button>
+          <div class="faqp-item__body">
+            <div class="faqp-item__ans">
+              <p>Browsing recipes and tips is straightforward. Simply navigate to the <strong>Recipes</strong> or <strong>Tips</strong> sections from the top navigation bar. You can filter recipes by category — Italian, Vegetarian, Non-Vegetarian, Juices, and more.</p>
+              <p>Content on the site is split into two tiers:</p>
+              <ul>
+                <li><strong>Free content</strong> — marked with a green "Free" badge. Accessible to all visitors without registration.</li>
+                <li><strong>Premium content</strong> — marked with a gold "Premium" badge. Requires an active paid membership (Monthly or Yearly) to unlock the full recipe or tip details.</li>
+              </ul>
+              <p>Once you are a registered paid member and logged in, all premium content is fully unlocked with no additional per-item charges.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="faqp-item">
+          <button class="faqp-item__btn" aria-expanded="false" onclick="JTFaqPage.toggle(this)">
+            <span class="faqp-item__num">03</span>
+            <span class="faqp-item__q">I am not a registered member. Can I participate in the contests?</span>
+            <span class="faqp-item__ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </span>
+          </button>
+          <div class="faqp-item__body">
+            <div class="faqp-item__ans">
+              <p>Unfortunately, contest participation is an exclusive benefit reserved for <strong>registered paid members</strong> only. Non-registered visitors and free users are not eligible to submit entries to any contest on JamesThew.com.</p>
+              <p>However, you are always welcome to <strong>view the active contest details</strong>, browse previous contest entries, and see announced winners without a membership.</p>
+              <p>To participate, simply <a href="register.html">register and choose a membership plan</a>. Once your account is active, you can immediately submit your recipes or tips to any open contest.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="faqp-item">
+          <button class="faqp-item__btn" aria-expanded="false" onclick="JTFaqPage.toggle(this)">
+            <span class="faqp-item__num">04</span>
+            <span class="faqp-item__q">How to upload or post recipes and tips?</span>
+            <span class="faqp-item__ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </span>
+          </button>
+          <div class="faqp-item__body">
+            <div class="faqp-item__ans">
+              <p>Sharing your culinary creations is easy once you are a registered member. Follow these steps:</p>
+              <ul>
+                <li><strong>Step 1:</strong> Log in to your account and navigate to your <strong>Member Dashboard</strong> from the profile menu in the top navigation.</li>
+                <li><strong>Step 2:</strong> Click on <strong>"My Recipes"</strong> or <strong>"My Tips"</strong> from the dashboard sidebar.</li>
+                <li><strong>Step 3:</strong> Click the <strong>"Add New"</strong> button, fill in the title, description, ingredients, steps, and upload a photo of your dish.</li>
+                <li><strong>Step 4:</strong> Submit for review. Chef James personally reviews all submissions before they go live on the site.</li>
+              </ul>
+              <p>All uploaded recipes and tips are associated with your profile and visible in your <strong>"My Recipes"</strong> section once approved.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="faqp-item">
+          <button class="faqp-item__btn" aria-expanded="false" onclick="JTFaqPage.toggle(this)">
+            <span class="faqp-item__num">05</span>
+            <span class="faqp-item__q">How to post a feedback?</span>
+            <span class="faqp-item__ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </span>
+          </button>
+          <div class="faqp-item__body">
+            <div class="faqp-item__ans">
+              <p>Feedback helps Chef James improve the experience for everyone. To leave feedback on a recipe or tip:</p>
+              <ul>
+                <li><strong>Step 1:</strong> Open any recipe or tip detail page while logged in to your member account.</li>
+                <li><strong>Step 2:</strong> Scroll to the <strong>Feedback</strong> section at the bottom of the page.</li>
+                <li><strong>Step 3:</strong> Select your star rating (1–5 stars) and type your comment in the text field provided.</li>
+                <li><strong>Step 4:</strong> Click <strong>"Submit Feedback"</strong>. Your review will appear on the page after moderation.</li>
+              </ul>
+              <p>You can also send general feedback about the website directly to Chef James via the <strong>Contact / Connect</strong> section on the About page.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="faqp-item">
+          <button class="faqp-item__btn" aria-expanded="false" onclick="JTFaqPage.toggle(this)">
+            <span class="faqp-item__num">06</span>
+            <span class="faqp-item__q">I posted a recipe for a contest. How can I know who is the winner?</span>
+            <span class="faqp-item__ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </span>
+          </button>
+          <div class="faqp-item__body">
+            <div class="faqp-item__ans">
+              <p>Once a contest deadline has passed, Chef James reviews all submitted entries and selects a winner based on creativity, presentation, and adherence to the contest theme. Results are announced in the following ways:</p>
+              <ul>
+                <li><strong>Contests Page:</strong> The winner is announced directly on the <a href="contests-list.html">Contests</a> page with their name and winning entry highlighted.</li>
+                <li><strong>Announcements Page:</strong> A formal announcement is posted on the <a href="announcements.html">Announcements</a> page with full details about the winner and prize.</li>
+                <li><strong>Member Dashboard:</strong> If you are the winner, you will see a notification in your <strong>Member Dashboard</strong> alerting you of the good news.</li>
+              </ul>
+              <p>We recommend checking the Announcements page regularly after the contest deadline. Winners are typically announced within <strong>7 days</strong> of the contest closing.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- /faqp-accordion -->
+
+
+      <!-- Still have questions CTA -->
+      <div class="faqp-cta">
+        <div class="faqp-cta__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div class="faqp-cta__text">
+          <h3>Still have a question?</h3>
+          <p>Can't find what you're looking for? Chef James is happy to help directly.</p>
+        </div>
+        <a href="about.html#connect" class="faqp-cta__btn">Get in Touch</a>
+      </div>
+
+    </div>
+  </section>
+<script>
+    'use strict';
+
+    /*
+      JTFaqPage — completely separate JS object from any home page FAQ JS.
+      Uses "faqp-" class names so zero conflict.
+    */
+    const JTFaqPage = {
+
+      toggle(btn) {
+        const item   = btn.closest('.faqp-item');
+        const body   = item.querySelector('.faqp-item__body');
+        const isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+        /* Close all other items first */
+        document.querySelectorAll('.faqp-item').forEach(el => {
+          if (el === item) return;
+          el.querySelector('.faqp-item__btn').setAttribute('aria-expanded', 'false');
+          el.classList.remove('faqp-item--open');
+          el.querySelector('.faqp-item__body').style.maxHeight = '0';
+        });
+
+        /* Toggle current */
+        if (isOpen) {
+          btn.setAttribute('aria-expanded', 'false');
+          item.classList.remove('faqp-item--open');
+          body.style.maxHeight = '0';
+        } else {
+          btn.setAttribute('aria-expanded', 'true');
+          item.classList.add('faqp-item--open');
+          body.style.maxHeight = body.scrollHeight + 'px';
+        }
+      }
+    };
+
+    /* Simple scroll reveal for FAQ items */
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+          if (!entry.isIntersecting) return;
+          setTimeout(() => entry.target.classList.add('faqp-item--visible'), i * 80);
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.faqp-item, .faqp-cta').forEach(el => observer.observe(el));
+    });
+  </script>
+
+
+  <!-- Footer -->
+  <div id="footer"></div>
+
+  <!-- JS -->
+  
+<script src="assets/js/main.js"></script>
+</body>
+</html>

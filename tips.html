@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tips – JamesThew</title>
+
+  <link rel="stylesheet" href="assets/css/style.css"/>
+ 
+  <link rel="stylesheet" href="assets/css/responsive.css"/>
+ 
+
+  
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════
+       NAVBAR
+       ═══════════════════════════════════════════════════════ -->
+  <div id="navbar"></div>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       TIPS HERO BANNER
+       ═══════════════════════════════════════════════════════ -->
+  <section class="tips-hero">
+    <div class="tips-hero__bg"></div>
+    <div class="tips-hero__pattern"></div>
+    <div class="tips-hero__glow"></div>
+
+    <div class="tips-hero__inner">
+      <!-- Breadcrumb -->
+      <nav class="tips-hero__breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="tips-bc__sep">&#8250;</span>
+        <span class="tips-bc__active">Tips</span>
+      </nav>
+
+      <div class="tips-hero__content">
+        <span class="tips-hero__script">Chef's Corner</span>
+        <h1 class="tips-hero__title">
+          Culinary
+          <em class="tips-hero__title-em">Tips &amp; Tricks</em>
+        </h1>
+        <p class="tips-hero__subtitle">
+          Expert kitchen wisdom from Chef James — from knife skills to flavour secrets.
+          Free tips for all, exclusive depth for members.
+        </p>
+
+        <!-- Stats row — populated by JS from backend count -->
+        <div class="tips-hero__stats">
+          <!--
+            ════════════════════════════════════════════
+            BACKEND HOOK:
+            Fetch total tip count from: GET /api/tips/count
+            Replace the span content dynamically.
+            Example response: { total: 48, free: 20, premium: 28 }
+            ════════════════════════════════════════════
+          -->
+          <div class="tips-stat">
+            <span class="tips-stat__val" id="statTotal">—</span>
+            <span class="tips-stat__lbl">Total Tips</span>
+          </div>
+          <div class="tips-stat__divider"></div>
+          <div class="tips-stat">
+            <span class="tips-stat__val" id="statFree">—</span>
+            <span class="tips-stat__lbl">Free Tips</span>
+          </div>
+          <div class="tips-stat__divider"></div>
+          <div class="tips-stat">
+            <span class="tips-stat__val" id="statPremium">—</span>
+            <span class="tips-stat__lbl">Premium Tips</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wave -->
+    <div class="tips-hero__wave">
+      <svg viewBox="0 0 1440 70" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,35 C240,70 480,0 720,35 C960,70 1200,10 1440,35 L1440,70 L0,70 Z" fill="var(--color-background)"/>
+      </svg>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       TIPS MAIN SECTION
+       ═══════════════════════════════════════════════════════ -->
+  <section class="tips-section">
+    <div class="tips-container">
+
+      <!-- ── CONTROLS BAR ── -->
+      <div class="tips-controls">
+
+        <!-- Search -->
+        <div class="tips-search">
+          <span class="tips-search__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </span>
+          <input
+            type="text"
+            id="tipsSearchInput"
+            class="tips-search__input"
+            placeholder="Search tips..."
+            oninput="TipsPage.onSearch(this.value)"
+            aria-label="Search tips"
+          />
+          <button class="tips-search__clear" id="searchClearBtn" onclick="TipsPage.clearSearch()" aria-label="Clear search" style="display:none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+
+        <!-- Filter pills — Free / Premium / All -->
+        <div class="tips-filters" role="group" aria-label="Filter tips">
+          <button class="tips-filter-btn tips-filter-btn--active" data-filter="all"      onclick="TipsPage.setFilter('all', this)">All Tips</button>
+          <button class="tips-filter-btn"                         data-filter="free"     onclick="TipsPage.setFilter('free', this)">
+            <span class="tips-filter-dot tips-filter-dot--free"></span>Free
+          </button>
+          <button class="tips-filter-btn"                         data-filter="premium"  onclick="TipsPage.setFilter('premium', this)">
+            <span class="tips-filter-dot tips-filter-dot--premium"></span>Premium
+          </button>
+        </div>
+
+        <!-- Sort -->
+        <div class="tips-sort">
+          <label for="tipsSortSelect" class="tips-sort__label">Sort:</label>
+          <select id="tipsSortSelect" class="tips-sort__select" onchange="TipsPage.onSort(this.value)" aria-label="Sort tips">
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+            <option value="free-first">Free First</option>
+            <option value="premium-first">Premium First</option>
+          </select>
+        </div>
+
+      </div>
+      <!-- /tips-controls -->
+
+
+      <!-- ── RESULTS META ── -->
+      <div class="tips-meta" id="tipsMeta" aria-live="polite">
+        <!--
+          JS populates this with:
+          "Showing 12 tips" or "12 of 48 tips"
+          after backend data loads
+        -->
+      </div>
+
+
+      <!-- ── TIPS GRID ── -->
+      <!--
+        ════════════════════════════════════════════════════════
+        BACKEND HOOK — TIPS LISTING:
+        Fetch tips from: GET /api/tips?filter=all&sort=newest&page=1
+        Tips table columns: Id, Content, IsFree, UploadedByUserId, CreatedAt
+        Join Users table to get uploader's FullName.
+
+        For each tip returned, call:
+          TipsPage.renderCard(tip)
+        which inserts a .tips-card element into #tipsGrid.
+
+        tip object shape:
+        {
+          id: 1,
+          content: "Always rest your meat...",
+          isFree: true,
+          uploadedByUserId: 5,
+          uploaderName: "Chef James",
+          createdAt: "2024-03-15T10:30:00"
+        }
+        ════════════════════════════════════════════════════════
+      -->
+      <div class="tips-grid" id="tipsGrid">
+
+        <!--
+          ── SKELETON LOADER ──
+          Shown while backend data is loading.
+          JS removes these once real cards are injected.
+        -->
+        <div class="tips-skeleton" aria-hidden="true">
+          <div class="tips-skeleton__badge"></div>
+          <div class="tips-skeleton__line tips-skeleton__line--lg"></div>
+          <div class="tips-skeleton__line"></div>
+          <div class="tips-skeleton__line tips-skeleton__line--sm"></div>
+          <div class="tips-skeleton__footer"></div>
+        </div>
+        <div class="tips-skeleton" aria-hidden="true">
+          <div class="tips-skeleton__badge"></div>
+          <div class="tips-skeleton__line tips-skeleton__line--lg"></div>
+          <div class="tips-skeleton__line"></div>
+          <div class="tips-skeleton__line tips-skeleton__line--sm"></div>
+          <div class="tips-skeleton__footer"></div>
+        </div>
+        <div class="tips-skeleton" aria-hidden="true">
+          <div class="tips-skeleton__badge"></div>
+          <div class="tips-skeleton__line tips-skeleton__line--lg"></div>
+          <div class="tips-skeleton__line"></div>
+          <div class="tips-skeleton__line tips-skeleton__line--sm"></div>
+          <div class="tips-skeleton__footer"></div>
+        </div>
+        <div class="tips-skeleton" aria-hidden="true">
+          <div class="tips-skeleton__badge"></div>
+          <div class="tips-skeleton__line tips-skeleton__line--lg"></div>
+          <div class="tips-skeleton__line"></div>
+          <div class="tips-skeleton__line tips-skeleton__line--sm"></div>
+          <div class="tips-skeleton__footer"></div>
+        </div>
+        <div class="tips-skeleton" aria-hidden="true">
+          <div class="tips-skeleton__badge"></div>
+          <div class="tips-skeleton__line tips-skeleton__line--lg"></div>
+          <div class="tips-skeleton__line"></div>
+          <div class="tips-skeleton__line tips-skeleton__line--sm"></div>
+          <div class="tips-skeleton__footer"></div>
+        </div>
+        <div class="tips-skeleton" aria-hidden="true">
+          <div class="tips-skeleton__badge"></div>
+          <div class="tips-skeleton__line tips-skeleton__line--lg"></div>
+          <div class="tips-skeleton__line"></div>
+          <div class="tips-skeleton__line tips-skeleton__line--sm"></div>
+          <div class="tips-skeleton__footer"></div>
+        </div>
+
+      </div>
+      <!-- /tipsGrid -->
+
+
+      <!-- ── EMPTY STATE ── -->
+      <!--
+        Shown by JS when backend returns 0 results
+        (e.g. search with no matches or filter returns nothing)
+      -->
+      <div class="tips-empty" id="tipsEmpty" style="display:none;" aria-live="polite">
+        <div class="tips-empty__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 1 1 7.072 0l-.548.547A3.374 3.374 0 0 0 14 18.469V19a2 2 0 1 1-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+        </div>
+        <h3 class="tips-empty__title">No tips found</h3>
+        <p class="tips-empty__msg">Try adjusting your search or filter to find what you're looking for.</p>
+        <button class="tips-empty__btn" onclick="TipsPage.resetAll()">Clear Filters</button>
+      </div>
+
+
+      <!-- ── PAGINATION ── -->
+      <!--
+        ════════════════════════════════════════════════════════
+        BACKEND HOOK — PAGINATION:
+        Backend should return total page count.
+        JS calls TipsPage.renderPagination(currentPage, totalPages)
+        which builds the pagination buttons below.
+        ════════════════════════════════════════════════════════
+      -->
+      <div class="tips-pagination" id="tipsPagination" style="display:none;" role="navigation" aria-label="Tips pagination">
+        <!-- Populated by JS -->
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       TIP DETAIL MODAL
+       Opens when user clicks "Read Tip" on a free tip card.
+       Premium tips redirect to login/register instead.
+       ═══════════════════════════════════════════════════════ -->
+  <div class="tips-modal-overlay" id="tipModalOverlay" role="dialog" aria-modal="true" aria-labelledby="tipModalTitle">
+    <div class="tips-modal">
+      <div class="tips-modal__header">
+        <!-- Badge injected by JS -->
+        <span class="tips-modal__badge" id="tipModalBadge"></span>
+        <button class="tips-modal__close" onclick="TipsPage.closeModal()" aria-label="Close tip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="tips-modal__body">
+        <!-- Icon -->
+        <div class="tips-modal__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 1 1 7.072 0l-.548.547A3.374 3.374 0 0 0 14 18.469V19a2 2 0 1 1-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+        </div>
+
+        <!--
+          ════════════════════════════════════════
+          BACKEND HOOK — TIP DETAIL:
+          Fetch single tip: GET /api/tips/{id}
+          Populate: tipModalTitle, tipModalMeta, tipModalContent
+          ════════════════════════════════════════
+        -->
+        <h2 class="tips-modal__title" id="tipModalTitle"><!-- Tip preview/title injected by JS --></h2>
+
+        <div class="tips-modal__meta" id="tipModalMeta">
+          <!-- Author name + date injected by JS -->
+        </div>
+
+        <div class="tips-modal__content" id="tipModalContent">
+          <!-- Full tip content injected by JS -->
+        </div>
+
+        <div class="tips-modal__divider"></div>
+
+        <div class="tips-modal__footer">
+          <div class="tips-modal__author-block" id="tipModalAuthor">
+            <!-- Author avatar + name injected by JS -->
+          </div>
+          <div class="tips-modal__actions">
+            <!--
+              Save / Bookmark tip.
+              BACKEND HOOK: POST /api/tips/{id}/save
+              Toggle saved state with JS.
+            -->
+            <button class="tips-modal__save-btn" id="tipModalSaveBtn" onclick="TipsPage.toggleSave(this)" aria-label="Save tip">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              <span>Save Tip</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       PREMIUM LOCK MODAL
+       Shown when non-member clicks a premium tip
+       ═══════════════════════════════════════════════════════ -->
+  <div class="tips-modal-overlay" id="tipLockOverlay" role="dialog" aria-modal="true">
+    <div class="tips-modal tips-modal--lock">
+      <button class="tips-modal__close" onclick="TipsPage.closeLock()" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="tips-lock">
+        <div class="tips-lock__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <span class="tips-lock__badge">Premium Tip</span>
+        <h3 class="tips-lock__title">Members Only Content</h3>
+        <p class="tips-lock__msg">This tip is exclusively available to paid members. Unlock all premium tips and recipes by joining JamesThew.com today.</p>
+        <div class="tips-lock__plans">
+          <div class="tips-lock__plan">
+            <span class="tips-lock__plan-name">Monthly</span>
+            <span class="tips-lock__plan-price">$10<span>/mo</span></span>
+          </div>
+          <div class="tips-lock__plan tips-lock__plan--best">
+            <span class="tips-lock__plan-badge">Best Value</span>
+            <span class="tips-lock__plan-name">Yearly</span>
+            <span class="tips-lock__plan-price">$100<span>/yr</span></span>
+          </div>
+        </div>
+        <div class="tips-lock__actions">
+          <a href="register.html" class="tips-lock__btn tips-lock__btn--primary">Join Now &amp; Unlock</a>
+          <a href="login.html" class="tips-lock__btn tips-lock__btn--secondary">Already a Member? Sign In</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════════════════ -->
+  <div id="footer"></div>
+
+
+  <!-- JS -->
+  <script src="assets/js/main.js"></script>
+ 
+
+</body>
+</html>
